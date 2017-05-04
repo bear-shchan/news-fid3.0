@@ -61,8 +61,8 @@ export default {
       .then((data) => {
         data.latestStatus = data.latestStatus.replace('<p><br></p>', '')
         let arr = data.latestStatus.match(/<p[^>]*>(?:(?!<\/p>)[\s\S])*<\/p>/gi)
-        data.latestStatus1 = arr[0]
         data.latestStatus0 = arr[1]
+        data.latestStatus1 = arr[0]
         this.$set(this, 'main', data)
       })
     }
