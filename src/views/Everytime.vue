@@ -1,12 +1,12 @@
 <template>
   <div>
     <!-- 筛选块 -->
-    <div class="filter-box">
-      <label class="main-filter" v-on:touchstart="autoRefresh">
+    <div class="filter-box clearfix">
+     <!--  <label class="main-filter" v-on:touchstart="autoRefresh">
         <span class="text">自动刷新</span>
         <input type="checkbox">
         <span class="box"></span>
-      </label>
+      </label> -->
       <!-- 重要性单选框 -->
       <importance-radios></importance-radios>
     </div>
