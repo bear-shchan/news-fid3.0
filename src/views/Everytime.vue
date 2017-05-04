@@ -1,15 +1,14 @@
 <template>
   <div>
     <!-- 筛选块 -->
-    <div class="filter-box clearfix">
-     <!--  <label class="main-filter" v-on:touchstart="autoRefresh">
+    <!-- <div class="filter-box clearfix">
+      <label class="main-filter" v-on:touchstart="autoRefresh">
         <span class="text">自动刷新</span>
         <input type="checkbox">
         <span class="box"></span>
-      </label> -->
-      <!-- 重要性单选框 -->
+      </label>
       <importance-radios></importance-radios>
-    </div>
+    </div> -->
 
     <!-- Loading -->
     <!-- <list-loading :list-loaded="listLoaded"></list-loading> -->
@@ -23,17 +22,17 @@
       >
       <li class="list-item" v-for="(item, index) in mainList" 
         @click="changeIntercept(index)">
-        <div :class="'importance-' + item.featureObj.importance ">
+        <div :class="'importance-' + item.importance ">
           <p class="title">
             <span class="date">{{ item.releasedDateFormatHM }}</span>
             <span v-if="item.title != '' && item.title != '快讯'">
-              【{{ item.title }}】
+              {{ item.title }}
             </span>
             <span v-else>快讯</span>
           </p>
           <p class="description list-intercept" 
             :class="{'list-intercept-false' : !item.listIntercept}">
-            {{ item.description }}
+            {{ item.content }}
           </p>
           <!-- 标签 -->
           <template v-if="item.subjects != ' ' && item.subjects != undefined">
@@ -43,6 +42,11 @@
               #{{ item.subjects }}#
             </router-link>
           </template>
+          <!-- 笑脸 -->
+          <div class="message-index" v-if="item.liduolikong.data">
+            <img class="icon" src="../assets/img/liduo@2x.png"><span class="text">
+            {{item.liduolikong.data[0].name}}</span>
+          </div>
         </div>
       </li>
     </ul>
@@ -65,19 +69,23 @@ export default {
     return {
       mainList: [],
       headerDate: '',
-      apiOption: {
-        'channelId': 6
-      },
-      firstRequest: true,
-      refreshOption: {
-        'bigReleasedDate': 1,
-        'beginTimeLong': '',
-        'order': 1,
-        'channelId': 6
-      },
-      loadMoreOption: {
-        'beginTimeLong': '',
-        'channelId': 6
+      // apiOption: {
+      //   'channelId': 6
+      // },
+      // firstRequest: true,
+      // refreshOption: {
+      //   'bigReleasedDate': 1,
+      //   'beginTimeLong': '',
+      //   'order': 1,
+      //   'channelId': 6
+      // },
+      // loadMoreOption: {
+      //   'beginTimeLong': '',
+      //   'channelId': 6
+      // },
+      option: {
+        pageNo: 1,
+        pageSize: 15
       },
       check: false,
       listLoaded: false,
@@ -85,91 +93,84 @@ export default {
     }
   },
   created () {
-    this.getEveryTime(this.apiOption)
+    this.getEveryTime(this.option)
     this.REVERT_STATE()
   },
   methods: {
-    ...mapActions(['REVERT_STATE', 'TOGGLE_LIST_BUSY']),
-    ajax: function (Option, cb) {
-      this.$http.get('/fidnews/v1/myAjax/getContentByTime', {
-        params: Option
+    ...mapActions(['REVERT_STATE']),
+    ajax: function (cb) {
+      this.$http.get('/fidnews/v1/geek/v1/hybridInfo', {
+        params: this.option
       })
       .then(data => {
         cb(data)
       })
     },
-    getEveryTime: function (Option) {
+    getEveryTime: function () {
       var vm = this
       vm.listBusy = true
-      if (!this.firstRequest && !Option) {
-        this.loadMoreOption.beginTimeLong = this.lastBeginTime
-        this.ajax(this.loadMoreOption, callback)
-      } else if (this.getImportance !== -1) {
-        this.ajax(Option, callback)
-      } else {
-        this.ajax(Option, callback)
-      }
+      this.ajax(callback)
 
       function callback (data) {
-        var dataList = data.page.dataList
+        var dataList = data.data
         // var msgDate = 0
         for (var i = 0, len = dataList.length; i < len; i++) {
-          dataList[i].releasedDateFormatHM = moment(dataList[i].releasedDate).format('HH:mm')
-          if (moment(dataList[i].releasedDate).format('M.D') < moment().format('M.D')) {
-            dataList[i].releasedDateFormatHM = moment(dataList[i].releasedDate).format('MM.DD HH:mm')
+          dataList[i].releasedDateFormatHM = moment(dataList[i].releaseTime).format('HH:mm')
+          if (moment(dataList[i].releaseTime).format('M.D') < moment().format('M.D')) {
+            dataList[i].releasedDateFormatHM = moment(dataList[i].releaseTime).format('MM.DD HH:mm')
           }
           dataList[i].listIntercept = true
         }
-        if (!vm.firstRequest) {
+        if (vm.option.pageNo !== 1) {
           for (let i = 0, len = dataList.length; i < len; i++) {
             vm.mainList.push(dataList[i])
           }
         } else {
           vm.$set(vm, 'mainList', dataList)
-          vm.firstRequest = false
         }
+        vm.option.pageNo++
         vm.listBusy = false
       }
     },
-    changeImportance: function (imp) {
-      this.firstRequest = true
-      if (this.apiOption.importance === imp || imp === -1) {
-        this.checkedActive = -1
-        delete this.apiOption.importance
-        delete this.loadMoreOption.importance
-        delete this.refreshOption.importance
-        this.getEveryTime(this.apiOption)
-        return
-      }
-      console.log(imp)
-      this.apiOption.importance = imp
-      this.refreshOption.importance = imp
-      this.loadMoreOption.importance = imp
-      this.getEveryTime(this.apiOption)
-    },
-    autoRefresh: function () {
-      var vm = this
-      vm.check = !vm.check
-      clearInterval(vm.timer)
-      function callback (data) {
-        if (!data.page.totalCount) return
-        let dataList = data.page.dataList
-        let len = dataList.length
-        for (let i = 0; i < len; i++) {
-          // 2.0
-          dataList[i].releasedDateFormatYMD = moment(dataList[i].releasedDate).format('YYYY-MM-DD')
-          dataList[i].releasedDateFormatHM = moment(dataList[i].releasedDate).format('HH:mm')
-          vm.mainList.unshift(dataList[i])
-        }
-      }
-      function autoRefreshCb () {
-        vm.refreshOption.beginTimeLong = vm.beginTime
-        vm.ajax(vm.refreshOption, callback)
-      }
-      if (vm.check) {
-        vm.timer = setInterval(autoRefreshCb, 10000)
-      }
-    },
+    // changeImportance: function (imp) {
+    //   this.option.pageNo = 1
+    //   if (this.apiOption.importance === imp || imp === -1) {
+    //     this.checkedActive = -1
+    //     delete this.apiOption.importance
+    //     delete this.loadMoreOption.importance
+    //     delete this.refreshOption.importance
+    //     this.getEveryTime(this.apiOption)
+    //     return
+    //   }
+    //   console.log(imp)
+    //   this.apiOption.importance = imp
+    //   this.refreshOption.importance = imp
+    //   this.loadMoreOption.importance = imp
+    //   this.getEveryTime(this.apiOption)
+    // },
+    // autoRefresh: function () {
+    //   var vm = this
+    //   vm.check = !vm.check
+    //   clearInterval(vm.timer)
+    //   function callback (data) {
+    //     if (!data.page.totalCount) return
+    //     let dataList = data.page.dataList
+    //     let len = dataList.length
+    //     for (let i = 0; i < len; i++) {
+    //       // 2.0
+    //       dataList[i].releasedDateFormatYMD = moment(dataList[i].releasedDate).format('YYYY-MM-DD')
+    //       dataList[i].releasedDateFormatHM = moment(dataList[i].releasedDate).format('HH:mm')
+    //       vm.mainList.unshift(dataList[i])
+    //     }
+    //   }
+    //   function autoRefreshCb () {
+    //     vm.refreshOption.beginTimeLong = vm.beginTime
+    //     vm.ajax(vm.refreshOption, callback)
+    //   }
+    //   if (vm.check) {
+    //     vm.timer = setInterval(autoRefreshCb, 10000)
+    //   }
+    // },
     changeIntercept (b) {
       this.mainList[b].listIntercept = !this.mainList[b].listIntercept
     }
@@ -278,14 +279,35 @@ export default {
   line-height: 27px;
   color: #4694f4;
 }
+.list-item .message-index{
+  margin-top: 0.27rem;
+}
+.list-item .message-index .icon{
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-right: 0.13rem;
+}
+.list-item .message-index .text{
+  display: inline-block;
+  font-size: 10px;
+  line-height: 0.48rem;
+  color: #2e2e37;
+  background-color: #f4ce46;
+  color: #2e2e37;
+  padding-left: 0.13rem;
+  padding-right: 0.13rem;
+  vertical-align: text-top;
+}
+
   /*重要性列表颜色*/
 .main-list .list-item .importance-2 .title,
 .main-list .list-item .importance-2 .description{
   color: #e2666d;
 }
-.main-list .list-item .importance-3 .title{
-
-}
+/*.main-list .list-item .importance-3 .title{
+  color: #e2666d;
+  font-weight: bold;
+}*/
   /*截取资讯长度和展示全部*/
 .list-intercept{
   display: -webkit-box;
