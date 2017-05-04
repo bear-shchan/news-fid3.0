@@ -11,7 +11,8 @@
         <span class="source">飞笛智投</span>
       </div>
       <div class="details-content details-content-s">
-        <div v-html="main.latestStatus"></div>
+        <div v-html="main.latestStatus0"></div>
+        <div v-html="main.latestStatus1"></div>
         <div v-html="main.depth"></div>
       </div>
     </div>
@@ -58,6 +59,10 @@ export default {
         }
       })
       .then((data) => {
+        data.latestStatus = data.latestStatus.replace('<p><br></p>', '')
+        let arr = data.latestStatus.match(/<p[^>]*>(?:(?!<\/p>)[\s\S])*<\/p>/gi)
+        data.latestStatus1 = arr[0]
+        data.latestStatus0 = arr[1]
         this.$set(this, 'main', data)
       })
     }
@@ -117,6 +122,12 @@ export default {
   margin-top: 0.75rem;
   margin-bottom: 0.64rem;
 }
+.details-content div:nth-child(1){
+  color: #f35b6a;
+}
+.details-content div:nth-child(2){
+  color: #9a9a9a;
+}
 .details-content img{
   width: 100%;
   display: none;
@@ -126,10 +137,7 @@ export default {
   width: 100%;
   height: 10rem;
 }
-/*.details-content p{
-  line-height: 0.9rem;
-  margin-bottom: 1.125rem;
-}*/
+
 .charts-hd{
   margin-top: 0.5rem;
   text-align: center;
