@@ -19,6 +19,11 @@ let routes = [
     component: resolve => require([`../views/Login.vue`], resolve)
   },
   {
+    name: '7x24小时',
+    path: '/everytime',
+    component: resolve => require(['../views/Everytime.vue'], resolve)
+  },
+  {
     name: '预知未来',
     path: '/precognition',
     component: resolve => require([`../views/Precognition/PrecognitionList.vue`], resolve)

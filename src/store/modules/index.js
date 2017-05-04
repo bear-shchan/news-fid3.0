@@ -1,6 +1,7 @@
 export default {
   state: {
-    spinner: false
+    spinner: false,
+    importance: -1
   },
   mutations: {
     REVERT_STATE (state) {
@@ -8,6 +9,9 @@ export default {
     },
     TOGGLE_SPINNER (state) {
       state.spinner = !state.spinner
+    },
+    SET_IMPORTANCE (state, importance) {
+      state.importance = importance
     }
   },
   actions: {
@@ -16,11 +20,17 @@ export default {
     },
     TOGGLE_SPINNER ({ commit }) {
       commit('TOGGLE_SPINNER')
+    },
+    SET_IMPORTANCE ({ commit }, importance) {
+      commit('SET_IMPORTANCE', importance)
     }
   },
   getters: {
     getSpinner: state => {
       return state.spinner
+    },
+    getImportance: state => {
+      return state.importance
     }
   }
 }
