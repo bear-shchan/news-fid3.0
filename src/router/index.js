@@ -55,6 +55,16 @@ let routes = [
     name: '历史净值',
     path: '/historyNetWorth/:id',
     component: resolve => require([`../views/FundSelect/NetWorth.vue`], resolve)
+  },
+  {
+    name: '主题追踪',
+    path: '/subjectTrack',
+    component: resolve => require([`../views/SubjectTrack/SubjectTrackList.vue`], resolve)
+  },
+  {
+    name: '主题追踪',
+    path: '/SubjectTrackDetail/:id',
+    component: resolve => require([`../views/SubjectTrack/SubjectTrackDetail.vue`], resolve)
   }
 ]
 

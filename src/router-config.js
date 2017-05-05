@@ -24,7 +24,7 @@ const nav = [
   {
     name: '主题追踪',
     path: '/subjectTrack',
-    component: 'template',
+    component: 'SubjectTrack/SubjectTrackList',
     icon: 'subjectTrack',
     column: '1'
   },
