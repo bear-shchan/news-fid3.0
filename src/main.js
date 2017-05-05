@@ -20,6 +20,11 @@ Vue.use(VueInfiniteScroll)
 // import VueScroller from 'vue-scroller'
 // Vue.use(VueScroller)
 
+import moment from 'moment'
+Vue.filter('moment', function (value, param) {
+  return moment(value).format(param)
+})
+
 router.beforeEach(({meta, path}, from, next) => {
   var { auth = true } = meta
   var isLogin = Boolean(store.state.user.password)

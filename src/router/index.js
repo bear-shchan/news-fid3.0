@@ -24,6 +24,27 @@ let routes = [
     component: resolve => require(['../views/Everytime.vue'], resolve)
   },
   {
+    name: '两融',
+    path: '/financing',
+    component: resolve => require(['../views/Financing/Financing.vue'], resolve),
+    children: [
+      {
+        meta: {
+          name: '两融'
+        },
+        path: 'equityTrading',
+        component: resolve => require(['../views/Financing/EquityTrading.vue'], resolve)
+      },
+      {
+        meta: {
+          name: '两融'
+        },
+        path: 'securitiesLoan',
+        component: resolve => require(['../views/Financing/SecuritiesLoan.vue'], resolve)
+      }
+    ]
+  },
+  {
     name: '预知未来',
     path: '/precognition',
     component: resolve => require([`../views/Precognition/PrecognitionList.vue`], resolve)
