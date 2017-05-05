@@ -1,7 +1,13 @@
 <template>
   <div class="header" v-show="$route.path != '/login'">
-    {{$route.name}}
-    <img src="../assets/img/1@2x.png"
+    <!-- 页面标题 -->
+    {{$route.name || $route.meta.name}}
+    <!-- 返回上一页 -->
+    <img src="../assets/img/fanhui.png"
+      class="icon"
+      @click="goBack">
+    <!-- 退出登录 -->
+    <img src="../assets/img/logout-icon.png"
       v-show="$route.path == '/'"
       class="login-icon" 
       @click="logoutDisplay = !logoutDisplay">
@@ -25,11 +31,15 @@ export default {
   },
   watch: {
     '$route': function () {
+      // console.log(this.$route)
       this.logoutDisplay = false
     }
   },
   methods: {
     ...mapActions(['USER_SIGNOUT']),
+    goBack () {
+      this.$router.go(-1)
+    },
     logout () {
       this.USER_SIGNOUT()
       this.$router.replace({path: '/login'})
@@ -50,6 +60,13 @@ export default {
   text-align: center;
   color: #fff;
   font-size: 18px;
+}
+.icon{
+  position: absolute;
+  top: 0.22rem;
+  left: 0.32rem;
+  width: 0.64rem;
+  height: 0.64rem; 
 }
 .login-icon{
   position: absolute;

@@ -17,7 +17,7 @@ const nav = [
   {
     name: '两融',
     path: '/financing',
-    component: 'template',
+    component: 'Financing',
     icon: 'financing',
     column: '1'
   },

@@ -1,7 +1,7 @@
 <template>
-  <div class="importance">
+  <div class="box">
     <label
-      v-for="(impChk, index) in impChks"
+      v-for="(impChk, index) in curChks"
       v-on:touchstart="changeImportance(index)"
       >
       <i class="icon"
@@ -25,25 +25,44 @@ export default {
       ]
     }
   },
+  props: {
+    textItems: Array,
+    paramName: {
+      type: String,
+      default: 'importance'
+    }
+  },
   methods: {
-    ...mapActions(['SET_IMPORTANCE']),
-    changeImportance: function (imp) {
-      if (this.checkedActive === imp) {
+    ...mapActions([`SET_RADIOS_PARAM`]),
+    changeImportance: function (i) {
+      let paramObj = {
+        name: this.paramName,
+        param: ''
+      }
+      if (this.checkedActive === i) {
         this.checkedActive = -1
-        this.SET_IMPORTANCE(-1)
+        paramObj.param = -1
+        this.SET_RADIOS_PARAM(paramObj)
         return
       }
-      this.checkedActive = imp
-      this.SET_IMPORTANCE(imp + 1)
+      this.checkedActive = i
+      paramObj.param = i + 1
+      this.SET_RADIOS_PARAM(paramObj)
+    }
+  },
+  computed: {
+    curChks () {
+      if (this.textItems) {
+        return this.textItems
+      } else {
+        return this.impChks
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-.importance{
-  float: right;
-}
 .icon{
   display: inline-block;
   width: 0.27rem;
@@ -52,6 +71,9 @@ export default {
   background-size: cover;
   margin-right: 0.11rem;
   margin-left: 0.4rem;
+}
+.box label:first-of-type .icon{
+  margin-left: 0;
 }
 .circle{
   background-image: url('../assets/img/weixuanzhong@2x.png');

@@ -43,10 +43,12 @@
             </router-link>
           </template>
           <!-- 笑脸 -->
-          <div class="message-index" v-if="item.liduolikong.data">
-            <img class="icon" src="../assets/img/liduo@2x.png"><span class="text">
-            {{item.liduolikong.data[0].name}}</span>
-          </div>
+          <template v-if="item.liduolikong">
+            <div class="message-index" v-if="item.liduolikong.data">
+              <img class="icon" src="../assets/img/liduo@2x.png"><span class="text">
+              {{item.liduolikong.data[0].name}}</span>
+            </div>
+          </template>
         </div>
       </li>
     </ul>
@@ -96,6 +98,9 @@ export default {
     this.getEveryTime(this.option)
     this.REVERT_STATE()
   },
+  // beforeDestroy () {
+  //   this.REVERT_STATE()
+  // },
   methods: {
     ...mapActions(['REVERT_STATE']),
     ajax: function (cb) {
@@ -112,21 +117,21 @@ export default {
       this.ajax(callback)
 
       function callback (data) {
-        var dataList = data.data
+        var list = data.data
         // var msgDate = 0
-        for (var i = 0, len = dataList.length; i < len; i++) {
-          dataList[i].releasedDateFormatHM = moment(dataList[i].releaseTime).format('HH:mm')
-          if (moment(dataList[i].releaseTime).format('M.D') < moment().format('M.D')) {
-            dataList[i].releasedDateFormatHM = moment(dataList[i].releaseTime).format('MM.DD HH:mm')
+        for (var i = 0, len = list.length; i < len; i++) {
+          list[i].releasedDateFormatHM = moment(list[i].releaseTime).format('HH:mm')
+          if (moment(list[i].releaseTime).format('M.D') < moment().format('M.D')) {
+            list[i].releasedDateFormatHM = moment(list[i].releaseTime).format('MM.DD HH:mm')
           }
-          dataList[i].listIntercept = true
+          list[i].listIntercept = true
         }
-        if (vm.option.pageNo !== 1) {
-          for (let i = 0, len = dataList.length; i < len; i++) {
-            vm.mainList.push(dataList[i])
-          }
+        if (vm.option.pageNo === 1) {
+          vm.$set(vm, 'mainList', list)
         } else {
-          vm.$set(vm, 'mainList', dataList)
+          for (let i = 0, len = list.length; i < len; i++) {
+            vm.mainList.push(list[i])
+          }
         }
         vm.option.pageNo++
         vm.listBusy = false
@@ -154,13 +159,13 @@ export default {
     //   clearInterval(vm.timer)
     //   function callback (data) {
     //     if (!data.page.totalCount) return
-    //     let dataList = data.page.dataList
-    //     let len = dataList.length
+    //     let list = data.page.list
+    //     let len = list.length
     //     for (let i = 0; i < len; i++) {
     //       // 2.0
-    //       dataList[i].releasedDateFormatYMD = moment(dataList[i].releasedDate).format('YYYY-MM-DD')
-    //       dataList[i].releasedDateFormatHM = moment(dataList[i].releasedDate).format('HH:mm')
-    //       vm.mainList.unshift(dataList[i])
+    //       list[i].releasedDateFormatYMD = moment(list[i].releasedDate).format('YYYY-MM-DD')
+    //       list[i].releasedDateFormatHM = moment(list[i].releasedDate).format('HH:mm')
+    //       vm.mainList.unshift(list[i])
     //     }
     //   }
     //   function autoRefreshCb () {
@@ -178,13 +183,6 @@ export default {
   watch: {
     getImportance: function () {
       this.changeImportance(this.getImportance)
-    }
-  },
-  beforeDestroy () {
-    // 销毁定时器(自动刷新)
-    // this.time = false
-    if (this.timer) {
-      clearTimeout(this.timer)
     }
   },
   computed: {

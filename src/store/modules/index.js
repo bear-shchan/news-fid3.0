@@ -1,17 +1,20 @@
 export default {
   state: {
     spinner: false,
-    importance: -1
+    importance: -1,
+    msgType: -1
   },
   mutations: {
     REVERT_STATE (state) {
-      state.spinner = false
+      // state.spinner = false
+      state.importance = -1
+      state.msgType = -1
     },
     TOGGLE_SPINNER (state) {
       state.spinner = !state.spinner
     },
-    SET_IMPORTANCE (state, importance) {
-      state.importance = importance
+    SET_RADIOS_PARAM (state, paramObj) {
+      state[paramObj.name] = paramObj.param
     }
   },
   actions: {
@@ -21,8 +24,8 @@ export default {
     TOGGLE_SPINNER ({ commit }) {
       commit('TOGGLE_SPINNER')
     },
-    SET_IMPORTANCE ({ commit }, importance) {
-      commit('SET_IMPORTANCE', importance)
+    SET_RADIOS_PARAM ({ commit }, paramObj) {
+      commit('SET_RADIOS_PARAM', paramObj)
     }
   },
   getters: {
@@ -31,6 +34,7 @@ export default {
     },
     getImportance: state => {
       return state.importance
-    }
+    },
+    getMsgType: state => state.msgType
   }
 }
