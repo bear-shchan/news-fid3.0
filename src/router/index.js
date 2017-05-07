@@ -21,7 +21,11 @@ let routes = [
   {
     name: '7x24小时',
     path: '/everytime',
-    component: resolve => require(['../views/Everytime.vue'], resolve)
+    component: resolve => require(['../views/Everytime/Everytime.vue'], resolve)
+  },
+  {
+    path: '/everytimeTag/:tagName',
+    component: resolve => require(['../views/Everytime/everytimeTag.vue'], resolve)
   },
   {
     name: '两融',

@@ -6,7 +6,7 @@
       <topic-list :list="mainList"
         v-infinite-scroll="loadMore"
         infinite-scroll-disabled="listBusy" 
-        infinite-scroll-distance="10"
+        infinite-scroll-distance="350"
         infinite-scroll-immediate-check="false"></topic-list>
     </plate-loading>
 

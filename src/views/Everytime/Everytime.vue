@@ -17,8 +17,8 @@
     <ul class="main-list"
       v-infinite-scroll="getEveryTime" 
       infinite-scroll-disabled="listBusy" 
-      infinite-scroll-distance="10"
-      infinite-scroll-immediate-check="false"
+      infinite-scroll-distance="350"
+      infinite-scroll-immediate-check
       >
       <li class="list-item" v-for="(item, index) in mainList" 
         @click="changeIntercept(index)">
@@ -35,17 +35,17 @@
             {{ item.content }}
           </p>
           <!-- 标签 -->
-          <template v-if="item.subjects != ' ' && item.subjects != undefined">
+          <template v-if="item.subject != ' ' && item.subject != undefined">
             <router-link class="subject-link" 
-              :to="'everytimeTag/' + item.subjects"
+              :to="'everytimeTag/' + item.subject"
               >
-              #{{ item.subjects }}#
+              #{{ item.subject }}#
             </router-link>
           </template>
           <!-- 笑脸 -->
           <template v-if="item.liduolikong">
             <div class="message-index" v-if="item.liduolikong.data">
-              <img class="icon" src="../assets/img/liduo@2x.png"><span class="text">
+              <img class="icon" :src="item.liduolikong.icon"><span class="text">
               {{item.liduolikong.data[0].name}}</span>
             </div>
           </template>
@@ -58,7 +58,7 @@
 <script>
 import moment from 'moment'
 // import ListLoading from '../components/ListLoading.vue'
-import ImportanceRadios from '../components/ImportanceRadios.vue'
+import ImportanceRadios from '@/components/ImportanceRadios.vue'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -91,11 +91,16 @@ export default {
       },
       check: false,
       listLoaded: false,
-      listBusy: false
+      listBusy: false,
+      icon: {
+        '0': 'likong@2x',
+        '1': 'liduo@2x',
+        '2': 'lizhong'
+      }
     }
   },
   created () {
-    this.getEveryTime(this.option)
+    this.getEveryTime()
     this.REVERT_STATE()
   },
   // beforeDestroy () {
@@ -104,6 +109,9 @@ export default {
   methods: {
     ...mapActions(['REVERT_STATE']),
     ajax: function (cb) {
+      // if (this.$route.params.tagName) {
+      //   this.option.subjects = this.$route.params.tagName
+      // }
       this.$http.get('/fidnews/v1/geek/v1/hybridInfo', {
         params: this.option
       })
@@ -125,6 +133,12 @@ export default {
             list[i].releasedDateFormatHM = moment(list[i].releaseTime).format('MM.DD HH:mm')
           }
           list[i].listIntercept = true
+          // format liduolikong icon
+          if (list[i].liduolikong && list[i].liduolikong.data) {
+            let type = list[i].liduolikong.type
+            let icon = vm.icon[type]
+            list[i].liduolikong.icon = require('@/assets/img/' + icon + '.png')
+          }
         }
         if (vm.option.pageNo === 1) {
           vm.$set(vm, 'mainList', list)

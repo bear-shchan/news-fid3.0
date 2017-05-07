@@ -6,7 +6,11 @@
       <importance-radios class="fr"></importance-radios>
     </div>
     <!-- 资讯列表 -->
-    <list :main-list="mainList"></list>
+    <list :main-list="mainList"
+      v-infinite-scroll="getMain" 
+      infinite-scroll-disabled="listBusy"
+      infinite-scroll-distance="350"
+      infinite-scroll-immediate-check="false"></list>
   </div>
 </template>
 

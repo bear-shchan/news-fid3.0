@@ -2,7 +2,7 @@
   <div class="box clearfix"
     v-infinite-scroll="getList"
     infinite-scroll-disabled="listBusy" 
-    infinite-scroll-distance="10"
+    infinite-scroll-distance="100"
     infinite-scroll-immediate-check="false">
     <router-link tag="div" :to="'/precognitionDetail/' + item.contentId" 
       v-for="item in listArr" class="item" :class="{gray: item.gray}" key="item.latestTime">
