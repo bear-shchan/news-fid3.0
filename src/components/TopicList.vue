@@ -1,3 +1,4 @@
+<!-- 用于主题选基列表 -->
 <template>
   <ul>
     <router-link tag="li" 
