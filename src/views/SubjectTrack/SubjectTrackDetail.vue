@@ -9,10 +9,11 @@
     <ul class="tuyere-win">
       <li class="increase">
         <p>近5日涨幅</p>
-        <span :class="listArr.winPercent > 0 ? 'red':'green'" v-cloak>{{ listArr.avgRiseTotal }}</span>
+        <span :class="listArr.winPercent > 0 ? 'red':'green'" v-cloak>{{ listArr.avgRiseTotal | toFixed }}</span>
       </li>
       <li class="winpercent">
         <p>风口胜率</p>
+        <span :class="listArr.winPercent > 0 ? 'red':'green'" v-cloak>{{ listArr.winPercent | toFixed }}</span>
       </li>
     </ul> 
     <div class="lanmu">

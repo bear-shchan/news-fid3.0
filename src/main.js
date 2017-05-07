@@ -24,6 +24,9 @@ import moment from 'moment'
 Vue.filter('moment', function (value, param) {
   return moment(value).format(param)
 })
+Vue.filter('toFixed', function (value) {
+  return (value * 100).toFixed(2) + '%'
+})
 
 router.beforeEach(({meta, path}, from, next) => {
   var { auth = true } = meta
