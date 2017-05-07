@@ -136,7 +136,7 @@ export default {
   .sotck {
     font-size: 12px;
     color: #191919;
-    padding-left: 0.13rem;
+    padding-left: 0.13rem;  
   }
   .percent {
     font-size: 12px;
