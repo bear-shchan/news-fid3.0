@@ -102,13 +102,13 @@ export default {
     margin-right: 0.53rem;
   }
   .name {
-    font-size: 0.45rem;
+    font-size: 17px;
     color: #1a1a1a;
     margin-top: 0.09rem;
     
   }
   .descri {
-    font-size: 0.32rem;
+    font-size: 12px;
     color: #6a6a6a;
   }
   .longtou {
@@ -138,7 +138,7 @@ export default {
     padding-left: 0.13rem;
   }
   .percent {
-    font-size: 0.32rem;
+    font-size: 12px;
     padding-left: 0.29rem;
   }
   .red {

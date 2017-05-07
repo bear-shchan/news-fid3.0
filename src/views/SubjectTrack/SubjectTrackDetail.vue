@@ -9,7 +9,7 @@
     <ul class="tuyere-win">
       <li class="increase">
         <p>近5日涨幅</p>
-        <span :class="listArr.winPercent > 0 ? 'red':'green'" v-cloak>{{ listArr.avgRiseTotal | toFixed }}</span>
+        <span :class="listArr.avgRiseTotal > 0 ? 'red':'green'" v-cloak>{{ listArr.avgRiseTotal | toFixed }}</span>
       </li>
       <li class="winpercent">
         <p>风口胜率</p>
@@ -22,13 +22,15 @@
     <ul  class="hotstocks">
       <li class="hotstock" v-for="item in listArr.hotStock">
         <p v-cloak>{{ item.stockCnName }}</p>
+        <span :class="item.percent > 0 ? 'red':'green'" v-cloak>{{ item.percent | toFixed }}</span>
       </li>
       <li class="hotstock">
         <img class="morestock" src="../../assets/img/icon3@2x.png">
       </li>
     </ul>
     <div class="lanmu">
-      <p><span></span>近5日涨幅</p>
+      <p><span></span>走势图</p>
+
     </div>
   </div>
 </template>
@@ -76,13 +78,13 @@ export default {
   .lanmu span {
     font-size: 14px;
     background: #f4ce46;
-    padding-left: 3px;
-    margin-right: 5px;
+    padding-left: 0.08rem;
+    margin-right: 0.13rem;
   }
   .lanmu p {
     color: #2e2e37;
     font-size: 17px;
-    padding-left: 15px;
+    padding-left: 0.4rem;
   }
   .b-head{
     width: 100vw;
@@ -116,7 +118,7 @@ export default {
   .b-stocknews{
     font-size: 16px;
     color: #eee;
-    padding: 24px 20px 0px 28px;
+    padding: 0.64rem 0.8rem 0 0.75rem;
     text-align: center;
     overflow : hidden;
     text-overflow: ellipsis;
@@ -130,6 +132,8 @@ export default {
     display: inline-block;
     border-top: 1px solid #e2e2e2;
   }
+
+
   .tuyere-win {
     height: 80px;
   }
