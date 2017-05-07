@@ -28,7 +28,7 @@
             <span v-if="item.title != '' && item.title != '快讯'">
               {{ item.title }}
             </span>
-            <span v-else>快讯</span>
+            <span v-else>快讯 </span>
           </p>
           <p class="description list-intercept" 
             :class="{'list-intercept-false' : !item.listIntercept}">
