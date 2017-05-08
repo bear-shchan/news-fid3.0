@@ -64,7 +64,7 @@ export default {
 .icon{
   position: absolute;
   top: 0.22rem;
-  left: 0.32rem;
+  left: 0.29rem;
   width: 0.64rem;
   height: 0.64rem; 
 }

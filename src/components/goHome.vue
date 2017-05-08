@@ -9,6 +9,7 @@
 </template>
 
 <script>
+// !默认显示 下滑隐藏
 export default {
   name: 'goHome',
   data () {

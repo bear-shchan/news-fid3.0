@@ -28,6 +28,11 @@ let routes = [
     component: resolve => require(['../views/Everytime/EverytimeTag.vue'], resolve)
   },
   {
+    // name: '个股行情',
+    path: '/singleStock',
+    component: resolve => require(['../views/SingleStock/SingleStock.vue'], resolve)
+  },
+  {
     name: '定点播报',
     path: '/report',
     component: resolve => require(['../views/Report/Report.vue'], resolve)
