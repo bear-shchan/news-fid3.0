@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mh-box">
     <template v-for="(item, index) in headerArr">
       <div class="header">{{item}}</div>
       <div class="item-box clearfix">
@@ -52,6 +52,9 @@ export default {
 </script>
 
 <style scoped>
+/*.box{
+  min-height: 100vh;
+}*/
 .header{
   line-height: 1.01rem;
   font-size: 14px;

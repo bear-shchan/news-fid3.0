@@ -40,6 +40,9 @@ export default {
   margin-bottom: 0.53rem;
 }
 
+.mh-box{
+  min-height: 100vh;
+}
 .fade-enter-active, .fade-leave-active {
   transition: opacity .4s
 }

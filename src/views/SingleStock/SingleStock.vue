@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mh-box">
     <!-- 搜索框 -->
     <div class="search">
       <i class="icon-search"></i>
@@ -9,7 +9,10 @@
       <!-- 热门搜索 -->
       <p class="title">热门搜索</p>
       <ul class="hot-search">
-        <li class="hot-search-item">上证指数</li><li class="hot-search-item">次新股</li><li class="hot-search-item">天水股份</li><li class="hot-search-item">吉比特</li><li class="hot-search-item">贵州茅台</li>
+        <li class="hot-search-item"
+          v-for="item in hotSearch">
+          {{item.indexName || item.topicName || item.stockName}}
+        </li>
       </ul>
       <!-- 最近搜索 -->
       <p class="title gray">最近搜索<i class="icon-delete"></i></p>
@@ -26,7 +29,20 @@ export default {
   name: 'SingleStock',
   data () {
     return {
-
+      hotSearch: []
+    }
+  },
+  created () {
+    this.getHotSearch()
+  },
+  methods: {
+    getHotSearch () {
+      this.$http.get('/fidnews/v1/geek/v2/queryHotSeareach')
+      .then((data) => {
+        data = data.data
+        console.log(data)
+        this.$set(this, 'hotSearch', data)
+      })
     }
   }
 }
