@@ -53,6 +53,7 @@ export default {
   methods: {
     ...mapActions(['REVERT_STATE']),
     getMain () {
+      this.listBusy = true
       this.$http.get('/fidnews/v1/myAjax/getContentByTime', {
         params: this.params
       })

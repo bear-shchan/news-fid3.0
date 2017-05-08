@@ -255,6 +255,7 @@ export default {
   width: 0.4rem;
   height: 0.4rem;
   margin-right: 0.13rem;
+  vertical-align: text-bottom;
 }
 .list-item .message-index .text{
   display: inline-block;

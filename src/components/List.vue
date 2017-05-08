@@ -44,7 +44,7 @@ export default {
       }
     },
     changeIntercept (b) {
-      console.log(this.mainList[b].listIntercept)
+      // console.log(this.mainList[b].listIntercept)
       this.mainList[b].listIntercept = !this.mainList[b].listIntercept
     }
   }
@@ -55,8 +55,10 @@ export default {
 .main-list{
   padding: 0 0.4rem;
 }
-.main-list .list-item{
+.main-list .list-item:first-of-type{
   padding-top: 0.53rem;
+}
+.main-list .list-item{
   padding-bottom: 1.07rem;
 }
 .main-list .list-item .title{
