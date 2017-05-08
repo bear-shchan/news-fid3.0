@@ -105,6 +105,21 @@ let routes = [
     name: '主题追踪',
     path: '/SubjectTrackDetail/:id',
     component: resolve => require([`../views/SubjectTrack/SubjectTrackDetail.vue`], resolve)
+  },
+  {
+    name: '小白财经',
+    path: '/newbieFinance',
+    component: resolve => require([`../views/NewbieFinance/NewbieFinanceListFisrt.vue`], resolve)
+  },
+  {
+    name: '小白财经',
+    path: '/newbieFinanceSecond/:tagname',
+    component: resolve => require([`../views/NewbieFinance/NewbieFinanceListSecond.vue`], resolve)
+  },
+  {
+    name: '小白财经',
+    path: '/newbieFinanceSecond/:tagname/:id',
+    component: resolve => require([`../views/NewbieFinance/NewbieFinanceDetail.vue`], resolve)
   }
 ]
 
