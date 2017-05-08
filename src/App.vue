@@ -2,7 +2,7 @@
   <div id="app">
     <headerDiv></headerDiv>
     <transition name="fade">
-      <router-view></router-view>
+      <router-view class="mh-box"></router-view>
     </transition>
     <go-home></go-home>
   </div>
