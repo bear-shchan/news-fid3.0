@@ -42,6 +42,7 @@ export default {
 
 <style scoped>
 .box{
+  min-height: 100vh;
   padding-top: 0.53rem;
   padding-left: 0.4rem;
   padding-right: 0.4rem;

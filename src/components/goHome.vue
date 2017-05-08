@@ -14,7 +14,7 @@ export default {
   name: 'goHome',
   data () {
     return {
-      showBtn: false,
+      showBtn: true,
       startY: '',
       currentY: ''
     }
@@ -32,12 +32,12 @@ export default {
     },
     handleTouchMove (event) {
       this.currentY = event.touches[0].clientY
-      if (this.currentY - this.startY > 120) {
-        this.showBtn = true
-      } else if (this.showBtn && this.currentY - this.startY > 0) {
-        this.showBtn = true
-      } else {
+      if (this.startY - this.currentY > 120) {
         this.showBtn = false
+      } else if (!this.showBtn && this.startY - this.currentY > 0) {
+        this.showBtn = false
+      } else {
+        this.showBtn = true
       }
     }
   }
