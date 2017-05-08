@@ -25,7 +25,22 @@ let routes = [
   },
   {
     path: '/everytimeTag/:tagName',
-    component: resolve => require(['../views/Everytime/everytimeTag.vue'], resolve)
+    component: resolve => require(['../views/Everytime/EverytimeTag.vue'], resolve)
+  },
+  {
+    // name: '个股行情',
+    path: '/singleStock',
+    component: resolve => require(['../views/SingleStock/SingleStock.vue'], resolve)
+  },
+  {
+    name: '定点播报',
+    path: '/report',
+    component: resolve => require(['../views/Report/Report.vue'], resolve)
+  },
+  {
+    // name: '定点播报详情页',
+    path: '/reportDetail/:id',
+    component: resolve => require(['../views/Report/ReportDetail.vue'], resolve)
   },
   {
     name: '两融',

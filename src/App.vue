@@ -1,17 +1,22 @@
 <template>
   <div id="app">
     <headerDiv></headerDiv>
-    <router-view></router-view>
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
+    <go-home></go-home>
   </div>
 </template>
 
 <script>
-import headerDiv from './components/header'
+import HeaderDiv from './components/Header'
+import GoHome from './components/GoHome'
 
 export default {
   name: 'app',
   components: {
-    headerDiv
+    HeaderDiv,
+    GoHome
   },
   data () {
     return {
@@ -33,5 +38,12 @@ export default {
 .details-content-s p{
   text-indent: 0.91rem;
   margin-bottom: 0.53rem;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .4s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
 }
 </style>
