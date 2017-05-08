@@ -33,6 +33,11 @@ let routes = [
     component: resolve => require(['../views/Report/Report.vue'], resolve)
   },
   {
+    // name: '定点播报详情页',
+    path: '/reportDetail/:id',
+    component: resolve => require(['../views/Report/ReportDetail.vue'], resolve)
+  },
+  {
     name: '两融',
     path: '/financing',
     component: resolve => require(['../views/Financing/Financing.vue'], resolve),

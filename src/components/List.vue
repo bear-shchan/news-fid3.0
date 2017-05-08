@@ -2,7 +2,7 @@
   <div>
     <!-- 列表项 -->
     <ul class="main-list">
-      <li class="list-item" v-for="(item, index) in mainList">
+      <li class="list-item" v-for="(item, index) in mainList" @click="goToDetail(item)">
         <div>
           <p class="title fwb" v-if="item.title != '' && item.title != '快讯'">
             {{ item.title }}
@@ -34,7 +34,10 @@ export default {
     return {
     }
   },
-  props: ['mainList'],
+  props: {
+    mainList: Array,
+    lisgType: String
+  },
   methods: {
     contrastDate (date) {
       if (moment(date).format('M.D') < moment().format('M.D')) {
@@ -44,8 +47,12 @@ export default {
       }
     },
     changeIntercept (b) {
-      // console.log(this.mainList[b].listIntercept)
+      if (this.lisgType === 'link') return
       this.mainList[b].listIntercept = !this.mainList[b].listIntercept
+    },
+    goToDetail (item) {
+      if (this.lisgType !== 'link') return
+      this.$router.push({ path: '/reportDetail/' + item.id })
     }
   }
 }

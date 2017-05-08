@@ -7,14 +7,14 @@
 </template>
 
 <script>
-import headerDiv from './components/header'
-import goHome from './components/goHome'
+import HeaderDiv from './components/Header'
+import GoHome from './components/GoHome'
 
 export default {
   name: 'app',
   components: {
-    headerDiv,
-    goHome
+    HeaderDiv,
+    GoHome
   },
   data () {
     return {

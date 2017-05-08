@@ -1,6 +1,7 @@
 <template>
   <div>
     <list :main-list="mainList"
+      lisg-type="link"
       v-infinite-scroll="getMain" 
       infinite-scroll-disabled="listBusy"
       infinite-scroll-distance="350"
