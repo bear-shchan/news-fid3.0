@@ -25,6 +25,7 @@
     "lib-flexible": "^0.3.2",
     "moment": "^2.18.1",
     "reqwest": "^2.0.5",
+    "swiper": "^3.4.2",
     "vue": "^2.2.6",
     "vue-infinite-scroll": "^2.0.1",
     "vue-router": "^2.3.1",

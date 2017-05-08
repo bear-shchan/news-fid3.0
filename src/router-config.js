@@ -87,7 +87,7 @@ const nav = [
   {
     name: '小白财经',
     path: '/newbieFinance',
-    component: 'template',
+    component: 'NewbieFinance/NewbieFinanceListFisrt',
     icon: 'newbieFinance',
     column: '4'
   },
