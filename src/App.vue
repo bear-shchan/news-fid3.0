@@ -2,16 +2,19 @@
   <div id="app">
     <headerDiv></headerDiv>
     <router-view></router-view>
+    <go-home></go-home>
   </div>
 </template>
 
 <script>
 import headerDiv from './components/header'
+import goHome from './components/goHome'
 
 export default {
   name: 'app',
   components: {
-    headerDiv
+    headerDiv,
+    goHome
   },
   data () {
     return {
