@@ -2,8 +2,8 @@
   <div>
     <div class="calendar-list"
       v-infinite-scroll="getData" 
-      infinite-scroll-disabled="updown" 
-      infinite-scroll-distance="10"
+      infinite-scroll-disabled="listBusy" 
+      infinite-scroll-distance="100"
       infinite-scroll-immediate-check="false">
       <div class="list-item layout-box"
         v-for="(item, index) in list"
@@ -48,6 +48,7 @@ export default {
   methods: {
     ...mapActions(['SET_EVENT_ITEM']),
     getData () {
+      this.listBusy = true
       let dateBegin = moment().format('YYYY-MM-DD') + ' 00:00:00'
       this.$http.get('/fidnews/v1/calendarApp/event', {
         params: {
@@ -85,6 +86,7 @@ export default {
         }
         this.pageNo++
         this.$set(this, 'list', list)
+        this.listBusy = false
       })
     },
     gotoDetail (id) {

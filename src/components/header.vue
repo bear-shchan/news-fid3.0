@@ -1,7 +1,9 @@
 <template>
   <div class="header" v-show="$route.path != '/login'">
     <!-- 页面标题 -->
+    <!-- <transition name="fade"> -->
     {{$route.name || $route.meta.name}}
+    <!-- </transition> -->
     <!-- 返回上一页 -->
     <img src="../assets/img/fanhui.png"
       class="icon"
@@ -88,5 +90,12 @@ export default {
   color: #f4ce46;
   height: 1rem;
   line-height: 1.1rem;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
 }
 </style>

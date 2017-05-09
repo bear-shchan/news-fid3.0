@@ -127,26 +127,32 @@ let routes = [
     component: resolve => require([`../views/FinanceCalendar/FinanceCalendar.vue`], resolve),
     children: [
       {
+        name: '财经事件',
         path: 'event',
         component: resolve => require([`../views/FinanceCalendar/Event.vue`], resolve)
       },
       {
+        name: '财经事件',
         path: 'eventDetail',
         component: resolve => require([`../views/FinanceCalendar/EventDetail.vue`], resolve)
       },
       {
+        name: '财经数据',
         path: 'data',
         component: resolve => require([`../views/FinanceCalendar/Data.vue`], resolve)
       },
       {
+        name: '股东会',
         path: 'shareholdersBoard',
         component: resolve => require([`../views/FinanceCalendar/ShareholdersBoard.vue`], resolve)
       },
       {
+        name: '新股',
         path: 'newStock',
         component: resolve => require([`../views/FinanceCalendar/NewStock.vue`], resolve)
       },
       {
+        name: '停复牌',
         path: 'suspension',
         component: resolve => require([`../views/FinanceCalendar/Suspension.vue`], resolve)
       }
