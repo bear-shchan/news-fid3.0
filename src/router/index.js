@@ -131,6 +131,10 @@ let routes = [
         component: resolve => require([`../views/FinanceCalendar/Event.vue`], resolve)
       },
       {
+        path: 'eventDetail',
+        component: resolve => require([`../views/FinanceCalendar/EventDetail.vue`], resolve)
+      },
+      {
         path: 'data',
         component: resolve => require([`../views/FinanceCalendar/Data.vue`], resolve)
       },
