@@ -34,13 +34,13 @@ export default {
 </script>
 <style scoped>
 .box{
-  /*margin-top: 0.27rem;*/
-  padding: 0 0.27rem;
-  font-size: 16px;
+  padding-left: 0.27rem;
+  padding-right: 0.27rem;
+  font-size: 14px;
   color: #424242;
 }
 p{
-  padding: 0.1rem 0;
+  padding-top: 0.2rem;
 }
 .concept{
   border: 1px solid #f4ce46;

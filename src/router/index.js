@@ -142,6 +142,11 @@ let routes = [
         component: resolve => require([`../views/FinanceCalendar/Data.vue`], resolve)
       },
       {
+        name: '财经数据',
+        path: 'dataDetail',
+        component: resolve => require([`../views/FinanceCalendar/DataDetail.vue`], resolve)
+      },
+      {
         name: '股东会',
         path: 'shareholdersBoard',
         component: resolve => require([`../views/FinanceCalendar/ShareholdersBoard.vue`], resolve)

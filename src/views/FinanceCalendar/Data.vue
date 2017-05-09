@@ -7,8 +7,8 @@
       infinite-scroll-immediate-check="false">
       <div class="list-item layout-box"
         v-for="(item, index) in list"
+        @click="gotoDetail(item.id)"
         >
-        <!-- @click="gotoDetail(item.id)" -->
           <div class="date" v-if="item.show_date_b">
             {{ item.showDate }}
           </div>
@@ -98,7 +98,7 @@ export default {
           vm.list[i].description_reason = vm.list[i].description.split('： ')[2]
           console.log(vm.list[i].description_reason)
           vm.SET_CALENDAR_ITEM(vm.list[i])
-          router.push('calendarDetail')
+          router.push('dataDetail')
           return
         }
       }
