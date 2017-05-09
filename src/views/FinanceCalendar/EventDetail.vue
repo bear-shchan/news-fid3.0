@@ -34,7 +34,7 @@ export default {
 </script>
 <style scoped>
 .box{
-  margin-top: 0.27rem;
+  /*margin-top: 0.27rem;*/
   padding: 0 0.27rem;
   font-size: 16px;
   color: #424242;

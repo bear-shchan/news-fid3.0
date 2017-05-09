@@ -1,17 +1,19 @@
 <template>
-  <div class="link-box">
-    <i class="gray"></i>
-    <router-link v-for="item in items"
-      :to="'/financeCalendar/' + item.link"
-      tag="div"
-      class="link-item"
-      key="item.event"
-      >
-      <img class="icon-active" v-if="$route.path.indexOf(item.link) !== -1" :src="item.iconActive">
-      <img class="icon" v-else :src="item.icon">
-      <p class="text">{{item.text}}</p>
-    </router-link>
-    <router-view></router-view>
+  <div>
+    <div class="link-box">
+      <i class="gray"></i>
+      <router-link v-for="item in items"
+        :to="'/financeCalendar/' + item.link"
+        tag="div"
+        class="link-item"
+        key="item.event"
+        >
+        <img class="icon-active" v-if="$route.path.indexOf(item.link) !== -1" :src="item.iconActive">
+        <img class="icon" v-else :src="item.icon">
+        <p class="text">{{item.text}}</p>
+      </router-link>
+    </div>
+    <router-view class="view"></router-view>
   </div>
 </template>
 
@@ -60,7 +62,7 @@ export default {
 <style scoped>
 .gray{
   position: absolute;
-  top: 1.07rem;
+  top: 0;
   display: block;
   z-index: -1;
   width: 100%;
@@ -68,9 +70,13 @@ export default {
   background-color: #f7f7f7;
 }
 .link-box{
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  background-color: #fff;
   padding-top: 0.27rem;
   color: #2e2e37;
-  font-size: 12px;
+  font-size: 12px;;
 }
 .link-item{
   text-align: center;
@@ -89,5 +95,9 @@ export default {
 }
 .text{
   line-height: 17px;
+}
+
+.view{
+  padding-top: 2.24rem;
 }
 </style>

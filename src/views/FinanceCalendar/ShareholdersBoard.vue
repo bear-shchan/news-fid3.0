@@ -3,7 +3,7 @@
     <div class="calendar-list"
       v-infinite-scroll="getData"
       infinite-scroll-disabled="listBusy" 
-      infinite-scroll-distance="100"
+      infinite-scroll-distance="200"
       infinite-scroll-immediate-check="false">
       <ul class="main-list">
         <li class="list-item" v-for="(item, index) in list">
