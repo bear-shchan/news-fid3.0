@@ -44,9 +44,9 @@ const nav = [
   },
   {
     name: '财经日历',
-    path: '/economicCalendar',
+    path: '/financeCalendar/event',
     component: 'template',
-    icon: 'economicCalendar',
+    icon: 'financeCalendar',
     column: '1'
   },
   {

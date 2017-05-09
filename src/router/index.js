@@ -120,6 +120,33 @@ let routes = [
     name: '小白财经',
     path: '/newbieFinanceSecond/:tagname/:id',
     component: resolve => require([`../views/NewbieFinance/NewbieFinanceDetail.vue`], resolve)
+  },
+  {
+    name: '财经日历',
+    path: '/financeCalendar',
+    component: resolve => require([`../views/FinanceCalendar/FinanceCalendar.vue`], resolve),
+    children: [
+      {
+        path: 'event',
+        component: resolve => require([`../views/FinanceCalendar/Event.vue`], resolve)
+      },
+      {
+        path: 'data',
+        component: resolve => require([`../views/FinanceCalendar/Data.vue`], resolve)
+      },
+      {
+        path: 'shareholdersBoard',
+        component: resolve => require([`../views/FinanceCalendar/ShareholdersBoard.vue`], resolve)
+      },
+      {
+        path: 'newStock',
+        component: resolve => require([`../views/FinanceCalendar/NewStock.vue`], resolve)
+      },
+      {
+        path: 'suspension',
+        component: resolve => require([`../views/FinanceCalendar/Suspension.vue`], resolve)
+      }
+    ]
   }
 ]
 
