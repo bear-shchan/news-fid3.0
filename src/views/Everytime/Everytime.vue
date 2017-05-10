@@ -292,6 +292,7 @@ export default {
   color: #4694f4;
 }
 .list-item .message-index{
+  line-height: 0;
   margin-top: 0.27rem;
 }
 .list-item .message-index .icon{
@@ -309,7 +310,6 @@ export default {
   color: #2e2e37;
   padding-left: 0.13rem;
   padding-right: 0.13rem;
-  vertical-align: text-top;
 }
 
   /*重要性列表颜色*/
