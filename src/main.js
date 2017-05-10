@@ -29,6 +29,7 @@ Vue.filter('toFixed', function (value) {
 })
 
 router.beforeEach(({meta, path}, from, next) => {
+  window.scrollTo(0, 0)
   var { auth = true } = meta
   var isLogin = Boolean(store.state.user.password)
 

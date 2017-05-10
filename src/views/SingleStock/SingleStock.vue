@@ -3,46 +3,164 @@
     <!-- 搜索框 -->
     <div class="search">
       <i class="icon-search"></i>
-      <input class="input-search" type="text" placeholder="请输入股票名称、代码">
+      <input class="input-search" type="text" placeholder="请输入股票名称、代码"
+        v-model="curSearch">
     </div>
     <div class="box">
       <!-- 热门搜索 -->
-      <p class="title">热门搜索</p>
-      <ul class="hot-search">
-        <li class="hot-search-item"
-          v-for="item in hotSearch">
-          {{item.indexName || item.topicName || item.stockName}}
+      <div v-show="!showSearchList">
+        <p class="title">热门搜索</p>
+        <ul class="hot-search">
+          <li class="hot-search-item"
+            v-for="item in hotSearch">
+            {{ item.stockName || item.topicName || item.indexName || item.conceptName }}
+          </li>
+        </ul>
+        <!-- 最近搜索 -->
+        <p class="title gray">最近搜索
+          <i class="icon-delete" @click="removeSearchHistory()"></i>
+        </p>
+        <ul class="search-list">
+          <li class="search-item"
+            v-for="item in searchHistoryList"
+            >{{ item.name }}<span class="search-span">{{ item.span }}</span>
+          </li>
+        </ul>
+      </div>
+      <!-- 搜索列表 -->
+      <ul class="search-list" v-show="showSearchList">
+        <li class="search-item"
+          v-for="item in curSearchList"
+          @click="setHistory(item)"
+          >{{ item.name }}<span class="search-span">{{ item.span }}</span>
         </li>
-      </ul>
-      <!-- 最近搜索 -->
-      <p class="title gray">最近搜索<i class="icon-delete"></i></p>
-      <ul class="search-record">
-        <li class="search-record-item">上证指数</li>
-        <li class="search-record-item">新大陆<span class="search-record-span">000997</span></li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+import localStorage from '@/assets/js/localStorage.js'
+
 export default {
   name: 'SingleStock',
   data () {
     return {
-      hotSearch: []
+      searchList: [],
+      hotSearch: [],
+      showSearchList: false,
+      curSearch: '',
+      curSearchList: [],
+      searchHistoryList: localStorage.get('searchHistory') || []
     }
   },
   created () {
     this.getHotSearch()
+    this.getSearchList()
   },
   methods: {
     getHotSearch () {
       this.$http.get('/fidnews/v1/geek/v2/queryHotSeareach')
       .then((data) => {
         data = data.data
-        console.log(data)
         this.$set(this, 'hotSearch', data)
       })
+    },
+    getSearchList () {
+      let ajax = () => {
+        this.$http.get('/fidnews/v1/geek/v2/querySeareachAllInfo')
+        .then((data) => {
+          data = data.data
+          data.map(function (item) {
+            item.name = item.stockName || item.topicName || item.indexName || item.conceptName
+            item.span = (function (item) {
+              if (item.searchType === 1) {
+                return item.stockCode
+              } else if (item.searchType === 2) {
+                return '[主题]'
+              } else if (item.searchType === 3) {
+                return ''
+              } else if (item.searchType === 4) {
+                return '[概念]'
+              } else {
+                return ''
+              }
+            }(item))
+            return item
+          })
+          localStorage.set('searchList', {
+            data
+          })
+          this.$set(this, 'searchList', data)
+        })
+      }
+      if (localStorage.isExpired('searchList')) {
+        ajax()
+      } else {
+        let searchList = localStorage.get('searchList')
+        this.$set(this, 'searchList', searchList.data)
+      }
+    },
+    fuzzySearch (text, query) {
+      var i
+      var character
+      var currentIndex
+      var lastIndex = -1
+      if (!text) {
+        return false
+      }
+      var tlen = text.length
+      var qlen = query.length
+      if (qlen > tlen) {
+        return false
+      }
+      if (qlen === tlen) {
+        return query === text
+      }
+      if (text.indexOf(query) > lastIndex) {
+        return true
+      }
+      for (i = 0; i < qlen; i++) {
+        character = query[i]
+        currentIndex = text.indexOf(character, lastIndex + 1)
+        if (currentIndex === -1) {
+          return false
+        }
+        lastIndex = currentIndex
+      }
+      return true
+    },
+    searchListFn () {
+      let curSearch = this.curSearch
+      if (curSearch) {
+        this.curSearchList = this.searchList.filter((x) => {
+          return this.fuzzySearch(x.name, curSearch) || this.fuzzySearch(x.span, curSearch)
+        })
+        this.showSearchList = true
+      } else {
+        this.showSearchList = false
+      }
+    },
+    setHistory (item) {
+      let searchHistory = window.localStorage.getItem('searchHistory')
+      var searchHistoryArr
+      if (searchHistory) {
+        searchHistoryArr = JSON.parse(searchHistory)
+      } else {
+        searchHistoryArr = []
+      }
+      searchHistoryArr.push(item)
+      window.localStorage.setItem('searchHistory', JSON.stringify(searchHistoryArr))
+      this.$set(this, 'searchHistoryList', searchHistoryArr)
+    },
+    removeSearchHistory () {
+      localStorage.remove('searchHistory')
+      this.$set(this, 'searchHistoryList', [])
+    }
+  },
+  watch: {
+    curSearch () {
+      this.searchListFn()
     }
   }
 }
@@ -87,7 +205,8 @@ input:-webkit-autofill {
   vertical-align: -0.08rem;
 }
 .input-search{
-  font-size: 0.37rem;
+  color: #fff;
+  font-size: 14px;
   line-height: 0.77rem;
 }
 .box{
@@ -96,7 +215,7 @@ input:-webkit-autofill {
 }
 .title{
   position: relative;
-  font-size: 0.37rem;
+  font-size: 14px;
   color: #999;
   line-height: 1.17rem;
   border-bottom: 1px solid #ececec;
@@ -113,7 +232,7 @@ input:-webkit-autofill {
   line-height: 0.77rem;
   background-color: #f4ce46;
   color: #2e2e37;
-  font-size: 0.37rem;
+  font-size: 14px;
   margin-bottom: 0.53rem;
   margin-left: 10px;
   margin-right: 10px;
@@ -138,16 +257,19 @@ input:-webkit-autofill {
   margin-left: -0.4rem;
   margin-right: -0.4rem;
 }
-/*最近搜索*/
-.search-record-item{
-  line-height: 1.97rem;
-  font-size: 0.43rem;
+/*最近搜索,搜索列表*/
+.search-list{
   color: #2e2e37;
+  font-size: 16px;
 }
-.search-record-span{
-  font-size: 0.32rem;
+.search-item{
+  padding-top: 0.67rem;
+  padding-bottom: 0.27rem;
+}
+.search-span{
+  font-size: 12px;
   color: #83839b;
   padding-left: 0.11rem;
-  vertical-align: -0.04rem;
+  vertical-align: -0.03rem;
 }
 </style>
