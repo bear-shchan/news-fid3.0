@@ -120,6 +120,26 @@ let routes = [
     name: '小白财经',
     path: '/newbieFinanceSecond/:tagname/:id',
     component: resolve => require([`../views/NewbieFinance/NewbieFinanceDetail.vue`], resolve)
+  },
+  {
+    name: '今日必知',
+    path: '/todayKnow',
+    component: resolve => require([`../views/TodayKnow/TodayKnowListFisrt.vue`], resolve)
+  },
+  {
+    name: '今日必知',
+    path: '/todayKnowSecond/:tagname',
+    component: resolve => require([`../views/TodayKnow/TodayKnowListSecond.vue`], resolve)
+  },
+  {
+    name: '今日必知',
+    path: '/todayKnowDetail/:id',
+    component: resolve => require([`../views/TodayKnow/TodayKnowDetail.vue`], resolve)
+  },
+  {
+    name: '今日必知',
+    path: '/specialSubject/:id',
+    component: resolve => require([`../views/TodayKnow/SpecialSubjectDetail.vue`], resolve)
   }
 ]
 

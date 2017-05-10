@@ -53,6 +53,7 @@ export default {
   right: 0.45rem;
   width: 1.6rem;
   height: 1.6rem;
+  z-index: 999;
 }
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s
