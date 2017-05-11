@@ -24,9 +24,11 @@
         <p v-cloak>{{ item.stockCnName }}</p>
         <span :class="item.percent > 0 ? 'red':'green'" v-cloak>{{ item.percent | toFixed }}</span>
       </li>
-      <li class="hotstock">
+      <router-link :to="'/hotStock/' + listArr.topicId">
+        <li class="hotstock">
         <img class="morestock" src="../../assets/img/icon3@2x.png">
-      </li>
+        </li>
+      </router-link>
     </ul>
     <div class="lanmu">
       <p><span></span>走势图</p>

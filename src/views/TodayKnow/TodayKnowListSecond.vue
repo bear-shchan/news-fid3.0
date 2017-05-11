@@ -1,40 +1,45 @@
 <template>
-  <div class="box">
-    <router-link class="list" to="/todayKnowDetail/2">
-      <div class="topic">
-        <div class="text">
-          <p class="name"> 基础名词基础名词基础名词</p>
-          <p class="list-one">
-            <span>主题追踪</span>
-            <span>11097阅读</span>
-            <span>84天前</span>
-          </p>
-        </div>
-        <img src="../../assets/img/1.jpg">
-      </div>
-    </router-link>
-    <router-link class="list" to="/todayKnowDetail/2">
-      <div class="topic">
-        <div class="text">
-          <p class="name"> 基础名词基础名词基础名词</p>
-          <p class="list-one">
-            <span>主题追踪</span>
-            <span>11097阅读</span>
-            <span>84天前</span>
-          </p>
-        </div>
-        <img src="../../assets/img/1.jpg">
-      </div>
-    </router-link>
+  <div>
+    <imgs-list :listArr="listArr"></imgs-list>
   </div>
 </template>
 
 <script>
+import contrastDate from '@/assets/js/contrastDate.js'
+import ImgsList from './components/ImgsList'
 export default {
   name: '',
+  components: {
+    ImgsList
+  },
   data () {
     return {
-
+      listArr: []
+    }
+  },
+  created () {
+    this.getList()
+  },
+  methods: {
+    getList () {
+      this.$http.get('/fidnews/v1/geek/v2/queryFocusTodayList', {
+        params: {
+          user: 'geek',
+          key: '4c039f2967c4d93e9674ffb037724187',
+          publishTime: '',
+          size: 10
+        }
+      })
+      .then((res) => {
+        let data = res.data
+        for (let i = 0, len = data.length; i < len; i++) {
+          data[i].date = contrastDate(data[i].publishTime)
+          data[i].pictureUrl = data[i].pictureUrl.split(';')
+          data[i].pictureNum = data[i].pictureUrl.length
+        }
+        this.listArr = data
+        console.log(data)
+      })
     }
   }
 }
@@ -44,39 +49,5 @@ export default {
   .box {
     padding-left: 0.4rem;
     padding-right: 0.4rem;
-  }
-  .list {
-    width: 100%;
-    display: inline-block;
-  }
-  .topic {
-    display: flex;
-    padding-top: 0.53rem;
-    padding-bottom: 0.53rem;
-    border-bottom: 1px solid #ececec;
-  }
-  .text {
-    flex-grow: 1;
-    position: relative;
-  }
-  .topic img {
-    width: 3.79rem;
-    height: 2.67rem;
-    margin-left: 0.27rem;
-  }
-  .name {
-    font-size: 17px;
-    color: #4b4b4b;
-    margin-top: -0.08rem;
-    padding-bottom: 0.27rem;
-  }
-  .list-one {
-    position: absolute;
-    bottom: 0;
-    color: #999;
-  }
-  .list-one span {
-    font-size: 14px;
-    padding-right: 0.27rem;
   }
 </style>

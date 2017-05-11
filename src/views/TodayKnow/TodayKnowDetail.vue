@@ -1,74 +1,123 @@
 <template>
-  <div class="box">
-    <section class="todaycontent">
-      <p class="title">雄安区房价上升上升可怕可怕</p>
-      <div class="info">
-        <span>金融街</span>
-        <span>10000+阅读</span>
-        <span>15:38</span>
+  <div>
+    <section class="tk-todaycontent">
+      <p class="tk-title">{{ detailData.title }}</p>
+      <div class="tk-info">
+        <span>{{ detailData.origin }}</span>
+        <span>{{ readNum }}阅读</span>
+        <span>{{ detailData.newDate }}</span>
       </div>
-      <div class="content">
-        现如今，每年一度的情人节，玫瑰花越来越贵了，而巧克力却越来越无人问津，命运对于巧克力来说真是不公平，曾经作为爱情的代名词，就怎么沦落成现在的模样呢？这是一个值得深究的话题。
-        据智研咨询发布的《2016-2022年中国巧克力市场运行态势及投资战略研究报告》显示，中国巧克力市场人均消费量远低于世界水平，从2015年起，由于宏观经济增速放缓，巧克力的销售额开始呈下降趋势。截至2016年，中国巧克力零售量总体下降4%。
-        在国内市场，国产巧克力品牌几乎全部阵亡了。2016年6月27日，中粮金帝又在北交所贴出公告称，转让“金帝”品牌相关资产，即除不动产以外的所有资产，包括但不限于品牌、商标、专利、销售渠道、生产设备、债权债务等
+      <div class="tk-content" v-html="detailData.content ">
       </div>
     </section>
-    <div class="lanmu">
+    <div class="tk-lanmu">
       <p><span></span>推荐资讯</p>
     </div>
+    <imgs-list :listArr="detailData.FocusTodayList"></imgs-list>
   </div>
 </template>
 
 <script>
+import contrastDate from '@/assets/js/contrastDate.js'
+import moment from 'moment'
+import ImgsList from './components/ImgsList'
 export default {
   name: '',
+  components: {
+    ImgsList
+  },
   data () {
     return {
-
+      detailData: '',
+      readNum: ''
+    }
+  },
+  created () {
+    this.getDetail()
+    this.getReadingNum()
+  },
+  watch: {
+    '$route': ['getDetail', 'getReadingNum']
+  },
+  methods: {
+    getDetail () {
+      this.$http.get('/fidnews/v1/geek/v2/queryFocusTodayDetail', {
+        params: {
+          user: 'geek',
+          key: '4c039f2967c4d93e9674ffb037724187',
+          publishTime: '',
+          id: this.$route.params.id
+        }
+      })
+      .then((res) => {
+        let data = res.data[0]
+        res.data[0].newDate = moment(res.data[0].publishTime).format('MM-DD HH:mm')
+        for (let i = 0, len = data.FocusTodayList.length; i < len; i++) {
+          data.FocusTodayList[i].date = contrastDate(data.FocusTodayList[i].publishTime)
+          data.FocusTodayList[i].pictureUrl = data.FocusTodayList[i].pictureUrl.split(';')
+          data.FocusTodayList[i].pictureNum = data.FocusTodayList[i].pictureUrl.length
+          if (!data.FocusTodayList[i].newsUrl) {
+            data.FocusTodayList[i].newsUrl = '/todayKnowDetail/' + data.FocusTodayList[i].id
+          }
+        }
+        this.detailData = data
+      })
+    },
+    getReadingNum () {
+      this.$http.get('http://api2.geek.21fid.com:8080/common/view', {
+        params: {
+          transfertype: 17,
+          transferid: this.$route.params.id
+        }
+      })
+      .then((res) => {
+        let data = res.data
+        this.readNum = data.views
+      })
     }
   }
 }
 </script>
 
-<style scoped>
-  .box {
-    padding: 0.4rem 0;
+<style>
+  .tk-todaycontent {
+    padding: 0.4rem 0.4rem;
   }
-  .todaycontent {
-    padding: 0 0.4rem;
-  }
-  .title {
+  .tk-title {
     font-size: 24px;
     color: #2e2e37;
     padding-bottom: 0.48rem;
   }
-  .info span {
+  .tk-info span {
     font-size: 13px;
     color: #83839d;
     padding-right: 0.27rem;
   }
-  .content {
+  .tk-content {
     font-size: 16px;
     color: #4d4d4d;
     margin-top: 0.48rem;
     margin-bottom: 0.53rem;
     line-height: 26px;
   }
-  .lanmu {
+  .tk-lanmu {
     height: 44px;
     line-height: 44px;
     border-top: 7px solid #f7f7f7;
     border-bottom: 1px solid #ececec;
   }
-  .lanmu p {
+  .tk-lanmu p {
     color: #2e2e37;
     font-size: 16px;
     padding-left: 15px;
   }
-  .lanmu span {
+  .tk-lanmu span {
     font-size: 14px;
     background: #f4ce46;
     padding-left: 3px;
     margin-right: 5px;
+  }
+  .tk-content p img {
+    width: 100%;
   }
 </style>

@@ -107,6 +107,11 @@ let routes = [
     component: resolve => require([`../views/SubjectTrack/SubjectTrackDetail.vue`], resolve)
   },
   {
+    name: '主题追踪',
+    path: '/hotStock/:id',
+    component: resolve => require([`../views/SubjectTrack/HotStock.vue`], resolve)
+  },
+  {
     name: '小白财经',
     path: '/newbieFinance',
     component: resolve => require([`../views/NewbieFinance/NewbieFinanceListFisrt.vue`], resolve)

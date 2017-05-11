@@ -2,9 +2,9 @@
   <div class="box">
     <router-link :to="'/SubjectTrackDetail/' + item.id" class="list" v-for="item in listArr"
       key="item.id">
-      <div class="topic">
+      <div class="topic layout-box">
         <img :src="item.topicImageUrl">
-        <div class="text">
+        <div class="box-col">
           <p class="name"> {{ item.topicName }}</p>
           <p class="descri">{{ item.introduction }}</p>
         </div>
@@ -88,12 +88,6 @@ export default {
     background-color: #fff;
     display: inline-block;
     margin-bottom: 0.27rem;
-  }
-  .topic {
-    display: flex;
-  }
-  .text {
-    flex-grow: 1;
   }
   .topic img {
     width: 1.6rem;
