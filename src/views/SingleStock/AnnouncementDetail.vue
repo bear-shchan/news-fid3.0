@@ -20,14 +20,13 @@ export default {
   },
   methods: {
     getMain () {
-      this.$http.get('/fidnews/v1/myAjax/getContentDetailById', {
+      this.$http.get('/fidnews/v1/geek/v3/queryStockReportDetail', {
         params: {
-          dealHtml: -1,
-          contentId: this.$route.params.id
+          id: this.$route.params.id
         }
       })
       .then((data) => {
-        let mainData = data.model
+        let mainData = data.data
         this.$set(this, 'main', mainData)
       })
     }

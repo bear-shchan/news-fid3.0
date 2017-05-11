@@ -45,8 +45,10 @@
           <!-- 笑脸 -->
           <template v-if="item.liduolikong">
             <div class="message-index" v-if="item.liduolikong.data">
-              <img class="icon" :src="item.liduolikong.icon"><span class="text">
-              {{item.liduolikong.data[0].name}}</span>
+              <span @click="gotoDetail(item.liduolikong.data[0])">
+                <img class="icon" :src="item.liduolikong.icon"><span class="text">
+                {{item.liduolikong.data[0].name}}</span>
+              </span>
             </div>
           </template>
         </div>
@@ -58,19 +60,18 @@
 <script>
 import moment from 'moment'
 // import ListLoading from '../components/ListLoading.vue'
-import ImportanceRadios from '@/components/ImportanceRadios.vue'
+// import ImportanceRadios from '@/components/ImportanceRadios.vue'
 
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
-    ImportanceRadios
+    // ImportanceRadios
     // ListLoading
   },
   data () {
     return {
       mainList: [],
-      headerDate: '',
       // apiOption: {
       //   'channelId': 6
       // },
@@ -149,6 +150,13 @@ export default {
         }
         vm.option.pageNo++
         vm.listBusy = false
+      }
+    },
+    gotoDetail (item) {
+      if (item.id.indexOf('S') !== -1) {
+        this.$router.push('/singleStockDetail/information/' + item.id)
+      } else {
+        this.$router.push('/subjectTrackDetail/' + item.id)
       }
     },
     // changeImportance: function (imp) {
@@ -292,6 +300,7 @@ export default {
   color: #4694f4;
 }
 .list-item .message-index{
+  line-height: 0;
   margin-top: 0.27rem;
 }
 .list-item .message-index .icon{
@@ -309,7 +318,6 @@ export default {
   color: #2e2e37;
   padding-left: 0.13rem;
   padding-right: 0.13rem;
-  vertical-align: text-top;
 }
 
   /*重要性列表颜色*/

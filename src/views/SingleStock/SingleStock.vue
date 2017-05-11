@@ -12,7 +12,8 @@
         <p class="title">热门搜索</p>
         <ul class="hot-search">
           <li class="hot-search-item"
-            v-for="item in hotSearch">
+            v-for="item in hotSearch"
+            @click="gotoDetail(item)">
             {{ item.stockName || item.topicName || item.indexName || item.conceptName }}
           </li>
         </ul>
@@ -20,12 +21,14 @@
         <p class="title gray">最近搜索
           <i class="icon-delete" @click="removeSearchHistory()"></i>
         </p>
-        <ul class="search-list">
+        <ul class="search-list" v-if="!!curSearchHistoryList[0]">
           <li class="search-item"
-            v-for="item in searchHistoryList"
+            v-for="item in curSearchHistoryList"
+            @click="gotoDetail(item)"
             >{{ item.name }}<span class="search-span">{{ item.span }}</span>
           </li>
         </ul>
+        <div v-else class="no-search">暂无搜索记录</div>
       </div>
       <!-- 搜索列表 -->
       <ul class="search-list" v-show="showSearchList">
@@ -152,6 +155,14 @@ export default {
       searchHistoryArr.push(item)
       window.localStorage.setItem('searchHistory', JSON.stringify(searchHistoryArr))
       this.$set(this, 'searchHistoryList', searchHistoryArr)
+      this.gotoDetail(item)
+    },
+    gotoDetail (item) {
+      if (item.stockWindCode) {
+        this.$router.push('singleStockDetail/information/' + item.stockWindCode)
+      } else if (item.topicId) {
+        this.$router.push('/subjectTrackDetail/' + item.topicId)
+      }
     },
     removeSearchHistory () {
       localStorage.remove('searchHistory')
@@ -161,6 +172,11 @@ export default {
   watch: {
     curSearch () {
       this.searchListFn()
+    }
+  },
+  computed: {
+    curSearchHistoryList () {
+      return this.searchHistoryList.reverse()
     }
   }
 }
@@ -271,5 +287,12 @@ input:-webkit-autofill {
   color: #83839b;
   padding-left: 0.11rem;
   vertical-align: -0.03rem;
+}
+
+.no-search{
+  color: #4c4c4c;
+  font-size: 14px;
+  padding-top: 1.01rem;
+  text-align: center;
 }
 </style>

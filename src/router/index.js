@@ -187,6 +187,38 @@ let routes = [
         component: resolve => require([`../views/FinanceCalendar/Suspension.vue`], resolve)
       }
     ]
+  },
+  {
+    // name: '个股详情页',
+    path: '/singleStockDetail',
+    component: resolve => require([`../views/singleStock/singleStockDetail.vue`], resolve),
+    children: [
+      {
+        // name: '资讯',
+        path: 'information/:tagName',
+        component: resolve => require([`../views/singleStock/Information.vue`], resolve)
+      },
+      {
+        // name: '主题',
+        path: 'topic/:tagName',
+        component: resolve => require([`../views/singleStock/Topic.vue`], resolve)
+      },
+      {
+        // name: '公告',
+        path: 'announcement/:tagName',
+        component: resolve => require([`../views/singleStock/Announcement.vue`], resolve)
+      },
+      {
+        // name: 'F10',
+        path: 'f10/:tagName',
+        component: resolve => require([`../views/singleStock/F10.vue`], resolve)
+      }
+    ]
+  },
+  {
+    // name: '个股公告',
+    path: '/singleStockAnnouncement/:id',
+    component: resolve => require([`../views/singleStock/AnnouncementDetail.vue`], resolve)
   }
 ]
 
