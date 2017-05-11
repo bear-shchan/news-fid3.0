@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="link-box">
+   <!--  <div class="link-box">
       <i class="gray"></i>
       <router-link v-for="item in items"
         :to="'/financeCalendar/' + item.link"
@@ -12,14 +12,20 @@
         <img class="icon" v-else :src="item.icon">
         <p class="text">{{item.text}}</p>
       </router-link>
-    </div>
+    </div> -->
+    <icon-router-link :fixed-box="'true'" :link-items="items" link-path="/financeCalendar/"></icon-router-link>
     <router-view class="view"></router-view>
   </div>
 </template>
 
 <script>
+import IconRouterLink from '@/components/IconRouterLink'
+
 export default {
   name: 'financeCalendar',
+  components: {
+    IconRouterLink
+  },
   data () {
     return {
       items: [
@@ -60,7 +66,7 @@ export default {
 </script>
 
 <style scoped>
-.gray{
+/*.gray{
   position: absolute;
   top: 0;
   display: block;
@@ -95,7 +101,7 @@ export default {
 }
 .text{
   line-height: 17px;
-}
+}*/
 
 .view{
   padding-top: 2.24rem;

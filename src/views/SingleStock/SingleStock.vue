@@ -12,7 +12,8 @@
         <p class="title">热门搜索</p>
         <ul class="hot-search">
           <li class="hot-search-item"
-            v-for="item in hotSearch">
+            v-for="item in hotSearch"
+            @click="gotoDetail(item)">
             {{ item.stockName || item.topicName || item.indexName || item.conceptName }}
           </li>
         </ul>
@@ -23,6 +24,7 @@
         <ul class="search-list" v-if="!!curSearchHistoryList[0]">
           <li class="search-item"
             v-for="item in curSearchHistoryList"
+            @click="gotoDetail(item)"
             >{{ item.name }}<span class="search-span">{{ item.span }}</span>
           </li>
         </ul>
@@ -153,6 +155,12 @@ export default {
       searchHistoryArr.push(item)
       window.localStorage.setItem('searchHistory', JSON.stringify(searchHistoryArr))
       this.$set(this, 'searchHistoryList', searchHistoryArr)
+      this.gotoDetail(item)
+    },
+    gotoDetail (item) {
+      if (item.stockWindCode) {
+        this.$router.push('singleStockDetail/information/' + item.stockWindCode)
+      }
     },
     removeSearchHistory () {
       localStorage.remove('searchHistory')
