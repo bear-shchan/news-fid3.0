@@ -88,7 +88,7 @@ export default {
 
 <style scoped>
 .box{
-  padding-top: 2.67rem;
+  padding-top: 2.8rem;
 }
 .stock-info{
   padding-top: 0.53rem;
