@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="stock-info layout-box">
+    <div class="stock-info layout-box"
+      :class="{'red' : curRange >= 0}">
       <div class="stock-info-item box-col">
         <span class="title">股价</span>
         <p class="data">{{curPrice}}</p>
@@ -99,6 +100,7 @@ export default {
   width: 100%;
   z-index: 999;
   background-color: #fff;
+  color: #4a9a69;
 }
 .stock-info-item .title{
   font-size: 14px;
@@ -108,6 +110,8 @@ export default {
 .stock-info-item .data{
   font-size: 24px;
   line-height: 39px;
+}
+.red{
   color: #ec666d;
 }
 </style>

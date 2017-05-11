@@ -160,6 +160,8 @@ export default {
     gotoDetail (item) {
       if (item.stockWindCode) {
         this.$router.push('singleStockDetail/information/' + item.stockWindCode)
+      } else if (item.topicId) {
+        this.$router.push('/subjectTrackDetail/' + item.topicId)
       }
     },
     removeSearchHistory () {

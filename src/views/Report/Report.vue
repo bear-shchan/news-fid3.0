@@ -1,22 +1,22 @@
 <template>
   <div>
-    <list :main-list="mainList"
+    <simple-list :main-list="mainList"
       lisg-type="link"
       link-path="/reportDetail/"
       v-infinite-scroll="getMain" 
       infinite-scroll-disabled="listBusy"
       infinite-scroll-distance="350"
-      infinite-scroll-immediate-check="false"></list>
+      infinite-scroll-immediate-check="false"></simple-list>
   </div>
 </template>
 
 <script>
-import List from '@/components/List.vue'
+import SimpleList from '@/components/SimpleList.vue'
 
 export default {
   name: 'Report',
   components: {
-    List
+    SimpleList
   },
   data () {
     return {

@@ -34,7 +34,7 @@
               <img class="icon" :src="item.liduolikong.icon"><span class="text">
               {{item.liduolikong.data[0].name}}</span>
             </span>
-            <span class="date">{{ item.releaseTime | moment('HH:mm') }}</span>
+            <span class="date">{{ item.releaseTime | moment('MM-DD HH:mm') }}</span>
           </div>
         </div>
       </li>

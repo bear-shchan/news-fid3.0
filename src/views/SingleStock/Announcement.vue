@@ -26,12 +26,10 @@
 
 <script>
 import NoDataImg from './components/NoDataImg'
-import List from '@/components/List'
 
 export default {
   components: {
-    NoDataImg,
-    List
+    NoDataImg
   },
   data () {
     return {
