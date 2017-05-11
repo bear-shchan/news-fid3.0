@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div>
     <div class="stock-info layout-box">
       <div class="stock-info-item box-col">
         <span class="title">股价</span>
@@ -10,7 +10,7 @@
         <p class="data">{{curRange | toFixed}}</p>
       </div>
     </div>
-    <icon-router-link :link-items="items" link-path="/singleStockDetail/"></icon-router-link>
+    <icon-router-link class="box" :link-items="items" link-path="/singleStockDetail/"></icon-router-link>
     <router-view></router-view>
   </div>
 </template>

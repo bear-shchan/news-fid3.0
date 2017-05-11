@@ -2,6 +2,7 @@
   <div>
     <list :main-list="mainList"
       lisg-type="link"
+      link-path="/reportDetail/"
       v-infinite-scroll="getMain" 
       infinite-scroll-disabled="listBusy"
       infinite-scroll-distance="350"

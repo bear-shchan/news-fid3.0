@@ -7,7 +7,7 @@
           <p class="title fwb" v-if="item.title != '' && item.title != '快讯'">
             {{ item.title }}
           </p>
-          <span :class="'importance-' + item.featureObj.importance ">
+          <span :class="'importance-' + item.importance || item.featureObj.importance ">
             <p class="description list-intercept"
             :class="{ 'list-intercept-false' : item.listIntercept }"
             @click="changeIntercept(index)" >
@@ -35,8 +35,12 @@ export default {
     }
   },
   props: {
-    mainList: Array,
-    lisgType: String
+    mainList: {
+      type: Array,
+      required: true
+    },
+    lisgType: String,
+    linkPath: String
   },
   methods: {
     contrastDate (date) {
@@ -52,7 +56,7 @@ export default {
     },
     goToDetail (item) {
       if (this.lisgType !== 'link') return
-      this.$router.push({ path: '/reportDetail/' + item.id })
+      this.$router.push({ path: this.linkPath + item.id })
     }
   }
 }

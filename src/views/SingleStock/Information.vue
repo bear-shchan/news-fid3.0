@@ -39,11 +39,20 @@
         </div>
       </li>
     </ul>
+    <no-data-img text="暂无相关资讯"
+      :show="!mainList[0]">
+      <img class="no-data-img" src="../../assets/img/no-information.png">
+    </no-data-img>
   </div>
 </template>
 
 <script>
+import NoDataImg from './components/NoDataImg'
+
 export default {
+  components: {
+    NoDataImg
+  },
   data () {
     return {
       mainList: [],
@@ -158,6 +167,12 @@ export default {
   padding-left: 0.13rem;
   padding-right: 0.13rem;
   vertical-align: middle;
+}
+
+  /*重要性列表颜色*/
+.main-list .list-item .importance-2 .title,
+.main-list .list-item .importance-2 .description{
+  color: #e2666d;
 }
 
   /*截取资讯长度和展示全部*/

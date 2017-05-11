@@ -1,20 +1,15 @@
 <template>
-  <div class="box">
-    <div class="details-hd">
-      <h1 v-html="main.title"></h1>
-      <p class="date">
-        {{ main.releasedDate | moment('YYYY-MM-DD HH:mm') }}
-      </p>
-    </div>
-    <div class="details-content">
-      <div v-html="main.contentTxt"></div>
-    </div>
-  </div>
+  <simple-detail :main="main"></simple-detail>
 </template>
 
 <script>
+import SimpleDetail from '@/components/SimpleDetail'
+
 export default {
   name: 'ReportDetail',
+  components: {
+    SimpleDetail
+  },
   data () {
     return {
       main: {}
@@ -57,7 +52,7 @@ export default {
   font-size: 12px;
   color: #83839d;
   margin-top: 0.53rem;
-  border-bottom: 1px solid #eee;
+  /*border-bottom: 1px solid #eee;*/
   margin-bottom: 0.4rem;
 }
 .details-content{
