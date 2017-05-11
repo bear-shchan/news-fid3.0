@@ -13,7 +13,7 @@
         <p class="text">{{item.text}}</p>
       </router-link>
     </div> -->
-    <icon-router-link :fixed-box="'true'" :link-items="items" link-path="/financeCalendar/"></icon-router-link>
+    <icon-router-link :fixed-box="true" :link-items="items" link-path="/financeCalendar/"></icon-router-link>
     <router-view class="view"></router-view>
   </div>
 </template>

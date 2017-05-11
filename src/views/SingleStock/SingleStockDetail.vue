@@ -11,7 +11,7 @@
       </div>
     </div>
     <icon-router-link class="box" :link-items="items" link-path="/singleStockDetail/"></icon-router-link>
-    <router-view></router-view>
+    <router-view keep-alive></router-view>
   </div>
 </template>
 

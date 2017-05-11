@@ -7,7 +7,7 @@
       </p>
     </div>
     <div class="details-content">
-      <div v-html="main.contentTxt"></div>
+      <div v-html="main.contentTxt || main.content"></div>
     </div>
   </div>
 </template>
@@ -44,6 +44,7 @@ export default {
   margin-bottom: 0.4rem;
 }
 .details-content{
+  text-indent: 32px;
   font-size: 16px;
   color: #4d4d4d;
 }

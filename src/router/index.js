@@ -209,6 +209,11 @@ let routes = [
         component: resolve => require([`../views/singleStock/F10.vue`], resolve)
       }
     ]
+  },
+  {
+    // name: '个股公告',
+    path: '/singleStockAnnouncement/:id',
+    component: resolve => require([`../views/singleStock/AnnouncementDetail.vue`], resolve)
   }
 ]
 
