@@ -11,7 +11,7 @@
         <p class="data">{{curRange | toFixed}}</p>
       </div>
     </div>
-    <icon-router-link class="box" :link-items="items" link-path="/singleStockDetail/"></icon-router-link>
+    <icon-router-link class="pt-box" :link-items="items" link-path="/singleStockDetail/"></icon-router-link>
     <router-view keep-alive></router-view>
   </div>
 </template>
@@ -88,7 +88,7 @@ export default {
 </script>
 
 <style scoped>
-.box{
+.pt-box{
   padding-top: 2.8rem;
 }
 .stock-info{
