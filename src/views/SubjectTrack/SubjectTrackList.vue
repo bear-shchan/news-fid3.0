@@ -1,7 +1,6 @@
 <template>
   <div class="box">
-    <router-link :to="'/SubjectTrackDetail/' + item.id" class="list" v-for="item in listArr"
-      key="item.id">
+    <router-link :to="'/SubjectTrackDetail/' + item.id" class="list" v-for="item in listArr" :key="item.id">
       <div class="topic layout-box">
         <img :src="item.topicImageUrl">
         <div class="box-col">

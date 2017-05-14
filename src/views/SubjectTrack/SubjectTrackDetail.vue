@@ -20,36 +20,49 @@
       <p><span></span>热门股票</p>
     </div>
     <ul  class="hotstocks">
-      <li class="hotstock" v-for="item in listArr.hotStock">
-        <p v-cloak>{{ item.stockCnName }}</p>
-        <span :class="item.percent > 0 ? 'red':'green'" v-cloak>{{ item.percent | toFixed }}</span>
-      </li>
+      <router-link :to="'/singleStockDetail/information/' + item.windStockCode" v-for="item in listArr.hotStock" :key="item.windStockCode">
+        <li class="hotstock">
+          <p v-cloak>{{ item.stockCnName }}</p>
+          <span :class="item.percent > 0 ? 'red':'green'" v-cloak>{{ item.percent | toFixed }}</span>
+        </li>
+      </router-link>
       <router-link :to="'/hotStock/' + listArr.topicId">
         <li class="hotstock">
         <img class="morestock" src="../../assets/img/icon3@2x.png">
         </li>
       </router-link>
     </ul>
-    <div class="lanmu">
+    <div class="lanmu mb">
       <p><span></span>走势图</p>
-
     </div>
+    <echarts-kline :topicId="listArr.topicId"></echarts-kline>
+    <div style="clear:both;"></div>
+    <div class="lanmu mt">
+      <p><span></span>风口资讯</p>
+    </div>
+    <base-news-list></base-news-list>
   </div>
 </template>
 
 <script>
+import echartsKline from '@/components/EchartsKLine'
+import baseNewsList from './components/BaseNewsList'
 export default {
   name: '',
+  components: {
+    echartsKline,
+    baseNewsList
+  },
   data () {
     return {
       listArr: []
     }
   },
   created () {
-    this.getList()
+    this.getData()
   },
   methods: {
-    getList () {
+    getData () {
       this.$http.get('/fidnews/v1/statistics/hotForefront', {
         params: {
           user: 'fidinner',
@@ -63,7 +76,6 @@ export default {
       })
       .then((res) => {
         this.listArr = res.data[0]
-        console.log(res.data)
       })
     }
   }
@@ -250,5 +262,11 @@ export default {
     font-size: 17px;
     color: #e2666d;
     padding-right: 5px;
+  }
+  .mt {
+    margin-top: 2.4rem;
+  }
+  .mb {
+    margin-bottom: 0.13rem;
   }
 </style>

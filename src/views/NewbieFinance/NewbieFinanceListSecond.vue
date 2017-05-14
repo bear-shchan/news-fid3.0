@@ -2,8 +2,8 @@
   <div class="box">
     <router-link class="list" to="/newbieFinanceSecond/基础名词/2"  v-for="item in listArr"
       key="item.id">
-      <div class="topic">
-        <div class="text">
+      <div class="topic layout-box">
+        <div class="box-col">
           <p class="name"> {{ item.topicName }}</p>
           <p class="descri">{{ item.introduction }}</p>
         </div>
@@ -77,13 +77,9 @@ export default {
     display: inline-block;
   }
   .topic {
-    display: flex;
     padding-top: 0.53rem;
     padding-bottom: 0.53rem;
     border-bottom: 1px solid #ececec;
-  }
-  .text {
-    flex-grow: 1;
   }
   .topic img {
     width: 3.07rem;

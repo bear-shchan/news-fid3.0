@@ -28,6 +28,8 @@
     "swiper": "^3.4.2",
     "vue": "^2.2.6",
     "vue-infinite-scroll": "^2.0.1",
+    "vue-loadmore": "^2.0.0",
+    "vue-mugen-scroll": "^0.2.4",
     "vue-router": "^2.3.1",
     "vue-scroller": "^2.2.0",
     "vue-spinner": "^1.0.2",
