@@ -6,8 +6,12 @@
     infinite-scroll-immediate-check="false">
     <router-link tag="div" :to="'/precognitionDetail/' + item.contentId" 
       v-for="item in listArr" class="item" :class="{gray: item.gray}" key="item.latestTime">
-      <p class="topic">{{item.topic}}</p>
-      <p class="time">{{item.time}}</p>
+      <div class="img-bg">
+        <i class="translucent"></i>
+        <p class="topic">{{item.topic}}</p>
+        <p class="time">{{item.time}}</p>
+        <p class="recommend">推荐指数:</p>
+      </div>
       <p class="title">{{item.title}}</p>
       <p class="date">{{item.date}}</p>
       <img class="img" :src="item.imgPath">
@@ -88,70 +92,108 @@ export default {
 
 <style scoped>
 .box{
-  padding-top: 0.43rem;
-  padding-bottom: 0.43rem;
-  padding-left: 0.64rem;
-  padding-right: 0.64rem;
+  padding: 0.43rem;
   background-color: #f5f5f5;
 }
 .item{
   position: relative;
   float: left;
-  width: 3.56rem;
-  height: 4.37rem;
+  width: 49%;
+  height: 5.07rem;
   background-color: #fff;
-  border-radius: 0.11rem;
-  padding-top: 0.67rem;
-  /*padding-bottom: 0.53rem;*/
-  padding-left: 0.32rem;
-  padding-right: 0.32rem;
+  border-radius: 5px;
   text-align: center;
-  margin-right: 0.32rem;
-  margin-bottom: 0.32rem;
+  margin-right: 2%;
+  margin-bottom: 0.27rem;
 }
 .item:nth-child(2n){
   margin-right: 0;
 }
+.img-bg,
+.translucent{
+  width: 100%;
+  height: 2.13rem;
+  border-radius: 5px 5px 0 0;
+}
+.img-bg{
+  width: 100%;
+  height: 2.13rem;
+  /*padding-top: 0.6rem;
+  padding-bottom: 0.13rem;*/
+  background-image: url(http://120.76.76.152/mfs/cms/2016/11/17/20161117085006988.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.translucent{
+  position: absolute;
+  left: 0;
+  opacity:.5;
+  background-color: #000;
+}
 .topic{
-  font-size: 0.43rem;
-  line-height: 0.43rem;
-  border-bottom: 1px solid #e2e2e2;
-  padding-bottom: 0.35rem;
-  color: #191919;
+  position: absolute;
+  top: 0.6rem;
+  font-size: 16px;
+  line-height: 16px;
+  color: #f4ce46;
+  margin-left: 50%;
+  transform: translate(-50%);
+  white-space: nowrap;
 }
 .time{
-  font-size: 0.43rem;
-  line-height: 0.43rem;
-  color: #4e9df4;
-  margin-top: 0.35rem;
-  margin-bottom: 0.43rem;
+  position: absolute;
+  top: 1.16rem;
+  font-size: 15px;
+  line-height: 15px;
+  color: #fff;
   overflow: hidden;
   text-overflow:ellipsis;
   white-space: nowrap;
+  margin-left: 50%;
+  transform: translate(-50%);
+  white-space: nowrap;
 }
+.recommend{
+  position: absolute;
+  top: 1.76rem;
+  font-size: 9px;
+  line-height: 9px;
+  color: #f4ce46;
+  white-space: nowrap;
+  margin-left: 50%;
+  transform: translate(-50%);
+  white-space: nowrap;
+}
+
 .title{
-  font-size: 0.32rem;
-  color: #606060;
+  width: 75%;
+  margin: 0.53rem auto 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: #232323;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
 }
 .date{
-  font-size: 0.27rem;
+  font-size: 10px;
   color: #f35b6a;
   position: absolute;
-  bottom: 0.53rem;
+  bottom: 0.4rem;
   left: 50%;
   transform: translate(-50%);
   white-space: nowrap;
 }
 .img{
   position: absolute;
-  top: 0.57rem;
-  left: 2.73rem;
+  bottom: 0.13rem;
+  right: 0.07rem;
   width: 1.33rem;
 }
+
 .gray .date,
-.gray .topic,
-.gray .title,
-.gray .time{
-  color: #999;
+.gray .title{
+  color: #a4a4a4;
 }
 </style>

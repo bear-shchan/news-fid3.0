@@ -17,6 +17,9 @@ Vue.prototype.$http = request
 import VueInfiniteScroll from 'vue-infinite-scroll'
 Vue.use(VueInfiniteScroll)
 
+import Loadmore from 'vue-loadmore'
+Vue.component('loadmore', Loadmore)
+
 // import VueScroller from 'vue-scroller'
 // Vue.use(VueScroller)
 
