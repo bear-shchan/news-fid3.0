@@ -65,58 +65,53 @@ export default {
         }
       })
       .then((data) => {
-        if (data.retCode === -1) {
-          return
-        }
         var myData = vm.splitData(data.data)
-        vm.$nextTick(function () {
-          vm.$set(vm, 'xSizeData', myData.categoryData)
-          vm.$set(vm, 'yValueData', myData.values)
-          let option = {
-            grid: {
-              top: '5%',
-              left: '15%',
-              right: '10%',
-              bottom: '20%'
-            },
-            xAxis: {
-              type: 'category',
-              data: vm.xSizeData,
-              scale: true,
-              boundaryGap: false,
-              axisLine: {onZero: false},
-              splitLine: {show: false},
-              splitNumber: 20,
-              min: 'dataMin',
-              max: 'dataMax'
-            },
-            yAxis: {
-              scale: true,
-              splitArea: {
-                show: true
-              }
-            },
-            dataZoom: [
-              {
-                show: true,
-                type: 'slider',
-                y: '90%',
-                start: 85,
-                end: 100
-              }
-            ],
-            series: [
-              {
-                name: '日K',
-                type: 'candlestick',
-                data: vm.yValueData
-              }
-            ]
-          }
-          // 2.0
-          var myChart = echarts.init(document.getElementById('main'))
-          myChart.setOption(option)
-        })
+        vm.$set(vm, 'xSizeData', myData.categoryData)
+        vm.$set(vm, 'yValueData', myData.values)
+        let option = {
+          grid: {
+            top: '5%',
+            left: '15%',
+            right: '10%',
+            bottom: '20%'
+          },
+          xAxis: {
+            type: 'category',
+            data: vm.xSizeData,
+            scale: true,
+            boundaryGap: false,
+            axisLine: {onZero: false},
+            splitLine: {show: false},
+            splitNumber: 20,
+            min: 'dataMin',
+            max: 'dataMax'
+          },
+          yAxis: {
+            scale: true,
+            splitArea: {
+              show: true
+            }
+          },
+          dataZoom: [
+            {
+              show: true,
+              type: 'slider',
+              y: '90%',
+              start: 85,
+              end: 100
+            }
+          ],
+          series: [
+            {
+              name: '日K',
+              type: 'candlestick',
+              data: vm.yValueData
+            }
+          ]
+        }
+        // 2.0
+        var myChart = echarts.init(document.getElementById('main'))
+        myChart.setOption(option)
       })
     }
   }

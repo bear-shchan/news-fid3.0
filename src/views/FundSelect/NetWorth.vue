@@ -1,12 +1,12 @@
 <template>
   <div>
     <!-- <plate-header title="历史净值" type="gray" padding-left="0.85"></plate-header> -->
-    <div class="fund-header">
+    <!-- <div class="fund-header">
       <p>{{main.name}}</p>
       <p>{{main.fundcode}}</p>
     </div>
-    <i class="gray-line"></i>
-    <table class="table"
+    <i class="gray-line"></i> -->
+    <!-- <table class="table"
       v-infinite-scroll="getMain"
       infinite-scroll-disabled="listBust" 
       infinite-scroll-distance="10"
@@ -27,7 +27,36 @@
           <td>{{item.dailyIncrRate}}</td>
         </tr>
       </tbody>
-    </table>
+    </table> -->
+
+    <scroller style="top: 1.07rem;"
+      :on-refresh="refresh"
+      :on-infinite="getMain"
+      ref="my_scroller">
+      <div class="fund-header">
+        <p>{{main.name}}</p>
+        <p>{{main.fundcode}}</p>
+      </div>
+      <i class="gray-line"></i>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>日期</th>
+            <th>单位净值</th>
+            <th>累计净值</th>
+            <th>日增长率</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in main.data">
+            <td>{{item.date}}</td>
+            <td>{{item.unitNet}}</td>
+            <td>{{item.acNet}}</td>
+            <td>{{item.dailyIncrRate}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </scroller>
   </div>
 </template>
 
@@ -41,36 +70,40 @@ export default {
   data () {
     return {
       main: {},
-      pageNo: 1,
-      listBust: false
+      pageNo: 1
     }
   },
   created () {
-    this.getMain()
+    // this.getMain()
   },
   methods: {
-    getMain: function () {
-      let vm = this
-      this.listBust = true
+    getMain (done) {
       this.$http.get('/fidnews/v1/themefund/hisnetworth/page', {
         params: {
-          fundCode: vm.$route.params.id,
-          pageNo: vm.pageNo,
+          fundCode: this.$route.params.id,
+          pageNo: this.pageNo,
           orderBy: 'date',
           order: 'desc'
         }
       })
       .then((data) => {
-        if (vm.pageNo === 1) {
-          vm.$set(vm, 'main', data)
+        if (this.pageNo === 1) {
+          this.$set(this, 'main', data)
         } else {
           for (let i = 0, len = data.data.length; i < len; i++) {
-            vm.main.data.push(data.data[i])
+            this.main.data.push(data.data[i])
           }
         }
-        this.listBust = false
-        vm.pageNo++
+        if (!data.data[0]) {
+          return done(true)
+        }
+        this.pageNo++
+        done()
       })
+    },
+    refresh (done) {
+      this.pageNo = 1
+      this.getMain(done)
     }
   }
 }
