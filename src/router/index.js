@@ -118,12 +118,12 @@ let routes = [
   },
   {
     name: '小白财经',
-    path: '/newbieFinanceSecond/:tagname',
+    path: '/newbieFinanceSecond/:id',
     component: resolve => require([`../views/NewbieFinance/NewbieFinanceListSecond.vue`], resolve)
   },
   {
     name: '小白财经',
-    path: '/newbieFinanceSecond/:tagname/:id',
+    path: '/newbieFinanceDetail/:id',
     component: resolve => require([`../views/NewbieFinance/NewbieFinanceDetail.vue`], resolve)
   },
   {

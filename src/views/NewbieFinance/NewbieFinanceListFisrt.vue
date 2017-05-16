@@ -1,14 +1,9 @@
 <template>
   <div>
-    <slide-box lable="股票入门基础知识"></slide-box>
-    <slide-box lable="技术面分析"></slide-box>
-    <slide-box lable="基本面分析"></slide-box>
-    <slide-box lable="其他知识"></slide-box>
+    <slide-box :lable="item.categoryName" v-for="item in firstListData" :key="item.categoryName" :list="item.list"></slide-box>
   </div>
 </template>
 <script>
-import 'swiper/dist/css/swiper.min.css'
-import Swiper from 'swiper'
 import SlideBox from './SlideBox.vue'
 export default {
   name: '',
@@ -18,20 +13,25 @@ export default {
   data () {
     return {
       data: '',
-      lables: ['股票入门基础知识', '技术面分析', '基本面分析', '其他知识']
+      firstListData: ''
     }
   },
-  mounted () {
-    /* eslint-disable no-new */
-    var mySwiper = new Swiper('.swiper-container', {
-      scrollbar: '.swiper-scrollbar',
-      scrollbarHide: true,
-      slidesPerView: 'auto',
-      centeredSlides: false,
-      spaceBetween: 6,
-      grabCursor: true
-    })
-    console.log(mySwiper)
+  created () {
+    this.getFirstList()
+  },
+  methods: {
+    getFirstList () {
+      this.$http.get('/fidnews/v1/geek/v3/queryWhiteList', {
+        params: {
+          'user': 'fidinner',
+          'key': 'ab54eae187cd5cf4e89fed7a4e62586e'
+        }
+      })
+      .then((res) => {
+        this.firstListData = res.data
+        console.log(res.data)
+      })
+    }
   }
 }
 </script>

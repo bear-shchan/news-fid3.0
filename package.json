@@ -23,6 +23,7 @@
     "echarts": "^3.5.3",
     "jsonp": "^0.2.1",
     "lib-flexible": "^0.3.2",
+    "mint-ui": "^2.2.6",
     "moment": "^2.18.1",
     "reqwest": "^2.0.5",
     "swiper": "^3.4.2",

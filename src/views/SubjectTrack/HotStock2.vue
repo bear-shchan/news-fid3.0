@@ -10,11 +10,9 @@
             <li>近5日涨幅</li>
           </ul>          
         </div>
-        <scroller 
-          :on-refresh="refresh"
-          :on-infinite="infinite" style="top: auto;left: auto;" :noDataText="noDataText">
+        <loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore"  :bottomPullText='bottomText'>
           <ul class="list">
-            <router-link :to="'/singleStockDetail/information/' + item.windStockCode" v-for="item in listArr" :key="item.windStockCode">
+            <router-link :to="'/singleStockDetail/information/' + item.windStockCode" v-for="item in listArr">
               <li>
                 <span class="name">
                   <span class="stockname">{{ item.stockCnName }}</span><br>
@@ -26,55 +24,85 @@
               </li>
             </router-link>
           </ul>
-        </scroller>
+        </loadmore>
       </div>
     </section>
   </div>
 </template>
 <script>
-import Vue from 'vue'
-import VueScroller from 'vue-scroller'
-Vue.use(VueScroller)
+import { Loadmore } from 'mint-ui'
 export default {
+  components: {
+    Loadmore
+  },
   data () {
     return {
       listArr: [],
       stockNum: 10,
       offset: 0,
-      items: [],
-      noDataText: '无数据'
+      allLoaded: false,
+      bottomText: '正在加载中...'
     }
   },
   created () {
     this.getList(0)
   },
   methods: {
-    refresh: function (done) {
-    },
-    infinite (done) {
-      var self = this
-      self.offset += self.stockNum
-      setTimeout(function () {
-        self.getList()
-        done()
-      }, 1500)
-    },
-    getList () {
+    getList (offset) {
       this.$http.get('/fidnews/v1/statistics/hotForefrontStockPage', {
         params: {
           user: 'fidinner',
           key: 'ab54eae187cd5cf4e89fed7a4e62586e',
           id: this.$route.params.id,
           businessType: 39,
-          offset: this.offset,
+          offset: offset,
           stockNum: this.stockNum
         }
       })
       .then((res) => {
         let data = res.stockList
         console.log(data)
-        this.listArr = this.listArr.concat(data)
+        this.listArr = data
       })
+    },
+    loadTop () {
+      this.offset += this.stockNum
+      setTimeout(() => {
+        this.$http.get('/fidnews/v1/statistics/hotForefrontStockPage', {
+          params: {
+            user: 'fidinner',
+            key: 'ab54eae187cd5cf4e89fed7a4e62586e',
+            id: this.$route.params.id,
+            businessType: 39,
+            offset: this.offset,
+            stockNum: this.stockNum
+          }
+        }).then(res => {
+          this.listArr = this.listArr.concat(res.stockList)
+        })
+      }, 2000)
+      this.$refs.loadmore.onTopLoaded()
+    },
+    loadBottom () {
+      this.offset += this.stockNum
+      setTimeout(() => {
+        this.$http.get('/fidnews/v1/statistics/hotForefrontStockPage', {
+          params: {
+            user: 'fidinner',
+            key: 'ab54eae187cd5cf4e89fed7a4e62586e',
+            id: this.$route.params.id,
+            businessType: 39,
+            offset: this.offset,
+            stockNum: this.stockNum
+          }
+        }).then(res => {
+          this.listArr = this.listArr.concat(res.stockList)
+        })
+      }, 2000)
+      if (this.page > 5) {
+        this.allLoaded = true
+      }
+      // this.$refs.loadmore.onBottomLoaded()
     },
     color (value) {
       if (value > 0) {
@@ -160,38 +188,5 @@ export default {
   }
   .gray{
     color:#999;
-  }
-  .row {
-    width: 100%;
-    height: 50px;
-    padding: 10px 0;
-    font-size: 16px;
-    line-height: 30px;
-    text-align: center;
-    color: #444;
-    background-color: #fff;
-  }
-
-  .grey-bg {
-    background-color: #eee;
-  }
-
-  .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 44px;
-    width: 100%;
-    box-shadow: 0 2px 10px 0 rgba(0,0,0,0.1);
-    background-color: #fff;
-    z-index: 1000;
-    color: #666;
-  }
-
-  .header > .title {
-    font-size: 16px;
-    line-height: 44px;
-    text-align: center;
-    margin: 0 auto;
   }
 </style>

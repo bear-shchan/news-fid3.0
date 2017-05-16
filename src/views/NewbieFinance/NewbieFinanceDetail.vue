@@ -1,25 +1,41 @@
 <template>
   <div class="box">
-    <p class="title">雄安区房价上升上升可怕可怕</p>
+    <p class="title">{{ data.title }}</p>
     <div class="info">
-      <span>金融街</span>
+      <span>{{ data.origin }}</span>
       <span>10000+阅读</span>
-      <span>15:38</span>
+      <span>{{ data.date }}</span>
     </div>
-    <div class="content">
-      现如今，每年一度的情人节，玫瑰花越来越贵了，而巧克力却越来越无人问津，命运对于巧克力来说真是不公平，曾经作为爱情的代名词，就怎么沦落成现在的模样呢？这是一个值得深究的话题。
-      据智研咨询发布的《2016-2022年中国巧克力市场运行态势及投资战略研究报告》显示，中国巧克力市场人均消费量远低于世界水平，从2015年起，由于宏观经济增速放缓，巧克力的销售额开始呈下降趋势。截至2016年，中国巧克力零售量总体下降4%。
-      在国内市场，国产巧克力品牌几乎全部阵亡了。2016年6月27日，中粮金帝又在北交所贴出公告称，转让“金帝”品牌相关资产，即除不动产以外的所有资产，包括但不限于品牌、商标、专利、销售渠道、生产设备、债权债务等
-    </div>
+    <div class="content" v-html="data.content"></div>
   </div>
 </template>
 
 <script>
+import contrastDate from '@/assets/js/contrastDate.js'
 export default {
   name: '',
   data () {
     return {
-
+      data: ''
+    }
+  },
+  created () {
+    this.getDetail()
+  },
+  methods: {
+    getDetail () {
+      this.$http.get('/fidnews/v1/geek/v3/queryWhiteDeatil', {
+        params: {
+          user: 'fidinner',
+          key: 'ab54eae187cd5cf4e89fed7a4e62586e',
+          id: this.$route.params.id
+        }
+      })
+      .then((res) => {
+        console.log(res.data)
+        res.data.date = contrastDate(res.data.releaseTime)
+        this.data = res.data
+      })
     }
   }
 }

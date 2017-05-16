@@ -22,7 +22,7 @@
             <img src="../../assets/img/2.jpg">
             <div class="see-content">
               <p class="see-title">
-                专家：去产能去杠杆须推进国企改革专家：去产能革专家：去产能
+                专家：去产能去杠杆须推进国企改革专家：
               </p>
               <p class="origin">
                 <span>早晚报</span>
@@ -35,7 +35,7 @@
           <div class="see-content">
             <img src="../../assets/img/3.jpg">
             <div>
-              <p class="see-title">盘前十二小时</p>
+              <p class="see-title">盘前十二小时去产能革专家：去产能去产能去产能革专家：去产能去产能</p>
               <p class="origin">
                 早晚报 1分钟前
               </p>
@@ -84,18 +84,18 @@
       </p>
       <div>
         <router-link class="list" to="/specialSubject/2">
-          <div class="topic">
-            <div class="text">
+          <div class="topic layout-box">
+            <div class="text box-col">
               <p class="name">雄安概念遭遇爆炒</p>
-              <p class="descri"><span>最新</span>雄安概念遭遇爆炒万华化学一季度净利增长近4倍</p>
+              <p class="descri"><span>最新</span>雄安概念遭遇爆炒万华化学一季度净利增长</p>
               <p class="zhuti-time">1分钟前</p>
             </div>
             <img src="../../assets/img/5.jpg">
           </div>
         </router-link>
         <router-link class="list" to="/newbieFinanceSecond/基础名词/2">
-          <div class="topic">
-            <div class="text">
+          <div class="topic layout-box">
+            <div class="text box-col">
               <p class="name">雄安概念遭遇爆炒</p>
               <p class="descri"><span>最新</span>雄安概念遭遇爆炒万华化学一季度净利增长近4倍</p>
             </div>
@@ -103,8 +103,8 @@
           </div>
         </router-link>
         <router-link class="list" to="/newbieFinanceSecond/基础名词/2">
-          <div class="topic">
-            <div class="text">
+          <div class="topic layout-box">
+            <div class="text box-col">
               <p class="name">雄安概念遭遇爆炒</p>
               <p class="descri"><span>最新</span>雄安概念遭遇爆炒万华化学一季度净利增长近4倍</p>
             </div>
@@ -179,7 +179,7 @@ export default {
   bottom: 0.13rem;
 }
 .see-time {
-  padding-left: 0.27rem;
+  /*padding-left: 0.27rem;*/
 }
 .see-title, .origin {
   padding: 0 0.13rem;
@@ -192,7 +192,7 @@ export default {
   display: flex;
 }
 .twoimg .imgs {
-  height: 2.4rem;
+  /*height: 2.4rem;*/
   flex: 1;
 }
 .twoimg .imgs:first-child {
@@ -244,7 +244,7 @@ export default {
   background-color:#fff;
 }
 .re-describ {
-  font-size: 15px;
+  font-size: 0.4rem;
   margin-top: 0.26rem;
   line-height: 22px;
 }
@@ -252,7 +252,6 @@ export default {
   padding: 0.27rem 0.2rem;
 }
 .topic {
-  display: flex;
   padding-top: 0.53rem;
   padding-bottom: 0.53rem;
   border-bottom: 0.07rem solid #ececec;
@@ -268,16 +267,17 @@ export default {
   margin-left: 0.27rem;
 }
 .name {
-  font-size: 15px;
+  /*font-size: 15px;*/
+  font-size: 0.4rem;
   color: #4b4b4b;
   font-weight: bold;
   margin-top: -0.08rem;
   padding-bottom: 0.27rem;
 }
 .descri {
-  font-size: 14px;
+  /*font-size: 14px;*/
+  font-size: 0.37rem;
   color: #4b4b4b;
-  line-height: 25px;
 }
 .descri span {
   color: red;
