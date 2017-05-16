@@ -3,67 +3,146 @@
     <div class="box">
       <div class="details-hd">
         <h1 class="fs-36">
-          {{ main.title }}
+          {{ main.shortTitle }}
         </h1>
         <span class="date-text">预期</span><p class="date">
-          {{ main.predictTime }}
+          {{ main.title }}
         </p>
         <span class="source">飞笛智投</span>
       </div>
       <div class="details-content details-content-s">
         <div v-html="main.latestStatus0"></div>
         <div v-html="main.latestStatus1"></div>
-        <div v-html="main.depth"></div>
+        <div v-html="main.depthAnalysis.content"></div>
       </div>
     </div>
 
     <!-- k线图 -->
-    <div class="title">{{main.topicName}}</div>
-    <charts-line class="charts" :topic-id="main.topicId"></charts-line>
+    <div class="title">{{main.cmsTopics[0].name}}</div>
+    <echarts :option="echartOption" class-name="echarts gray-line"></echarts>
 
-    <!-- 关联基金 -->
-    <related-fund :topic-name="main.topicName"></related-fund>
-
+    <!-- 利好个股一览表 -->
+    <div class="table-title">利好个股一览表</div>
+    <table class="table">
+      <tr>
+        <th>个股</th>
+        <th style="text-align: left;padding-left: 0.32rem">原因</th>
+      </tr>
+      <tr v-for="item in main.depthAnalysisPlateStocks">
+        <td><p>{{item.stockName}}</p></td>
+        <td v-html="item.reason"></td>
+      </tr>
+    </table>
   </div>
 </template>
 
 <script>
 import moment from 'moment'
-import ChartsLine from '@/components/EChartsKLine'
-import RelatedFund from '@/components/RelatedFund'
+import Echarts from '@/components/echarts'
 
 export default {
   components: {
-    ChartsLine,
-    RelatedFund
+    Echarts
   },
   data () {
     return {
-      main: {}
-    }
-  },
-  watch: {
-    // 如果路由有变化，会再次执行该方法
-    '$route': function () {
-      this.getMain()
+      main: {},
+      topicId: '',
+      echartOption: {}
     }
   },
   created () {
     this.getMain()
   },
   methods: {
-    getMain: function () {
-      this.$http.get('/fidnews/v1/themefund/jhbDetail', {
+    getMain () {
+      this.$http.get('/fidnews/v1/geek/v2/queryFutureDetailSearch', {
         params: {
-          contentId: this.$route.params.tagname
+          cmsContentId: this.$route.params.tagname
         }
       })
       .then((data) => {
-        data.latestStatus = data.latestStatus.replace('<p><br></p>', '')
-        let arr = data.latestStatus.match(/<p[^>]*>(?:(?!<\/p>)[\s\S])*<\/p>/gi)
+        data = data.data[0]
+        data.depthAnalysis.content = data.depthAnalysis.content.replace('<p><br></p>', '')
+        data.contentTxt = data.contentTxt.replace('<p><br></p>', '')
+        let arr = data.contentTxt.match(/<p[^>]*>(?:(?!<\/p>)[\s\S])*<\/p>/gi)
         data.latestStatus0 = arr[1]
         data.latestStatus1 = arr[0]
+        this.topicId = data.cmsTopics[0].id
         this.$set(this, 'main', data)
+        this.getActualIndex()
+      })
+    },
+    splitData (data) {
+      var categoryData = []
+      var values = []
+      var arr = []
+      var len = data.length
+      for (let i = 0; i < len; i++) {
+        categoryData.push(data[i].day)
+        arr = [
+          data[i].startIndex,
+          data[i].endIndex,
+          data[i].maxIndex,
+          data[i].minIndex
+        ]
+        values.push(arr)
+      }
+      return {
+        categoryData: categoryData,
+        values: values
+      }
+    },
+    getActualIndex () {
+      this.$http.get('/fidnews/v1/queryTopicHistoryIndex', {
+        params: {
+          topicId: this.topicId
+        }
+      })
+      .then((data) => {
+        var myData = this.splitData(data.data)
+        let option = {
+          grid: {
+            top: '5%',
+            left: '15%',
+            right: '10%',
+            bottom: '20%'
+          },
+          xAxis: {
+            type: 'category',
+            data: myData.categoryData,
+            scale: true,
+            boundaryGap: false,
+            axisLine: {onZero: false},
+            splitLine: {show: false},
+            splitNumber: 20,
+            min: 'dataMin',
+            max: 'dataMax'
+          },
+          yAxis: {
+            scale: true,
+            splitArea: {
+              show: true
+            }
+          },
+          dataZoom: [
+            {
+              show: true,
+              type: 'slider',
+              y: '90%',
+              start: 85,
+              end: 100
+            }
+          ],
+          series: [
+            {
+              name: '日K',
+              type: 'candlestick',
+              data: myData.values
+            }
+          ]
+        }
+        this.$set(this, 'echartOption', option)
       })
     }
   },
@@ -151,5 +230,44 @@ export default {
   margin-top: 0.5rem;
   color: #4d4d4d;
   font-size: 0.82rem;
+}
+
+.echarts {
+  height: 7.46rem;
+  width: 100%;
+  margin-bottom: -2rem;
+}
+
+/*table*/
+.table-title{
+  font-size: 15px;
+  color: #4e9df4;
+  text-align: center;
+  margin-top: 2.5rem;
+}
+.table{
+  margin: 0 0.44rem;
+  font-size: 15px;
+  border: 1px solid #e2e2e2;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.table th{
+  border: 1px solid #e2e2e2;
+  color: #1a1a1a;
+  line-height: 0.93rem;
+}
+.table td{
+  padding: 0.32rem;
+  border: 1px solid #e2e2e2;
+}
+.table th:first-of-type{
+  width: 52px;
+}
+.table tr td:first-of-type p{
+  margin: 10px auto;
+  width: 20px;
+  line-height: 24px;
+  color: #4e9df4;
 }
 </style>

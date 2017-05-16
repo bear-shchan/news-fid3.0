@@ -35,7 +35,7 @@
     <div class="lanmu mb">
       <p><span></span>走势图</p>
     </div>
-    <echarts-kline :topicId="listArr.topicId"></echarts-kline>
+    <echarts-line :topic-id="listArr.topicId"></echarts-line>
     <div style="clear:both;"></div>
     <div class="lanmu mt">
       <p><span></span>风口资讯</p>
@@ -45,12 +45,12 @@
 </template>
 
 <script>
-import echartsKline from '@/components/EchartsKLine'
+import echartsLine from '@/components/EchartsKLine'
 import baseNewsList from './components/BaseNewsList'
 export default {
-  name: '',
+  name: 'subjectTrackDetail',
   components: {
-    echartsKline,
+    echartsLine,
     baseNewsList
   },
   data () {

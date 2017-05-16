@@ -1,6 +1,7 @@
 <template>
   <div class="box">
-    <router-link class="list" :to="'/todayKnowDetail/' + item.id" v-for="item in listArr">
+    <router-link class="list" :to="'/todayKnowDetail/' + item.id" v-for="item in listArr"
+      key="item.id">
       <div class="list-one layout-box" v-if="item.pictureNum == 1 && item.pictureUrl != ''">
         <div class="text box-col">
           <p class="name"> {{ item.title }}</p>

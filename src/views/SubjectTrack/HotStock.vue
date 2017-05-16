@@ -11,7 +11,8 @@
           </ul>          
         </div>
         <ul class="list">
-          <router-link :to="'/singleStockDetail/information/' + item.windStockCode" v-for="item in listArr">
+          <router-link :to="'/singleStockDetail/information/' + item.windStockCode" v-for="item in listArr"
+            key="item.windStockCode">
             <li>
               <span class="name">
                 <span class="stockname">{{ item.stockCnName }}</span><br>

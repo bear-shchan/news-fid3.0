@@ -1,5 +1,5 @@
 <template>
-  <div id="main" class="echarts"></div>
+  <div :id="main" class="echarts"></div>
 </template>
 
 <style scoped>
@@ -20,15 +20,9 @@ require('echarts/lib/component/grid')
 require('echarts/lib/component/dataZoom')
 
 export default {
-  data () {
-    return {
-      polar: {},
-      xSizeData: [],
-      yValueData: []
-    }
-  },
-  props: ['topicId'],
-  // created () {
+  name: 'echartsKline',
+  props: ['topicId', 'main'],
+  // mounted () {
   //   this.getActualIndex()
   // },
   watch: {
@@ -58,16 +52,13 @@ export default {
       }
     },
     getActualIndex: function () {
-      var vm = this
       this.$http.get('/fidnews/v1/queryTopicHistoryIndex', {
         params: {
-          topicId: vm.topicId
+          topicId: this.topicId
         }
       })
       .then((data) => {
-        var myData = vm.splitData(data.data)
-        vm.$set(vm, 'xSizeData', myData.categoryData)
-        vm.$set(vm, 'yValueData', myData.values)
+        var myData = this.splitData(data.data)
         let option = {
           grid: {
             top: '5%',
@@ -77,7 +68,7 @@ export default {
           },
           xAxis: {
             type: 'category',
-            data: vm.xSizeData,
+            data: myData.categoryData,
             scale: true,
             boundaryGap: false,
             axisLine: {onZero: false},
@@ -105,7 +96,7 @@ export default {
             {
               name: '日K',
               type: 'candlestick',
-              data: vm.yValueData
+              data: myData.values
             }
           ]
         }
