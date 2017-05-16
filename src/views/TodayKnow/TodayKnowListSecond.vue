@@ -1,6 +1,6 @@
 <template>
   <div>
-    <imgs-list :listArr="listArr"></imgs-list>
+    <imgs-list :list-arr="listArr"></imgs-list>
   </div>
 </template>
 

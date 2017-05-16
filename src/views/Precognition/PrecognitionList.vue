@@ -4,15 +4,15 @@
     infinite-scroll-disabled="listBusy" 
     infinite-scroll-distance="100"
     infinite-scroll-immediate-check="false">
-    <router-link tag="div" :to="'/precognitionDetail/' + item.contentId" 
+    <router-link tag="div" :to="'/precognitionDetail/' + item.id" 
       v-for="item in listArr" class="item" :class="{gray: item.gray}" key="item.latestTime">
       <div class="img-bg">
         <i class="translucent"></i>
-        <p class="topic">{{item.topic}}</p>
+        <p class="topic">{{item.predictTitle}}</p>
         <p class="time">{{item.time}}</p>
         <p class="recommend">推荐指数:</p>
       </div>
-      <p class="title">{{item.title}}</p>
+      <p class="title">{{item.predictContent}}</p>
       <p class="date">{{item.date}}</p>
       <img class="img" :src="item.imgPath">
     </router-link>
@@ -26,15 +26,16 @@ export default {
   name: 'PrecognitionList',
   data () {
     return {
-      pageNo: 1,
+      fristRequest: true,
+      releaseTime: Date.now(),
       listArr: [],
       imgObj: {
-        '预期提前': 'ahead',
-        '预期兑现': 'cash',
-        '预期更改': 'change',
-        '没有兑现': 'no-cash',
-        '预期推迟': 'postpone',
-        '进行中': ''
+        '1': 'ahead',
+        '3': 'cash',
+        // '预期更改': 'change',
+        '0': 'no-cash',
+        '4': 'postpone',
+        '2': ''
       },
       listBusy: false
     }
@@ -44,13 +45,10 @@ export default {
   },
   methods: {
     getList () {
-      if (!this.pageNo) {
-        return false
-      }
-      this.$http.get('/fidnews/v1/themefund/jhb', {
+      this.$http.get('/fidnews/v1/geek/v2/queryFutureSeareach', {
         params: {
-          pageNo: this.pageNo,
-          pageSize: 20
+          pageSize: 20,
+          releaseTime: this.releaseTime
         }
       })
       .then((res) => {
@@ -58,13 +56,13 @@ export default {
         // format
         for (let i = 0, len = data.length; i < len; i++) {
           // formatStyle
-          if (data[i].znhjhbType === '预期兑现' || data[i].znhjhbType === '没有兑现') {
+          if (data[i].znhjhbType === 3 || data[i].znhjhbType === 0) {
             data[i].gray = true
           }
           // formatTime
-          data[i].date = contrastDate(data[i].latestTime)
+          data[i].date = contrastDate(data[i].releaseTime)
           // formatTitle
-          data[i].title = '预期：' + data[i].title
+          // data[i].title = '预期：' + data[i].title
           // formatImg
           let img = this.imgObj[data[i].znhjhbType]
           if (img) {
@@ -72,18 +70,15 @@ export default {
           }
         }
         // set
-        if (this.pageNo === 1) {
+        if (this.fristRequest) {
           this.listArr = data
+          this.fristRequest = false
         } else {
           for (let i = 0, len = data.length; i < len; i++) {
             this.listArr.push(data[i])
           }
         }
-        this.pageNo++
-        if (res.num === 0) {
-          this.pageNo = false
-          return false
-        }
+        this.releaseTime = this.listArr[this.listArr.length - 1].releaseTime
       })
     }
   }
@@ -143,6 +138,7 @@ export default {
 .time{
   position: absolute;
   top: 1.16rem;
+  width: 80%;
   font-size: 15px;
   line-height: 15px;
   color: #fff;

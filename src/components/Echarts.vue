@@ -12,7 +12,7 @@ var echarts = require('echarts/lib/echarts')
 // 引入柱状图
 require('echarts/lib/chart/line')
 // 引入k线图
-// require('echarts/lib/chart/candlestick')
+require('echarts/lib/chart/candlestick')
 // 引入饼图
 require('echarts/lib/chart/pie')
 // 引入提示框和标题组件

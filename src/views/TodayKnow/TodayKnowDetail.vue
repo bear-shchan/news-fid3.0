@@ -13,7 +13,7 @@
     <div class="tk-lanmu">
       <p><span></span>推荐资讯</p>
     </div>
-    <imgs-list :listArr="detailData.FocusTodayList"></imgs-list>
+    <imgs-list :list-arr="detailData.FocusTodayList"></imgs-list>
   </div>
 </template>
 
