@@ -1,26 +1,23 @@
 <template>
   <div>
-    <ul class="newslist" id="newslist" v-if="newsList.length > 0">
-      <li v-for="item in newsList"> 
+    <div class="newslist" id="newslist" v-if="newsList.length > 0">
+      <router-link v-for="item in newsList" to="/SubjectTrackDetail/13" class="newsli" :key="item.id"> 
         <p class="stocktitle">
-          <span class="news-title">05-11</span>
+          <span class="news-title">{{ item.date  }}</span>
           {{ item.title }}
         </p>
-        <div class="info">
+        <div class="info" v-if="item.stockList != ''">
           <img class="face" src="../../../assets/img/liduo@2x.png">
-          <a href="javascript:void(0);" onclick="">
-            <p class="stocknames">
-              恒华科技<span class="percent green">{{ percentData[item.stockWindCode] }}</span>
-            </p>
-          </a>
-          <a href="javascript:void(0);" onclick="">
-            <p class="stocknames">
-              恒华科技<span class="percent green">-1.69%</span>
-            </p>
-          </a>
+          <div style="padding-left:20px;">
+            <router-link :to="'/singleStockDetail/information/' + stock.stockWindCode" v-for="stock in item.stockList"  :key="stock.stockWindCode">
+              <p class="stocknames">
+                {{ stock.stockName }}<span class="percent green">{{ percentData[stock.stockWindCode] | toFixed }}</span>
+              </p>
+            </router-link>
+          </div>
         </div>
-      </li>
-    </ul>
+      </router-link>
+    </div>
     <mugen-scroll
       class="dropload-down"
       :handler="getList"
@@ -37,6 +34,7 @@
 <script>
 import axios from 'axios'
 import MugenScroll from 'vue-mugen-scroll'
+import contrastDate from '@/assets/js/contrastDate.js'
 export default {
   components: { MugenScroll },
   data () {
@@ -45,7 +43,7 @@ export default {
       droploadDownText: '',
       loading: false,
       isLoading: '',
-      percentData: []
+      percentData: {}
     }
   },
   created () {
@@ -63,7 +61,17 @@ export default {
             lastTime: (this.newsList.length > 0 && this.newsList[this.newsList.length - 1].releasedTime) || null
           }
         }).then(res => res.data)
-        this.newsList = [...this.newsList, ...result.data]
+        let stockWindCodeArr = []
+        let listArr = [...this.newsList, ...result.data]
+        for (var i = 0; i < listArr.length; i++) {
+          for (var j = 0; j < listArr[i].stockList.length; j++) {
+            listArr[i].date = contrastDate(listArr[i].releasedTime)
+            stockWindCodeArr.push(listArr[i].stockList[j].stockWindCode)
+          }
+        }
+        this.newsList = listArr
+        console.log(this.newsList)
+        this.getStockPercent(stockWindCodeArr)
         this.loading = false
         this.droploadDownText = '正在加载中...'
         this.isLoading = true
@@ -71,6 +79,20 @@ export default {
         this.droploadDownText = '已经加载完毕'
         this.isLoading = false
       }
+    },
+    getStockPercent (stockWindCodeArr) {
+      this.$http.get('/fidnews/v1/geek/v2/getStockInfoByOtherInterface', {
+        params: {
+          stockCodes: stockWindCodeArr.join()
+        }
+      })
+      .then((res) => {
+        let percentData = []
+        for (var k = 0; k < res.data.length; k++) {
+          percentData[res.data[k].symbol + '.' + res.data[k].type] = res.data[k].percent
+        }
+        this.percentData = percentData
+      })
     }
   }
 }
@@ -81,21 +103,21 @@ export default {
     padding-left: 0.4rem;
     padding-right: 0.4rem;
   }
-  .newslist li {
+  .newsli {
+    width: 100%;
+    display: inline-block;
     padding-top: 0.53rem;
     padding-bottom: 0.53rem;
     border-bottom: 1px solid #ececec;
   }
-  .newslist li p {
+  .stocktitle {
     color: #2e2e37;
+    font-size: 17px;
   }
   .news-title {
     font-size: 17px;
     color: #e2666d;
     padding-right: 0.13rem;
-  }
-  .stocktitle {
-    font-size: 17px;
   }
   .info {
     padding-top: 0.4rem;
@@ -119,6 +141,7 @@ export default {
   }
   .stocknames {
     font-size: 15px;
+    color: #2e2e37;
   }
   .red {
     color: #ff737b;

@@ -6,30 +6,37 @@
     </div>
     <div class="slidebox">
       <div class="swiper-container">
-          <div class="swiper-wrapper">
-              <router-link class="swiper-slide boxbg" to="/newbieFinanceSecond/基础名词" style="background-image: url('http://image.news.21fid.com/fid/cms/strategy/14.jpg'); ">
-                  <span class="slidetext">基础名词</span>
-              </router-link>
-              <a class="swiper-slide boxbg" style="background-image: url('http://image.news.21fid.com/fid/cms/strategy/15.jpg'); ">
-              <span class="slidetext">交易指南</span>
-              </a>
-              <a class="swiper-slide boxbg" style="background-image: url('http://image.news.21fid.com/fid/cms/strategy/19.jpg'); "><span class="slidetext">K线基础</span></a>
-              <a class="swiper-slide boxbg" style="background-image: url('http://image.news.21fid.com/fid/cms/strategy/17.jpg'); "><span class="slidetext">量价理论</span></a>
-              <a class="swiper-slide boxbg" style="background-image: url('http://image.news.21fid.com/fid/cms/strategy/18.jpg'); "><span class="slidetext">Slide 5</span></a>
-          </div>
-          <div class="swiper-scrollbar"></div>
+        <div class="swiper-wrapper">
+            <router-link v-for="item in list" :key="item.id" class="swiper-slide boxbg" :to="'/newbieFinanceSecond/' + item.id" :style="{'background-image':'url('+item.pictureUrl+')'}">
+                <span class="slidetext">{{ item.name }}</span>
+            </router-link>
+        </div>
+        <div class="swiper-scrollbar"></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import 'swiper/dist/css/swiper.min.css'
+import Swiper from 'swiper'
 export default {
   components: {
   },
   data () {
     return {
     }
+  },
+  mounted () {
+    /* eslint-disable no-new */
+    new Swiper('.swiper-container', {
+      scrollbar: '.swiper-scrollbar',
+      scrollbarHide: true,
+      slidesPerView: 'auto',
+      centeredSlides: false,
+      spaceBetween: 6,
+      grabCursor: true
+    })
   },
   methods: {
   },

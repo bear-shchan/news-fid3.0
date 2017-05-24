@@ -1,13 +1,13 @@
 <template>
   <div class="box">
-    <router-link class="list" to="/newbieFinanceSecond/基础名词/2"  v-for="item in listArr"
+    <router-link class="list" :to="'/newbieFinanceDetail/' + item.id"  v-for="item in secondListData" :key="item.id"
       key="item.id">
       <div class="topic layout-box">
         <div class="box-col">
-          <p class="name"> {{ item.topicName }}</p>
-          <p class="descri">{{ item.introduction }}</p>
+          <p class="name"> {{ item.title }}</p>
+          <p class="descri">{{ item.description }}</p>
         </div>
-        <img :src="item.topicImageUrl">
+        <img :src="item.pictureUrl">
       </div>
     </router-link>
   </div>
@@ -18,7 +18,7 @@ export default {
   name: '',
   data () {
     return {
-      listArr: []
+      secondListData: []
     }
   },
   created () {
@@ -26,41 +26,16 @@ export default {
   },
   methods: {
     getList () {
-      this.$http.get('/fidnews/v1/geek/v3/queryHotTopicListIncludeBellwetherStock', {
+      this.$http.get('fidnews/v1/geek/v3/secondWhiteList', {
         params: {
-          user: 'geek',
-          queryOther: 1,
-          key: '4c039f2967c4d93e9674ffb037724187'
+          user: 'fidinner',
+          key: 'ab54eae187cd5cf4e89fed7a4e62586e',
+          id: this.$route.params.id
         }
       })
       .then((res) => {
-        let stockWindCodeArr = []
-        for (var i = 0; i < res.data.length; i++) {
-          for (var j = 0; j < res.data[i].bellwetherStockList.length; j++) {
-            stockWindCodeArr.push(res.data[i].bellwetherStockList[j].stockWindCode)
-          }
-        }
-        let listArr = res.data
-        this.getStockPercent(stockWindCodeArr, listArr)
-      })
-    },
-    getStockPercent (stockWindCodeArr, listArr) {
-      this.$http.get('/fidnews/v1/geek/v2/getStockInfoByOtherInterface', {
-        params: {
-          stockCodes: stockWindCodeArr.join()
-        }
-      })
-      .then((res) => {
-        let percentData = []
-        for (var k = 0; k < res.data.length; k++) {
-          percentData[res.data[k].symbol + '.' + res.data[k].type] = res.data[k].percent
-        }
-        for (var i = 0; i < listArr.length; i++) {
-          for (var j = 0; j < listArr[i].bellwetherStockList.length; j++) {
-            listArr[i].bellwetherStockList[j].percent = ((percentData[listArr[i].bellwetherStockList[j].stockWindCode]) * 100).toFixed(2)
-          }
-        }
-        this.listArr = listArr
+        console.log(res.data)
+        this.secondListData = res.data
       })
     }
   }

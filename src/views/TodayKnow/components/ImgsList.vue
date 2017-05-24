@@ -1,7 +1,6 @@
 <template>
   <div class="box">
-    <router-link class="list" :to="'/todayKnowDetail/' + item.id" v-for="item in listArr"
-      key="item.id">
+    <router-link class="list" :to="'/todayKnowDetail/' + item.id" v-for="item in listArr" :key="item.id">
       <div class="list-one layout-box" v-if="item.pictureNum == 1 && item.pictureUrl != ''">
         <div class="text box-col">
           <p class="name"> {{ item.title }}</p>
@@ -66,12 +65,15 @@ export default {
     position: relative;
   }
   .list-one img {
-    width: 2.93rem;
-    height: 2.35rem;
+    /*width: 2.93rem;
+    height: 2.35rem;*/
+    width: 3.13rem;
+    height: 2.65rem;
     margin-left: 0.27rem;
   }
   .name {
-    font-size: 17px;
+    /*font-size: 17px;*/
+    font-size: 0.45rem;
     color: #4b4b4b;
     margin-top: -0.08rem;
     padding-bottom: 0.27rem;
@@ -102,7 +104,8 @@ export default {
   }
   .list-one-text span, .list-three-text span, .list-no-text span{ 
     color: #999;
-    font-size: 14px;
+    /*font-size: 14px;*/
+    font-size: 0.37rem;
     padding-right: 0.27rem;
   }
 </style>
