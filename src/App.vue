@@ -2,7 +2,7 @@
   <div id="app">
     <headerDiv></headerDiv>
     <transition name="fade">
-      <router-view class="mh-box"></router-view>
+      <router-view id="container" class="mh-box"></router-view>
     </transition>
     <go-home></go-home>
   </div>
@@ -48,5 +48,15 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
   opacity: 0
+}
+
+/*#app #nprogress .bar{
+  color: #f4ce46;
+}*/
+#app #nprogress .bar {
+background: #f4ce46;
+}
+#app #nprogress .peg {
+box-shadow: 0 0 10px #f4ce46, 0 0 5px #f4ce46;
 }
 </style>

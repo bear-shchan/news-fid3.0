@@ -55,7 +55,12 @@ export default {
       })
       .then((data) => {
         if (data.code !== '-1') {
-          this.USER_SIGNIN(data.menus)
+          let user = {
+            menus: data.menus,
+            userName: this.form.username,
+            password: this.form.password
+          }
+          this.USER_SIGNIN(user)
           this.$router.push({ path: '/' })
         } else {
           this.form.password = ''

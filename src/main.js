@@ -11,6 +11,13 @@ import 'lib-flexible' // rem
 import './assets/css/reset.css'
 import './assets/css/index.css'
 
+import NProgress from 'nprogress' // Progress 进度条
+import 'nprogress/nprogress.css' // Progress 进度条 样式
+NProgress.configure({
+  showSpinner: false,
+  parent: '#container'
+})
+
 import request from './api/request.js'
 Vue.prototype.$http = request
 
@@ -29,14 +36,21 @@ Vue.filter('toFixed', function (value) {
 })
 
 router.beforeEach(({meta, path}, from, next) => {
-  window.scrollTo(0, 0)
+  NProgress.start()
   var { auth = true } = meta
   var isLogin = Boolean(store.state.user.password)
 
   if (auth && !isLogin && path !== '/login' && path !== '/') {
-    return next({ path: '/login' })
+    next({ path: '/login' })
+    NProgress.done()
+    return false
   }
   next()
+})
+
+router.afterEach(() => {
+  window.scrollTo(0, 0)
+  NProgress.done()
 })
 
 /* eslint-disable no-new */
