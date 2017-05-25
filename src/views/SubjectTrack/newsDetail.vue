@@ -2,11 +2,13 @@
   <div class="box">
     <p class="title">{{ data.title }}</p>
     <div class="info">
-      <span>{{ data.origin }}</span>
-      <!-- <span>10000+阅读</span> -->
+      <span>飞笛资讯</span>
+      <!-- <span>{{ readNum }}阅读</span> -->
       <span>{{ data.date }}</span>
     </div>
-    <div class="content" v-html="data.content"></div>
+    <div class="content" v-html="data.content">
+      {{ data.content }}
+    </div>
   </div>
 </template>
 
@@ -16,18 +18,20 @@ export default {
   name: '',
   data () {
     return {
-      data: ''
+      data: '',
+      readNum: ''
     }
   },
   created () {
     this.getDetail()
+    this.getReadNum()
   },
   methods: {
     getDetail () {
-      this.$http.get('/fidnews/v1/geek/v3/queryWhiteDeatil', {
+      this.$http.get('/fidnews/v1/geek/v1/infoDetail', {
         params: {
-          user: 'fidinner',
-          key: 'ab54eae187cd5cf4e89fed7a4e62586e',
+          user: 'geek',
+          key: '4c039f2967c4d93e9674ffb037724187',
           id: this.$route.params.id
         }
       })
@@ -35,6 +39,18 @@ export default {
         console.log(res.data)
         res.data.date = contrastDate(res.data.releaseTime)
         this.data = res.data
+      })
+    },
+    getReadNum () {
+      this.$http.get('//api2.geek.21fid.com:8080/common/view', {
+        params: {
+          transfertype: 17,
+          transferid: this.$route.params.id
+        }
+      })
+      .then((res) => {
+        console.log(res.data)
+        this.readNum = res.data.views
       })
     }
   }

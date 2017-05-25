@@ -22,12 +22,13 @@ export default {
   },
   methods: {
     getList () {
-      this.$http.get('/fidnews/v1/geek/v2/queryFocusTodayList', {
+      this.$http.get('/fidnews/v1/geek/v3/queryFocusTodayListByPro', {
         params: {
-          user: 'geek',
-          key: '4c039f2967c4d93e9674ffb037724187',
+          user: 'fidinner',
+          key: 'ab54eae187cd5cf4e89fed7a4e62586e',
           publishTime: '',
-          size: 10
+          proId: this.$route.params.tagname,
+          size: ''
         }
       })
       .then((res) => {
@@ -41,6 +42,26 @@ export default {
         console.log(data)
       })
     }
+    // getList () {
+    //   this.$http.get('/fidnews/v1/geek/v2/queryFocusTodayList', {
+    //     params: {
+    //       user: 'geek',
+    //       key: '4c039f2967c4d93e9674ffb037724187',
+    //       publishTime: '',
+    //       size: 10
+    //     }
+    //   })
+    //   .then((res) => {
+    //     let data = res.data
+    //     for (let i = 0, len = data.length; i < len; i++) {
+    //       data[i].date = contrastDate(data[i].publishTime)
+    //       data[i].pictureUrl = data[i].pictureUrl.split(';')
+    //       data[i].pictureNum = data[i].pictureUrl.length
+    //     }
+    //     this.listArr = data
+    //     console.log(data)
+    //   })
+    // }
   }
 }
 </script>

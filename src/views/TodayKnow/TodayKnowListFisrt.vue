@@ -6,42 +6,17 @@
         <span style="vertail-align:middle">大家都在看</span>
       </p>
       <div class="seenews">
-        <router-link class="seebox"  to="/todayKnowSecond/盘前">
+        <router-link class="seebox"  :to="'/todayKnowSecond/' + item.productId" v-for="item in seeList">
           <div class="see-content">
-            <img src="../../assets/img/1.jpg">
+            <img :src="item.productImages">
             <div>
-              <p class="see-title">盘前十二小时</p>
+              <p class="see-title">{{ item.title }}</p>
               <p class="origin">
-                早晚报 1分钟前
+                {{item.productName}} 1分钟前
               </p>
             </div>
           </div>
         </router-link>
-        <a class="seebox">
-          <div>
-            <img src="../../assets/img/2.jpg">
-            <div class="see-content">
-              <p class="see-title">
-                专家：去产能去杠杆须推进国企改革专家：
-              </p>
-              <p class="origin">
-                <span>早晚报</span>
-                <span class="see-time">1分钟前</span>
-              </p>
-            </div>
-          </div>
-        </a>
-        <a class="seebox">
-          <div class="see-content">
-            <img src="../../assets/img/3.jpg">
-            <div>
-              <p class="see-title">盘前十二小时去产能革专家：去产能去产能去产能革专家：去产能去产能</p>
-              <p class="origin">
-                早晚报 1分钟前
-              </p>
-            </div>
-          </div>
-        </a>
       </div>
     </section>
     <section class="report bg">
@@ -51,29 +26,25 @@
       </p>
       <div>
         <div class="twoimg">
-          <div class="imgs" style="background-image: url('http://image.news.21fid.com/fid/cms/strategy/14.jpg'); ">
+          <router-link class="imgs" :to="'/todayKnowSecond/' + item.productId" :style="{backgroundImage: 'url(' + item.productImages + ')', width: '100vw', backgroundSize: 'cover'}
+         " v-for="(item, key) in reportList" v-if="key < 2">
             <div class="imgsbox">
-              <p class="re-title">蓉儿看盘</p>
-              <p class="re-line" style=""/></p>
-              <p class="re-describ">露天煤业：受益煤价上涨受益煤价上涨</p>
+              <p class="re-title">{{ item.productName }}</p>
+              <p class="re-line"></p>
+              <p class="re-describ">{{ item.title }}</p>
             </div>
-          </div>
-          <div class="imgs" style="background-image: url('http://image.news.21fid.com/fid/cms/strategy/15.jpg'); ">
-            <div class="imgsbox">
-              <p class="re-title">蓉儿看盘</p>
-              <p class="re-line" style=""/></p>
-              <p class="re-describ">露天煤业：受益煤价上</p>
-            </div>
-          </div>
+          </router-link>
         </div>
         <div class="oneimg">
-          <div class="img" style="background-image: url('http://image.news.21fid.com/fid/cms/strategy/19.jpg'); ">
-            <div class="imgbox">
-              <p class="re-title">蓉儿看盘</p>
-              <p class="re-line" style=""/></p>
-              <p class="re-describ">露天煤业：受益煤价上涨 一季度净利增近2倍上半年预增85%-135%</p>
+          <router-link :to="'/todayKnowSecond/' + oneReport.productId">
+            <div class="img" :style="{backgroundImage: 'url(' + oneReport.productImages + ')', backgroundSize: 'cover'}">
+              <div class="imgbox">
+                <p class="re-title">{{ oneReport.productName }}</p>
+                <p class="re-line" style=""/></p>
+                <p class="re-describ">{{ oneReport.title }}</p>
+              </div>
             </div>
-          </div>
+          </router-link>
         </div>
       </div>
     </section>
@@ -83,12 +54,21 @@
         <span style="vertail-align:middle">主题资讯</span>
       </p>
       <div>
-        <router-link class="list" to="/specialSubject/2">
+        <router-link class="list" :to="'/specialSubject/' + item.id" v-for="item in specialList">
+          <div class="topic layout-box">
+            <div class="text box-col">
+              <p class="name">{{ item.name }}</p>
+              <p class="descri"><span>最新</span>{{ item.title }}</p>
+              <p class="zhuti-time">{{ item.releasedTime }}</p>
+            </div>
+            <img :src="item.images">
+          </div>
+        </router-link>
+        <!-- <router-link class="list" to="/newbieFinanceSecond/基础名词/2">
           <div class="topic layout-box">
             <div class="text box-col">
               <p class="name">雄安概念遭遇爆炒</p>
-              <p class="descri"><span>最新</span>雄安概念遭遇爆炒万华化学一季度净利增长</p>
-              <p class="zhuti-time">1分钟前</p>
+              <p class="descri"><span>最新</span>雄安概念遭遇爆炒万华化学一季度净利增长近4倍</p>
             </div>
             <img src="../../assets/img/5.jpg">
           </div>
@@ -101,27 +81,76 @@
             </div>
             <img src="../../assets/img/5.jpg">
           </div>
-        </router-link>
-        <router-link class="list" to="/newbieFinanceSecond/基础名词/2">
-          <div class="topic layout-box">
-            <div class="text box-col">
-              <p class="name">雄安概念遭遇爆炒</p>
-              <p class="descri"><span>最新</span>雄安概念遭遇爆炒万华化学一季度净利增长近4倍</p>
-            </div>
-            <img src="../../assets/img/5.jpg">
-          </div>
-        </router-link>
+        </router-link> -->
       </div>
     </section>
   </div>
 </template>
 
 <script>
+import contrastDate from '@/assets/js/contrastDate.js'
 export default {
   name: '',
   data () {
     return {
-
+      seeList: [],
+      reportList: [],
+      oneReport: [],
+      specialList: []
+    }
+  },
+  created () {
+    this.getSeeList(0)
+    this.getSeeList(1)
+    this.getSpecial()
+  },
+  methods: {
+    getSeeList (type) {
+      this.$http.get('/fidnews/v1/geek/v3/queryProducts', {
+        params: {
+          user: 'fidinner',
+          key: 'ab54eae187cd5cf4e89fed7a4e62586e',
+          type: type
+        }
+      })
+      .then((res) => {
+        console.log(res.data)
+        if (type === 0) {
+          this.$set(this, 'seeList', res.data)
+        } else {
+          this.$set(this, 'reportList', res.data)
+          this.$set(this, 'oneReport', res.data[2])
+        }
+      })
+    },
+    getReadNum () {
+      this.$http.get('//api2.geek.21fid.com:8080/common/view', {
+        params: {
+          transfertype: 17,
+          transferid: this.$route.params.id
+        }
+      })
+      .then((res) => {
+        console.log(res.data)
+        this.readNum = res.data.views
+      })
+    },
+    getSpecial () {
+      this.$http.get('/fidnews/v1/geek/v3/querySubjects', {
+        params: {
+          user: 'fidinner',
+          key: 'ab54eae187cd5cf4e89fed7a4e62586e',
+          size: '',
+          releasedTime: ''
+        }
+      })
+      .then((res) => {
+        console.log(res.data)
+        for (var i = 0; i < res.data.length; i++) {
+          res.data[i].releasedTime = contrastDate(res.data[i].releasedTime)
+        }
+        this.$set(this, 'specialList', res.data)
+      })
     }
   }
 }
@@ -267,7 +296,6 @@ export default {
   margin-left: 0.27rem;
 }
 .name {
-  /*font-size: 15px;*/
   font-size: 0.4rem;
   color: #4b4b4b;
   font-weight: bold;
@@ -275,7 +303,6 @@ export default {
   padding-bottom: 0.27rem;
 }
 .descri {
-  /*font-size: 14px;*/
   font-size: 0.37rem;
   color: #4b4b4b;
 }

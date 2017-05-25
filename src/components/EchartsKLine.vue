@@ -1,5 +1,5 @@
 <template>
-  <div :id="main" class="echarts"></div>
+  <div id="main" class="echarts"></div>
 </template>
 
 <style scoped>
@@ -21,7 +21,7 @@ require('echarts/lib/component/dataZoom')
 
 export default {
   name: 'echartsKline',
-  props: ['topicId', 'main'],
+  props: ['topicId'],
   // mounted () {
   //   this.getActualIndex()
   // },
@@ -58,6 +58,7 @@ export default {
         }
       })
       .then((data) => {
+        console.log(data.data)
         var myData = this.splitData(data.data)
         let option = {
           grid: {

@@ -5,9 +5,9 @@
       <div class="topic layout-box">
         <div class="box-col">
           <p class="name"> {{ item.title }}</p>
-          <p class="descri">{{ item.description }}</p>
+          <p class="descri">{{ item.content }}</p>
         </div>
-        <img :src="item.pictureUrl">
+        <img :src="item.imgUrl">
       </div>
     </router-link>
   </div>
@@ -58,16 +58,31 @@ export default {
   }
   .topic img {
     width: 3.07rem;
-    height: 2.35rem;
+    height: 2.45rem;
     margin-left: 0.27rem;
   }
   .name {
     font-size: 17px;
     color: #2e2e37;
     margin-top: -0.08rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
   .descri {
     font-size: 14px;
     color: #83839d;
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
+    /*text-overflow: ellipsis;*/
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .box-col {
+    position: relative;
   }
 </style>
