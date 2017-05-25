@@ -18,6 +18,9 @@
         <p class="date" v-if="contrastDate(item.releasedDate)">
           {{ item.releasedDate | moment('HH:mm') }}
         </p>
+        <!--<p class="date" v-else-if="item.time">
+          {{ item.time | moment('MM.DD HH:mm') }}
+        </p>-->
         <p class="date" v-else>
           {{ item.releasedDate | moment('MM.DD HH:mm') }}
         </p>

@@ -1,5 +1,5 @@
 <template>
-  <div class="header" v-show="$route.path != '/login'">
+  <div class="header" v-if="$route.path != '/login'">
     <!-- 页面标题 -->
     <!-- <transition name="fade"> -->
     {{$route.name || $route.meta.name}}

@@ -14,8 +14,8 @@ import './assets/css/index.css'
 import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css' // Progress 进度条 样式
 NProgress.configure({
-  showSpinner: false,
-  parent: '#container'
+  showSpinner: false
+  // parent: '#container'
 })
 
 import request from './api/request.js'
@@ -35,6 +35,9 @@ Vue.filter('toFixed', function (value) {
   return (value * 100).toFixed(2) + '%'
 })
 
+const externalView = ['/ticket', '/fund']
+const externalViewStr = externalView.join(',')
+
 router.beforeEach(({meta, path}, from, next) => {
   NProgress.start()
   var { auth = true } = meta
@@ -42,9 +45,15 @@ router.beforeEach(({meta, path}, from, next) => {
 
   if (auth && !isLogin && path !== '/login' && path !== '/') {
     next({ path: '/login' })
-    NProgress.done()
     return false
   }
+
+  // 外部页面逻辑，求一基，求一票
+  if (path !== '/' && externalViewStr.indexOf(path) !== -1) {
+    window.location.href = '//www.21fid.com/external' + path + '/appInside'
+    return false
+  }
+
   next()
 })
 

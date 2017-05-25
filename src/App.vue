@@ -53,10 +53,10 @@ export default {
 /*#app #nprogress .bar{
   color: #f4ce46;
 }*/
-#app #nprogress .bar {
+body #nprogress .bar {
 background: #f4ce46;
 }
-#app #nprogress .peg {
+body #nprogress .peg {
 box-shadow: 0 0 10px #f4ce46, 0 0 5px #f4ce46;
 }
 </style>
