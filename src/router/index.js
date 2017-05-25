@@ -19,6 +19,16 @@ let routes = [
     component: resolve => require([`../views/Login.vue`], resolve)
   },
   {
+    name: '求一票',
+    path: '/external/ticket',
+    component: resolve => require(['../views/template.vue'], resolve)
+  },
+  {
+    name: '求一基',
+    path: '/external/fund',
+    component: resolve => require(['../views/template.vue'], resolve)
+  },
+  {
     name: '7x24小时',
     path: '/everytime',
     component: resolve => require(['../views/Everytime/Everytime.vue'], resolve)
@@ -41,6 +51,26 @@ let routes = [
     // name: '定点播报详情页',
     path: '/reportDetail/:id',
     component: resolve => require(['../views/Report/ReportDetail.vue'], resolve)
+  },
+  {
+    name: '异动点评',
+    path: '/transaction',
+    component: resolve => require(['../views/Transaction/Transaction.vue'], resolve)
+  },
+  {
+    // name: '异动点评详情页',
+    path: '/transactionDetail/:id',
+    component: resolve => require(['../views/Transaction/TransactionDetail.vue'], resolve)
+  },
+  {
+    name: '港股资讯',
+    path: '/HKStocks',
+    component: resolve => require(['../views/HKStocks/HKStocks.vue'], resolve)
+  },
+  {
+    // name: '港股资讯详情页',
+    path: '/HKStocksDetail/:id',
+    component: resolve => require(['../views/HKStocks/HKStocksDetail.vue'], resolve)
   },
   {
     name: '两融',

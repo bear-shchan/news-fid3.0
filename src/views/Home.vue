@@ -5,7 +5,8 @@
       <div class="item-box clearfix">
         <router-link tag="div" :to="item.path" class="item" 
           v-for="item in navArr[index]"
-          key="item.icon">
+          key="item.icon"
+          :class="item.permission">
           <img :src="item.imgPath" class="icon">
           <p class="text">{{item.name}}</p>
         </router-link>
@@ -16,6 +17,9 @@
 
 <script>
 import {nav} from '../router-config.js'
+
+const doneView = ['7*24小时', '个股行情', '两融资讯', '主题追踪', '预知未来', '财经日历', '主题选基', '小白财经', '定点播报',
+  '异动点评', '求一票', '求一基', '港股资讯']
 
 export default {
   name: '',
@@ -41,9 +45,15 @@ export default {
   },
   methods: {
     navFormat () {
+      let doneViewStr = doneView.join(',')
+
       for (let i = 0, len = nav.length; i < len; i++) {
+        // 处理权限（当前暂时为完成进度）
+        nav[i].permission = doneViewStr.indexOf(nav[i].name) !== -1 ? '' : 'no-hasPerm'
+        // 处理图片
         let navIcon = nav[i].icon
         nav[i].imgPath = require('../assets/img/' + navIcon + '.png')
+        // 分配数组
         this.navArr[nav[i].column - 1].push(nav[i])
       }
     }
@@ -86,6 +96,10 @@ export default {
 }
 .item .text{
   margin-top: -0.13rem;
+}
+.item.no-hasPerm,
+.item.no-hasPerm .icon{
+  opacity: .6;
 }
 .icon{
   width: 0.77rem;

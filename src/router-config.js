@@ -15,7 +15,7 @@ const nav = [
     column: '1'
   },
   {
-    name: '两融',
+    name: '两融资讯',
     path: '/financing/equityTrading',
     component: 'Financing',
     icon: 'financing',
@@ -65,7 +65,8 @@ const nav = [
   },
   {
     name: '求一票',
-    path: '/requestTicket',
+    // path: '/requestTicket',
+    path: '/ticket',
     component: 'template',
     icon: 'requestTicket',
     column: '2'
@@ -79,7 +80,8 @@ const nav = [
   },
   {
     name: '求一基',
-    path: '/requestFund',
+    // path: '/requestFund',
+    path: '/fund',
     component: 'template',
     icon: 'requestFund',
     column: '3'

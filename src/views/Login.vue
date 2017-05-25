@@ -47,15 +47,20 @@ export default {
       this.login()
     },
     login () {
-      this.$http.get('/fidnews/v1/myAjax/fdlogin', {
+      this.$http.get('/fidnews/v1/mobileWeb/login', {
         params: {
-          username: this.form.username,
+          userName: this.form.username,
           password: this.form.password
         }
       })
       .then((data) => {
-        if (data.errorCode !== '401') {
-          this.USER_SIGNIN(this.form)
+        if (data.code !== '-1') {
+          let user = {
+            menus: data.menus,
+            userName: this.form.username,
+            password: this.form.password
+          }
+          this.USER_SIGNIN(user)
           this.$router.push({ path: '/' })
         } else {
           this.form.password = ''
