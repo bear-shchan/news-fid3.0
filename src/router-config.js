@@ -15,7 +15,7 @@ const nav = [
     column: '1'
   },
   {
-    name: '两融',
+    name: '两融资讯',
     path: '/financing/equityTrading',
     component: 'Financing',
     icon: 'financing',
