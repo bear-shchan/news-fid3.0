@@ -63,6 +63,16 @@ let routes = [
     component: resolve => require(['../views/Transaction/TransactionDetail.vue'], resolve)
   },
   {
+    name: '港股资讯',
+    path: '/HKStocks',
+    component: resolve => require(['../views/HKStocks/HKStocks.vue'], resolve)
+  },
+  {
+    // name: '港股资讯详情页',
+    path: '/HKStocksDetail/:id',
+    component: resolve => require(['../views/HKStocks/HKStocksDetail.vue'], resolve)
+  },
+  {
     name: '两融',
     path: '/financing',
     component: resolve => require(['../views/Financing/Financing.vue'], resolve),
