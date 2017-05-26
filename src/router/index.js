@@ -273,9 +273,14 @@ let routes = [
     ]
   },
   {
-    // name: '个股公告',
+    // name: '个股公告详情页',
     path: '/singleStockAnnouncement/:id',
     component: resolve => require([`../views/singleStock/Stock/AnnouncementDetail.vue`], resolve)
+  },
+  {
+    // name: '围观大盘详情页',
+    path: '/onlookersTapeDetail/:id',
+    component: resolve => require([`../views/singleStock/Tape/OnlookersTapeDetail.vue`], resolve)
   }
 ]
 

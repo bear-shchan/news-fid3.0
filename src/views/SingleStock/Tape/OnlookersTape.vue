@@ -7,10 +7,8 @@
       :handler="getList"
       :should-handle="!loading"
       scroll-container="scrollContainer">
-      <span>
-        <img class="face" src="../../../assets/img/loading.gif">
-        {{ droploadDownText }}
-      </span>
+      <img class="loading-icon" src="../../../assets/img/loading.gif">
+      {{ droploadDownText }}
     </mugen-scroll>
   </div>
 </template>
@@ -31,7 +29,8 @@ export default {
       list: [],
       firstRequest: true,
       droploadDownText: '正在加载中...',
-      loading: false
+      loading: false,
+      releaseTime: ''
     }
   },
   created () {
@@ -42,7 +41,7 @@ export default {
       this.loading = true
       this.$http.get('/fidnews/v1/geek/v2/queryOnlookersMarketMixedList', {
         params: {
-          releaseTime: this.releaseTime || '',
+          releaseTime: this.releaseTime,
           pageSize: 10
         }
       })
@@ -78,7 +77,7 @@ export default {
   text-align: center;
   color: #999;
 }
-.dropload-down img {
+.dropload-down .loading-icon {
   width: 14px;
   height: 14px;
   vertical-align: middle;
