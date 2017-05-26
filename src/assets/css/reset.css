@@ -22,6 +22,11 @@ button {
 -webkit-appearance: none;
 }
 
+a{
+-webkit-tap-highlight-colo:rgba(0,0,0,0);
+-webkit-tap-highlight-color:transparent;
+}
+
 .fl{float: left;}
 .fr{float: right;}
 .clearfix:after{content:"";display:block;height:0;clear:both;visibility:hidden}

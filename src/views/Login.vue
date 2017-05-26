@@ -99,7 +99,8 @@ export default {
   margin-right: auto;
   margin-bottom: 0.56rem;
   line-height: 0.8rem;
-  border: 0;
+  border: none;
+  border-radius: 0;
   outline:none;
   background-color:transparent;  
   FILTER: alpha(opacity=0); /*androd*/  
