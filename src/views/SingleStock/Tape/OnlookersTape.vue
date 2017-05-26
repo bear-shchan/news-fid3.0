@@ -2,27 +2,24 @@
   <div>
     <imgs-list :list-arr="list" path="/onlookersTapeDetail/"></imgs-list>
     <!-- 加载更多 -->
-    <mugen-scroll
-      class="dropload-down"
-      :handler="getList"
-      :should-handle="!loading"
-      scroll-container="scrollContainer">
-      <img class="loading-icon" src="../../../assets/img/loading.gif">
-      {{ droploadDownText }}
-    </mugen-scroll>
+    <loadmore
+      v-on:getData="getList"
+      :loading="loading"
+      :droploadDownText="droploadDownText">
+    </loadmore>
   </div>
 </template>
 
 <script>
 import imgsList from '@/components/imgsList.vue'
-import MugenScroll from 'vue-mugen-scroll'
+import loadmore from '@/components/loadmore.vue'
 
 import contrastDate from '@/assets/js/contrastDate.js'
 
 export default {
   components: {
     imgsList,
-    MugenScroll
+    loadmore
   },
   data () {
     return {
@@ -71,16 +68,4 @@ export default {
 </script>
 
 <style scoped>
-.dropload-down {
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  color: #999;
-}
-.dropload-down .loading-icon {
-  width: 14px;
-  height: 14px;
-  vertical-align: middle;
-  padding-right: 4px;
-}
 </style>

@@ -41,7 +41,7 @@ export default {
 }
 
 .mh-box{
-  min-height: 100vh;
+  min-height: 94vh;
 }
 .fade-enter-active, .fade-leave-active {
   transition: opacity .4s

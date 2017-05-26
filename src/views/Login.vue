@@ -143,7 +143,7 @@ input:-webkit-autofill {
   /*bottom: 0.8rem;*/
   /*left: 5rem;
   transform: translate(-50%);*/
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   text-align: center;
 }
 </style>
