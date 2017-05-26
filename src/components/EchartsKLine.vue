@@ -20,7 +20,6 @@ require('echarts/lib/component/grid')
 require('echarts/lib/component/dataZoom')
 
 export default {
-  name: 'echartsKline',
   props: ['topicId'],
   // mounted () {
   //   this.getActualIndex()
