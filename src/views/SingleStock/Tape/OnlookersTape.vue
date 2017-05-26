@@ -5,7 +5,7 @@
     <loadmore
       v-on:getData="getList"
       :loading="loading"
-      :droploadDownText="droploadDownText">
+      :doneText="doneText">
     </loadmore>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
     return {
       list: [],
       firstRequest: true,
-      droploadDownText: '正在加载中...',
+      doneText: '正在加载中...',
       loading: false,
       releaseTime: ''
     }

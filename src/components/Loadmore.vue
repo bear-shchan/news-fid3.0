@@ -4,8 +4,9 @@
       class="dropload-down"
       :handler="getData"
       :should-handle="!loading">
-      <img class="loading-icon" src="../assets/img/loading.gif">
-      {{ droploadDownText }}
+      <img v-show="!done" class="loading-icon" src="../assets/img/loading.gif">
+      <span v-show="!done" class="text">{{ droploadDownText }}</span>
+      <span v-show="done" class="text">{{ doneText }}</span>
     </mugen-scroll>
   </div>
 </template>
@@ -27,8 +28,16 @@ export default {
       required: true
     },
     droploadDownText: {
+      type: String
+      // default: '正在加载中...'
+    },
+    done: {
+      type: Boolean,
+      default: false
+    },
+    doneText: {
       type: String,
-      default: '正在加载中...'
+      default: '已经加载完毕'
     }
   },
   methods: {
@@ -51,5 +60,8 @@ export default {
   height: 14px;
   vertical-align: middle;
   padding-right: 4px;
+}
+.text {
+  vertical-align: middle;
 }
 </style>

@@ -42,6 +42,7 @@
   background: #fff;
 }
 
+/*菊花转*/
 .app-spinner{
   position: absolute;
   top: 50%;
@@ -49,4 +50,9 @@
   height: 30%;
   width: 50%;
   margin: -15% 0 0 -25%;
+}
+
+/*详情页全局样式*/
+.details-content img{
+  width: 9.2rem;
 }
