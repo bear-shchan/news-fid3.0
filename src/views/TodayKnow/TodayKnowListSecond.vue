@@ -1,6 +1,6 @@
 <template>
   <div>
-    <imgs-list :list-arr="listArr" path="todayKnow"></imgs-list>
+    <imgs-list :list-arr="listArr" path="/todayKnowDetail/"></imgs-list>
   </div>
 </template>
 

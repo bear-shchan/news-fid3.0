@@ -13,14 +13,14 @@
     <div class="tk-lanmu">
       <p><span></span>推荐资讯</p>
     </div>
-    <imgs-list :list-arr="detailData.FocusTodayList"></imgs-list>
+    <imgs-list :list-arr="detailData.FocusTodayList" path="/todayKnowDetail/"></imgs-list>
   </div>
 </template>
 
 <script>
 import contrastDate from '@/assets/js/contrastDate.js'
 import moment from 'moment'
-import ImgsList from './components/ImgsList'
+import ImgsList from '@/components/ImgsList'
 export default {
   name: '',
   components: {

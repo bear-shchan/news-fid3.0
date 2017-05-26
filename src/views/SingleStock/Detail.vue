@@ -4,14 +4,15 @@
       :class="{'red' : curRange >= 0}">
       <div class="stock-info-item box-col">
         <span class="title">股价</span>
-        <p class="data">{{curPrice}}</p>
+        <p class="data" v-if="curPrice">{{curPrice}}</p>
+        <p class="data" v-else>0000.00</p>
       </div>
       <div class="stock-info-item box-col">
         <span class="title">涨跌幅</span>
         <p class="data">{{curRange | toFixed}}</p>
       </div>
     </div>
-    <icon-router-link class="pt-box" :link-items="items" link-path="/singleStockDetail/"></icon-router-link>
+    <icon-router-link class="pt-box" :link-items="curLinkItem" :link-path="curLinkPath"></icon-router-link>
     <router-view keep-alive></router-view>
   </div>
 </template>
@@ -21,13 +22,13 @@
 import IconRouterLink from '@/components/IconRouterLink'
 
 export default {
-  name: 'singleStockDetail',
+  name: 'singleDetail',
   components: {
     IconRouterLink
   },
   data () {
     return {
-      items: [
+      singelStockItems: [
         {
           icon: require('../../assets/img/information.png'),
           iconActive: require('../../assets/img/information-active.png'),
@@ -53,17 +54,54 @@ export default {
           link: 'f10'
         }
       ],
+      tapeItems: [
+        {
+          icon: require('../../assets/img/onlookersTape.png'),
+          iconActive: require('../../assets/img/onlookersTape-active.png'),
+          text: '围观大盘',
+          link: 'onlookersTape'
+        },
+        {
+          icon: require('../../assets/img/roseList.png'),
+          iconActive: require('../../assets/img/roseList-active.png'),
+          text: '涨幅榜',
+          link: 'roseList'
+        },
+        {
+          icon: require('../../assets/img/dropList.png'),
+          iconActive: require('../../assets/img/dropList-active.png'),
+          text: '跌幅榜',
+          link: 'dropList'
+        }
+      ],
       curPrice: '',
-      curRange: ''
+      curRange: '',
+      curLinkPath: '',
+      curLinkItem: ''
     }
   },
   created () {
     this.getStockInfo()
     this.setTimeOut()
+    console.log(this.$route)
+    if (this.$route.path.indexOf('singleStockDetail') !== -1) {
+      this.curLinkItem = this.singelStockItems
+      this.curLinkPath = '/singleStockDetail/'
+    } else {
+      this.curLinkItem = this.tapeItems
+      this.curLinkPath = '/tapeDetail/'
+    }
   },
   beforeDestroy () {
     clearInterval(this.timer)
   },
+  // watch: {
+  //   '$route': function () {
+  //     console.log(this.$route)
+  //     this.curLinkItem = this.singelStockItems
+  //     this.curLinkPath = '/singleStockDetail/'
+  //   }
+  // },
   methods: {
     getStockInfo () {
       this.$http.get('/fidnews/v1//geek/v3/getSelfDataInfoListByWindCodes', {

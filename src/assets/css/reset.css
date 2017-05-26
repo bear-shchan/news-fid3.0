@@ -42,7 +42,7 @@ a{
 .layout-box .box-col {-webkit-box-flex: 1;-webkit-flex: 1;-ms-flex: 1;flex: 1;width: 100%;}
 
 
-.line-clamp{
+/*.line-clamp{
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -56,4 +56,20 @@ a{
 }
 .display-show{
   -webkit-line-clamp: 100;
+}*/
+
+.list-intercept-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+}
+.list-intercept-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+}
+.list-intercept-false {
+    -webkit-line-clamp: 100;
 }

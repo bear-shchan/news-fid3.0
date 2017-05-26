@@ -9,7 +9,7 @@
         <div class="info" v-if="item.stockList != ''">
           <img class="face" src="../../../assets/img/liduo@2x.png">
           <div style="padding-left:20px;">
-            <router-link :to="'/singleStockDetail/information/' + stock.stockWindCode" v-for="stock in item.stockList"  :key="stock.stockWindCode">
+            <router-link :to="'/singleStockDetail/information/' + stock.stockWindCode" v-for="stock in item.stockList" :key="stock.stockWindCode">
               <p class="stocknames">
                 {{ stock.stockName }}<span class="percent green">{{ percentData[stock.stockWindCode] | toFixed }}</span>
               </p>

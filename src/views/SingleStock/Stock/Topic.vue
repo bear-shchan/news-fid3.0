@@ -35,13 +35,13 @@
     </ul>
     <no-data-img text="暂无相关主题"
       :show="!list[0] && !listBusy">
-      <img class="no-data-img" src="../../assets/img/no-topic.png">
+      <img class="no-data-img" src="../../../assets/img/no-topic.png">
     </no-data-img>
   </div>
 </template>
 
 <script>
-import NoDataImg from './components/NoDataImg'
+import NoDataImg from '../components/NoDataImg'
 
 export default {
   components: {
