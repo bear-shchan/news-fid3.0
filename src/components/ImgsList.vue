@@ -1,13 +1,14 @@
 <template>
   <div class="box">
-    <router-link class="list" :to="'/todayKnowDetail/' + item.id" v-for="item in listArr" :key="item.id">
+    <router-link class="list" :to="'/' + path + 'Detail/' + item.id" 
+      v-for="item in listArr" :key="item.id">
       <div class="list-one layout-box" v-if="item.pictureNum == 1 && item.pictureUrl != ''">
         <div class="text box-col">
           <p class="name"> {{ item.title }}</p>
           <p class="list-one-text">
             <span>{{ item.origin }}</span>
             <span>{{ item.readingNumber }}阅读</span>
-            <span>{{ item.date }}</span>
+            <span class="db">{{ item.date }}</span>
           </p>
         </div>
         <img :src="item.pictureUrl">
@@ -21,7 +22,7 @@
           <p class="list-three-text">
             <span>{{ item.origin }}</span>
             <span>{{ item.readingNumber }}阅读</span>
-            <span>{{ item.date }}</span>
+            <span class="db">{{ item.date }}</span>
           </p>
         </div>
       </div>
@@ -31,7 +32,7 @@
           <p class="list-no-text">
             <span>{{ item.origin }}</span>
             <span>{{ item.readingNumber }}阅读</span>
-            <span>{{ item.date }}</span>
+            <span class="db">{{ item.date }}</span>
           </p>
         </div>
       </div>
@@ -41,14 +42,14 @@
 
 <script>
 export default {
-  name: '',
+  name: 'imgsList',
   data () {
     return {
     }
   },
-  created () {
-  },
-  props: ['listArr']
+  // created () {
+  // },
+  props: ['listArr', 'path']
 }
 </script>
 
@@ -67,8 +68,8 @@ export default {
   .list-one img {
     /*width: 2.93rem;
     height: 2.35rem;*/
-    width: 3.13rem;
-    height: 2.65rem;
+    width: 3.07rem;
+    height: 2.35rem;
     margin-left: 0.27rem;
   }
   .name {

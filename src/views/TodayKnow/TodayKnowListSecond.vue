@@ -1,12 +1,12 @@
 <template>
   <div>
-    <imgs-list :list-arr="listArr"></imgs-list>
+    <imgs-list :list-arr="listArr" path="todayKnow"></imgs-list>
   </div>
 </template>
 
 <script>
 import contrastDate from '@/assets/js/contrastDate.js'
-import ImgsList from './components/ImgsList'
+import ImgsList from '@/components/ImgsList'
 export default {
   name: '',
   components: {
