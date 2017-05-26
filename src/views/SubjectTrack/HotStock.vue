@@ -50,6 +50,7 @@ export default {
   },
   methods: {
     refresh: function (done) {
+      this.getList(0)
     },
     infinite (done) {
       var self = this
@@ -72,8 +73,7 @@ export default {
       })
       .then((res) => {
         let data = res.stockList
-        console.log(data)
-        this.listArr = this.listArr.concat(data)
+        this.$set(this, 'listArr', this.listArr.concat(data))
       })
     },
     color (value) {
@@ -100,6 +100,7 @@ export default {
     padding: 0.27rem 0; 
     box-shadow: 0px 5px 6px #F3F0F0;
     position: fixed;
+    z-index: 999;
   }
   .bar ul {
     padding: 0 0.4rem;

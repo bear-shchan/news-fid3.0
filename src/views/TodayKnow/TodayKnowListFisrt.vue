@@ -6,7 +6,7 @@
         <span style="vertail-align:middle">大家都在看</span>
       </p>
       <div class="seenews">
-        <router-link class="seebox"  :to="'/todayKnowSecond/' + item.productId" v-for="item in seeList">
+        <router-link class="seebox"  :to="'/todayKnowSecond/' + item.productId" v-for="item in seeList" :key="item.productId">
           <div class="see-content">
             <img :src="item.productImages">
             <div>
@@ -27,7 +27,7 @@
       <div>
         <div class="twoimg">
           <router-link class="imgs" :to="'/todayKnowSecond/' + item.productId" :style="{backgroundImage: 'url(' + item.productImages + ')', width: '100vw', backgroundSize: 'cover'}
-         " v-for="(item, key) in reportList" v-if="key < 2">
+         " v-for="(item, key) in reportList" v-if="key < 2" :key="item.productId">
             <div class="imgsbox">
               <p class="re-title">{{ item.productName }}</p>
               <p class="re-line"></p>
@@ -54,7 +54,7 @@
         <span style="vertail-align:middle">主题资讯</span>
       </p>
       <div>
-        <router-link class="list" :to="'/specialSubject/' + item.id" v-for="item in specialList">
+        <router-link class="list" :to="'/specialSubject/' + item.id" v-for="item in specialList" :key="item.id">
           <div class="topic layout-box">
             <div class="text box-col">
               <p class="name">{{ item.name }}</p>

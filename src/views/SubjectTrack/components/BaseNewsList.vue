@@ -1,6 +1,24 @@
 <template>
   <div>
     <div class="newslist" id="newslist" v-if="newsList.length > 0">
+      <router-link v-for="item in newsList1" :to="'/newsDetail/' + item.id" class="newsli" :key="item.id"> 
+        <p class="stocktitle">
+          <span class="news-title">{{ item.date  }}</span>
+          {{ item.title }}
+        </p>
+        <div class="info" v-if="item.stockList != ''">
+          <img class="face" src="../../../assets/img/liduo@2x.png">
+          <div style="padding-left:20px;">
+            <router-link :to="'/singleStockDetail/information/' + stock.stockWindCode" v-for="stock in item.stockList"  :key="stock.stockWindCode">
+              <p class="stocknames">
+                {{ stock.stockName }}<span class="percent green">{{ percentData[stock.stockWindCode] | toFixed }}</span>
+              </p>
+            </router-link>
+          </div>
+        </div>
+      </router-link>
+    </div>
+    <div class="newslist" id="newslist" v-if="newsList.length > 0">
       <router-link v-for="item in newsList" :to="'/newsDetail/' + item.id" class="newsli" :key="item.id"> 
         <p class="stocktitle">
           <span class="news-title">{{ item.date  }}</span>
@@ -43,12 +61,36 @@ export default {
       droploadDownText: '',
       loading: false,
       isLoading: '',
-      percentData: {}
+      percentData: {},
+      newsList1: []
     }
   },
   created () {
+    this.getList1()
   },
   methods: {
+    getList1 () {
+      this.$http.get('/fidnews/v1/geek/v3/getTopicInfoMsgV3VoList', {
+        params: {
+          user: 'geek',
+          key: '4c039f2967c4d93e9674ffb037724187',
+          topicId: this.$route.params.id,
+          pageNum: 5,
+          lastTime: (this.newsList.length > 0 && this.newsList[this.newsList.length - 1].releasedTime) || null
+        }
+      })
+      .then((res) => {
+        let stockWindCodeArr = []
+        let listArr = res.data
+        for (var i = 0; i < listArr.length; i++) {
+          for (var j = 0; j < listArr[i].stockList.length; j++) {
+            listArr[i].date = contrastDate(listArr[i].releasedTime)
+            stockWindCodeArr.push(listArr[i].stockList[j].stockWindCode)
+          }
+        }
+        this.$set(this, 'newsList1', listArr)
+      })
+    },
     async getList () {
       try {
         this.loading = true
@@ -70,7 +112,6 @@ export default {
           }
         }
         this.newsList = listArr
-        console.log(this.newsList)
         this.getStockPercent(stockWindCodeArr)
         this.loading = false
         this.droploadDownText = '正在加载中...'
