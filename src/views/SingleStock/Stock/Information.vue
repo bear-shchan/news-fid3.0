@@ -41,13 +41,13 @@
     </ul>
     <no-data-img text="暂无相关资讯"
       :show="!mainList[0] && !listBusy">
-      <img class="no-data-img" src="../../assets/img/no-information.png">
+      <img class="no-data-img" src="../../../assets/img/no-information.png">
     </no-data-img>
   </div>
 </template>
 
 <script>
-import NoDataImg from './components/NoDataImg'
+import NoDataImg from '../components/NoDataImg'
 
 export default {
   components: {

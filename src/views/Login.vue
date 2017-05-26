@@ -79,7 +79,7 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto; 
-  margin-top: 3.2rem;
+  padding-top: 3.2rem;
   width: 2.4rem;
   height: 2.4rem;
 }
@@ -99,7 +99,8 @@ export default {
   margin-right: auto;
   margin-bottom: 0.56rem;
   line-height: 0.8rem;
-  border: 0;
+  border: none;
+  border-radius: 0;
   outline:none;
   background-color:transparent;  
   FILTER: alpha(opacity=0); /*androd*/  
@@ -138,9 +139,11 @@ input:-webkit-autofill {
 .logo-text2{
   width: 2.41rem;
   height: 0.69rem;
-  position: absolute;
-  bottom: 0.8rem;
-  left: 5rem;
-  transform: translate(-50%);
+  /*position: absolute;*/
+  /*bottom: 0.8rem;*/
+  /*left: 5rem;
+  transform: translate(-50%);*/
+  margin-top: 1.5rem;
+  text-align: center;
 }
 </style>

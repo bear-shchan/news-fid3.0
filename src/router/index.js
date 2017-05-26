@@ -226,34 +226,61 @@ let routes = [
   {
     // name: '个股详情页',
     path: '/singleStockDetail',
-    component: resolve => require([`../views/singleStock/singleStockDetail.vue`], resolve),
+    component: resolve => require([`../views/singleStock/Detail.vue`], resolve),
     children: [
       {
         // name: '资讯',
         path: 'information/:tagName',
-        component: resolve => require([`../views/singleStock/Information.vue`], resolve)
+        component: resolve => require([`../views/singleStock/Stock/Information.vue`], resolve)
       },
       {
         // name: '主题',
         path: 'topic/:tagName',
-        component: resolve => require([`../views/singleStock/Topic.vue`], resolve)
+        component: resolve => require([`../views/singleStock/Stock/Topic.vue`], resolve)
       },
       {
         // name: '公告',
         path: 'announcement/:tagName',
-        component: resolve => require([`../views/singleStock/Announcement.vue`], resolve)
+        component: resolve => require([`../views/singleStock/Stock/Announcement.vue`], resolve)
       },
       {
         // name: 'F10',
         path: 'f10/:tagName',
-        component: resolve => require([`../views/singleStock/F10.vue`], resolve)
+        component: resolve => require([`../views/singleStock/Stock/F10.vue`], resolve)
       }
     ]
   },
   {
-    // name: '个股公告',
+    // name: '大盘详情页',
+    path: '/tapeDetail',
+    component: resolve => require([`../views/singleStock/Detail.vue`], resolve),
+    children: [
+      {
+        // name: '围观大盘',
+        path: 'onlookersTape/:tagName',
+        component: resolve => require([`../views/singleStock/Tape/OnlookersTape.vue`], resolve)
+      },
+      {
+        // name: '涨幅榜',
+        path: 'roseList/:tagName',
+        component: resolve => require([`../views/singleStock/Tape/RoseList.vue`], resolve)
+      },
+      {
+        // name: '跌幅榜',
+        path: 'dropList/:tagName',
+        component: resolve => require([`../views/singleStock/Tape/DropList.vue`], resolve)
+      }
+    ]
+  },
+  {
+    // name: '个股公告详情页',
     path: '/singleStockAnnouncement/:id',
-    component: resolve => require([`../views/singleStock/AnnouncementDetail.vue`], resolve)
+    component: resolve => require([`../views/singleStock/Stock/AnnouncementDetail.vue`], resolve)
+  },
+  {
+    // name: '围观大盘详情页',
+    path: '/onlookersTapeDetail/:id',
+    component: resolve => require([`../views/singleStock/Tape/OnlookersTapeDetail.vue`], resolve)
   }
 ]
 

@@ -162,6 +162,8 @@ export default {
         this.$router.push('singleStockDetail/information/' + item.stockWindCode)
       } else if (item.topicId) {
         this.$router.push('/subjectTrackDetail/' + item.topicId)
+      } else if (item.indexWindCode) {
+        this.$router.push('tapeDetail/onLookersTape/' + item.indexWindCode)
       }
     },
     removeSearchHistory () {

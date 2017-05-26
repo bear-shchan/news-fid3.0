@@ -50,7 +50,7 @@ router.beforeEach(({meta, path}, from, next) => {
 
   // 外部页面逻辑，求一基，求一票
   if (path !== '/' && externalViewStr.indexOf(path) !== -1) {
-    window.location.href = '//www.21fid.com/external' + path + '/appInside'
+    window.location.href = '//www.21fid.com/external' + path
     return false
   }
 

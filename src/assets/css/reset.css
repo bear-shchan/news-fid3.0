@@ -22,6 +22,11 @@ button {
 -webkit-appearance: none;
 }
 
+a{
+-webkit-tap-highlight-colo:rgba(0,0,0,0);
+-webkit-tap-highlight-color:transparent;
+}
+
 .fl{float: left;}
 .fr{float: right;}
 .clearfix:after{content:"";display:block;height:0;clear:both;visibility:hidden}
@@ -31,12 +36,13 @@ button {
 .red{color: #f00;}
 
 .fwb{font-weight: bold;}
+.db{display: block;}
 
 .layout-box {display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;}
 .layout-box .box-col {-webkit-box-flex: 1;-webkit-flex: 1;-ms-flex: 1;flex: 1;width: 100%;}
 
 
-.line-clamp{
+/*.line-clamp{
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -50,4 +56,20 @@ button {
 }
 .display-show{
   -webkit-line-clamp: 100;
+}*/
+
+.list-intercept-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+}
+.list-intercept-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+}
+.list-intercept-false {
+    -webkit-line-clamp: 100;
 }

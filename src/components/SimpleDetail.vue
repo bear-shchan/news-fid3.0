@@ -44,7 +44,7 @@ export default {
   margin-bottom: 0.4rem;
 }
 .details-content{
-  text-indent: 32px;
+  /*text-indent: 32px;*/
   font-size: 16px;
   color: #4d4d4d;
 }
