@@ -68,7 +68,7 @@ export default {
   width: 0.27rem;
   height: 0.27rem;
   -webkit-background-size: cover;
-  background-size: cover;
+  background-size: 0.27rem;
   margin-right: 0.11rem;
   margin-left: 0.4rem;
 }

@@ -101,6 +101,34 @@ const nav = [
     column: '4'
   },
   {
+    name: '涨停预测',
+    path: '/todayKnowSecond/2',
+    component: 'template',
+    icon: 'icon22',
+    column: '4'
+  },
+  {
+    name: '蓉儿看盘',
+    path: '/todayKnowSecond/1',
+    component: 'template',
+    icon: 'icon23',
+    column: '4'
+  },
+  {
+    name: '飞笛策略',
+    path: '/todayKnowSecond/5',
+    component: 'template',
+    icon: 'icon24',
+    column: '4'
+  },
+  {
+    name: '产业报告',
+    path: '/todayKnowSecond/6',
+    component: 'template',
+    icon: 'icon25',
+    column: '4'
+  },
+  {
     name: '港股资讯',
     path: '/HKStocks',
     component: 'template',

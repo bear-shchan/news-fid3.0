@@ -223,6 +223,7 @@ input:-webkit-autofill {
   vertical-align: -0.08rem;
 }
 .input-search{
+  width: 90%;
   color: #fff;
   font-size: 14px;
   line-height: 0.77rem;
