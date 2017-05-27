@@ -59,8 +59,8 @@ export default {
   background-color: #2e2e37;
   line-height: 1.07rem;
   height: 1.07rem;
-  line-height: 6vh;
-  height: 6vh;
+  /*line-height: 6vh;
+  height: 6vh;*/
   text-align: center;
   color: #fff;
   font-size: 18px;

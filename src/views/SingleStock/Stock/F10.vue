@@ -47,7 +47,7 @@
     </div>
     <div class="content-box">
       <p class="title">股东股本</p>
-      <ul class="list">
+      <ul class="list" v-if="data.guben">
         <li class="list-item">
           <span class="list-1">总股本</span>
           <span>{{ data.guben.zgb }}</span>
