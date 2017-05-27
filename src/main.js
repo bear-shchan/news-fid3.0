@@ -58,6 +58,8 @@ router.beforeEach(({meta, path}, from, next) => {
 })
 
 router.afterEach(() => {
+  // 优化---设置时间，判断时间长于1s 在设置为true
+  store.dispatch('SET_SPINNER', true)
   window.scrollTo(0, 0)
   NProgress.done()
 })

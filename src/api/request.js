@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../store'
 
 var request = axios.create({
   baseURL: '//data.news.21fid.com',
@@ -17,6 +18,9 @@ const handleResponse = (res) => {
   // } else {
   //   return Promise.reject(res)
   // }
+  setTimeout(() => {
+    store.dispatch('SET_SPINNER', false)
+  }, 100)
   return Promise.resolve(res.data)
 }
 export default {

@@ -4,7 +4,7 @@
       class="dropload-down"
       :handler="getData"
       :should-handle="!loading">
-      <img v-show="!done" class="loading-icon" src="../assets/img/loading.gif">
+      <img v-show="!done" class="loading-icon" src="../assets/img/g-loading.gif">
       <span v-show="!done" class="text">{{ droploadDownText }}</span>
       <span v-show="done" class="text">{{ doneText }}</span>
     </mugen-scroll>
@@ -56,8 +56,8 @@ export default {
   color: #999;
 }
 .dropload-down .loading-icon {
-  width: 14px;
-  height: 14px;
+  width: 30px;
+  height: 30px;
   vertical-align: middle;
   padding-right: 4px;
 }
