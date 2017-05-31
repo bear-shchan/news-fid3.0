@@ -9,7 +9,8 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    vendor: ['vue-router', 'vuex'],
+    "babel-polyfill": "babel-polyfill",// 解决低版本兼容问题
+    vendor: ['vue-router', 'vuex', 'vue-scroller'],
     app: './src/main.js'
   },
   externals: {

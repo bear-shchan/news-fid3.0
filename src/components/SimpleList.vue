@@ -75,6 +75,9 @@ export default {
 .main-list .list-item{
   padding-bottom: 1.07rem;
 }
+.main-list .list-item:last-child{
+  padding-bottom: .07rem;
+}
 .main-list .list-item .title{
   line-height: 23px;
   font-size: 16px;

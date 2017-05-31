@@ -6,7 +6,7 @@
       :should-handle="!loading">
       <img v-show="!done" class="loading-icon" src="../assets/img/g-loading.gif">
       <span v-show="!done" class="text">{{ droploadDownText }}</span>
-      <span v-show="done" class="text">{{ doneText }}</span>
+      <span v-if="done" class="text">{{ doneText }}</span>
     </mugen-scroll>
   </div>
 </template>

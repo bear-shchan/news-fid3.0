@@ -4,8 +4,7 @@
     <!-- 加载更多 -->
     <loadmore
       v-on:getData="getList"
-      :loading="loading"
-      :doneText="doneText">
+      :loading="loading">
     </loadmore>
   </div>
 </template>
@@ -25,7 +24,7 @@ export default {
     return {
       list: [],
       firstRequest: true,
-      doneText: '正在加载中...',
+      doneText: '没有更多数据',
       loading: false,
       releaseTime: ''
     }
