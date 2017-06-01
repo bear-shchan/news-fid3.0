@@ -9,9 +9,10 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    "babel-polyfill": "babel-polyfill",// 解决低版本兼容问题
+    // "babel-polyfill": "babel-polyfill",// 解决低版本兼容问题
     vendor: ['vue-router', 'vuex', 'vue-scroller'],
     app: './src/main.js'
+    // app: ['babel-polyfill', './src/main.js']    
   },
   externals: {
     "axios": "axios",

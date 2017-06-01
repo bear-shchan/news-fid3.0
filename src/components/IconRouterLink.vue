@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="link-box layout-box"
+    <div class="link-box"
       :class="{'fixed-box' : fixedBox}">
       <i class="gray"></i>
       <div v-for="item in linkItems"
-        class="link-item box-col"
+        class="link-item"
         @click="changeRoute(item)"
         >
         <img class="icon-active" v-if="$route.path.indexOf(item.link) !== -1" :src="item.iconActive">
@@ -66,7 +66,7 @@ export default {
   text-align: center;
   border-bottom: 1px solid #ccc;
   display: inline-block;
-  /*width: 20%;*/
+  width: 20%;
   padding-bottom: 0.27rem;
 }
 .icon{
