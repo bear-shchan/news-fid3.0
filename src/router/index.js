@@ -104,6 +104,16 @@ let routes = [
     component: resolve => require([`../views/Precognition/PrecognitionDetail.vue`], resolve)
   },
   {
+    name: '赏妖股',
+    path: '/monsterStock',
+    component: resolve => require([`../views/MonsterStock/MonsterStockList.vue`], resolve)
+  },
+  {
+    title: '赏妖股',
+    path: '/monsterStockDetail/:id',
+    component: resolve => require([`../views/MonsterStock/MonsterStockDetail.vue`], resolve)
+  },
+  {
     name: '主题选基',
     path: '/fundSelect',
     component: resolve => require([`../views/FundSelect/FundSelect/FundSelect.vue`], resolve)
