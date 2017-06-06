@@ -11,15 +11,15 @@
 </template>
 
 <script>
-import imgsList from '@/components/imgsList.vue'
-import loadmore from '@/components/loadmore.vue'
+import ImgsList from '@/components/ImgsList.vue'
+import Loadmore from '@/components/Loadmore.vue'
 
 import contrastDate from '@/assets/js/contrastDate.js'
 
 export default {
   components: {
-    imgsList,
-    loadmore
+    ImgsList,
+    Loadmore
   },
   data () {
     return {

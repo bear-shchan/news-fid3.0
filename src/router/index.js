@@ -142,17 +142,23 @@ let routes = [
     component: resolve => require([`../views/SubjectTrack/SubjectTrackList.vue`], resolve)
   },
   {
-    name: '主题追踪',
+    meta: {
+      name: '主题追踪'
+    },
     path: '/SubjectTrackDetail/:id',
     component: resolve => require([`../views/SubjectTrack/SubjectTrackDetail.vue`], resolve)
   },
   {
-    name: '主题追踪',
+    meta: {
+      name: '主题追踪'
+    },
     path: '/hotStock/:id',
     component: resolve => require([`../views/SubjectTrack/HotStock.vue`], resolve)
   },
   {
-    name: '主题追踪',
+    meta: {
+      name: '主题追踪'
+    },
     path: '/newsDetail/:id',
     component: resolve => require([`../views/SubjectTrack/newsDetail.vue`], resolve)
   },
@@ -162,12 +168,16 @@ let routes = [
     component: resolve => require([`../views/NewbieFinance/NewbieFinanceListFisrt.vue`], resolve)
   },
   {
-    name: '小白财经',
+    meta: {
+      name: '小白财经'
+    },
     path: '/newbieFinanceSecond/:id',
     component: resolve => require([`../views/NewbieFinance/NewbieFinanceListSecond.vue`], resolve)
   },
   {
-    name: '小白财经',
+    meta: {
+      name: '小白财经'
+    },
     path: '/newbieFinanceDetail/:id',
     component: resolve => require([`../views/NewbieFinance/NewbieFinanceDetail.vue`], resolve)
   },
@@ -202,7 +212,9 @@ let routes = [
         component: resolve => require([`../views/FinanceCalendar/Event.vue`], resolve)
       },
       {
-        name: '财经事件',
+        meta: {
+          name: '财经事件'
+        },
         path: 'eventDetail',
         component: resolve => require([`../views/FinanceCalendar/EventDetail.vue`], resolve)
       },
@@ -212,7 +224,9 @@ let routes = [
         component: resolve => require([`../views/FinanceCalendar/Data.vue`], resolve)
       },
       {
-        name: '财经数据',
+        meta: {
+          name: '财经数据'
+        },
         path: 'dataDetail',
         component: resolve => require([`../views/FinanceCalendar/DataDetail.vue`], resolve)
       },

@@ -22,13 +22,13 @@
 
 <script>
 import SimpleList from '@/components/SimpleList.vue'
-import loadmore from '@/components/loadmore.vue'
+import Loadmore from '@/components/Loadmore.vue'
 
 export default {
   name: 'Transaction',
   components: {
     SimpleList,
-    loadmore
+    Loadmore
   },
   data () {
     return {

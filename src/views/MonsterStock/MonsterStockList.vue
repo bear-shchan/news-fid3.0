@@ -30,11 +30,11 @@
 </template>
 
 <script>
-import loadmore from '@/components/loadmore.vue'
+import Loadmore from '@/components/Loadmore.vue'
 
 export default {
   components: {
-    loadmore
+    Loadmore
   },
   data () {
     return {

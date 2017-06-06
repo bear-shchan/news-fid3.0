@@ -19,7 +19,7 @@
 
     <!-- k线图 -->
     <plate-header :title="main.topicName" :gray-line="true" type="high"></plate-header>
-    <charts-line class="charts" :topic-id="topicId"></charts-line>
+    <charts-kline class="charts" :topic-id="topicId"></charts-kline>
 
     <!-- 关联基金 -->
     <related-fund :topic-name="main.topicName"></related-fund>
@@ -30,13 +30,13 @@
 <script>
 import jsonp from '@/api/jsonp.js'
 import moment from 'moment'
-import ChartsLine from '@/components/EChartsKLine.vue'
+import ChartsKline from '@/components/ChartsKline.vue'
 import PlateHeader from '@/components/PlateHeader'
 import RelatedFund from '@/components/RelatedFund'
 
 export default {
   components: {
-    ChartsLine,
+    ChartsKline,
     PlateHeader,
     RelatedFund
   },
