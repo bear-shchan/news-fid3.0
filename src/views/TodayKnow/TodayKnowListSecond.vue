@@ -6,7 +6,8 @@
 
 <script>
 import contrastDate from '@/assets/js/contrastDate.js'
-import ImgsList from '@/components/ImgsList'
+import ImgsList from '@/components/ImgsList.vue'
+
 export default {
   name: '',
   components: {

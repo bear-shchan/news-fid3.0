@@ -19,14 +19,13 @@ export default {
   },
   watch: {
     '$route': function (val) {
-      if (val.name === '飞笛资讯') {
-        this.noLoadingPath = false
-      } else if (val.name === '登录') {
+      let arr = ['飞笛资讯', '登录']
+      if (arr.indexOf(val.name) !== -1) {
         this.noLoadingPath = false
       } else {
         this.noLoadingPath = true
       }
-      console.log(this.noLoadingPath)
+      // console.log(this.noLoadingPath)
     }
   }
 }

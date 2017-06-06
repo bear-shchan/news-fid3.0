@@ -45,13 +45,14 @@
 </template>
 
 <script>
-import echartsLine from '@/components/EchartsKLine'
-import baseNewsList from './components/BaseNewsList'
+import EchartsLine from '@/components/EchartsKLine.vue'
+import BaseNewsList from './components/BaseNewsList.vue'
+
 export default {
-  name: 'subjectTrackDetail',
+  // name: 'subjectTrackDetail',
   components: {
-    echartsLine,
-    baseNewsList
+    EchartsLine,
+    BaseNewsList
   },
   data () {
     return {

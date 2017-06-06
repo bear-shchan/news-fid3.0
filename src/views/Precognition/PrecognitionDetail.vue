@@ -38,7 +38,7 @@
 
 <script>
 import moment from 'moment'
-import Echarts from '@/components/echarts'
+import Echarts from '@/components/Echarts.vue'
 
 export default {
   components: {

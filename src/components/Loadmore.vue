@@ -2,6 +2,7 @@
   <div>
     <mugen-scroll
       class="dropload-down"
+      v-show="showLoading"
       :handler="getData"
       :should-handle="!loading">
       <img v-show="!done" class="loading-icon" src="../assets/img/g-loading.gif">
@@ -38,6 +39,9 @@ export default {
     doneText: {
       type: String,
       default: '已经加载完毕'
+    },
+    showLoading: {
+      type: Boolean
     }
   },
   methods: {

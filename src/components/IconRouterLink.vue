@@ -5,6 +5,7 @@
       <i class="gray"></i>
       <div v-for="item in linkItems"
         class="link-item"
+        :style="{ width: itemWidth }"
         @click="changeRoute(item)"
         >
         <img class="icon-active" v-if="$route.path.indexOf(item.link) !== -1" :src="item.iconActive">
@@ -33,6 +34,11 @@ export default {
       } else {
         this.$router.push(this.linkPath + item.link)
       }
+    }
+  },
+  computed: {
+    itemWidth () {
+      return (100 / this.linkItems.length) + '%'
     }
   }
 }
@@ -66,7 +72,7 @@ export default {
   text-align: center;
   border-bottom: 1px solid #ccc;
   display: inline-block;
-  width: 20%;
+  /*width: 20%;*/
   padding-bottom: 0.27rem;
 }
 .icon{

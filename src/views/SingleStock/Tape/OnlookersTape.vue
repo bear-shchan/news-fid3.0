@@ -4,7 +4,8 @@
     <!-- 加载更多 -->
     <loadmore
       v-on:getData="getList"
-      :loading="loading">
+      :loading="loading"
+      :showLoading="!firstRequest">
     </loadmore>
   </div>
 </template>

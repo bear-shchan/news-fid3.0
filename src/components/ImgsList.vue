@@ -39,7 +39,7 @@
 
 <script>
 export default {
-  name: 'imgsList',
+  // name: 'imgsList',
   data () {
     return {
     }

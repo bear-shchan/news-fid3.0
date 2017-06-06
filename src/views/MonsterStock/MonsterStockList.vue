@@ -9,7 +9,8 @@
         <router-link tag="li" 
           class="list-item"
           v-for="i in item.stocks"
-          :to="'/monsterStockDetail/' + i.id">
+          :to="'/monsterStockDetail/' + i.id"
+          key="i.id">
           <img class="img" :src="typeObj[i.type].icon">
           <div class="title-box dib">
             <p class="type">{{ typeObj[i.type].text }}</p>
