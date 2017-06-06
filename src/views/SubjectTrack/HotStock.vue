@@ -10,57 +10,52 @@
             <li>近5日涨幅</li>
           </ul>          
         </div>
-        <scroller 
-          :on-refresh="refresh"
-          :on-infinite="infinite" style="top: auto;left: auto;" :noDataText="noDataText">
-          <ul class="list">
-            <router-link :to="'/singleStockDetail/information/' + item.windStockCode" v-for="item in listArr" :key="item.windStockCode">
-              <li>
-                <span class="name">
-                  <span class="stockname">{{ item.stockCnName }}</span><br>
-                  <span class="code">{{ item.windStockCode.split('.')[0] }}</span>
-                </span>
-                <span :class="'new ' + color (item.zdf)">{{ item.zxj }}</span>
-                <span :class="'percent ' + color (item.zdf)">{{ item.zdf | toFixed}}</span>
-                <span :class="'fiveday ' + color (item.percent)">{{ item.percent | toFixed}}</span>
-              </li>
-            </router-link>
-          </ul>
-        </scroller>
+        <ul class="list">
+          <router-link :to="'/singleStockDetail/information/' + item.windStockCode" v-for="item in list" :key="item.windStockCode">
+            <li>
+              <span class="name">
+                <span class="stockname">{{ item.stockCnName }}</span><br>
+                <span class="code">{{ item.windStockCode.split('.')[0] }}</span>
+              </span>
+              <span :class="'new ' + color (item.zdf)">{{ item.zxj }}</span>
+              <span :class="'percent ' + color (item.zdf)">{{ item.zdf | toFixed}}</span>
+              <span :class="'fiveday ' + color (item.percent)">{{ item.percent | toFixed}}</span>
+            </li>
+          </router-link>
+          <loadmore
+            v-on:getData="getList"
+            :loading="loading"
+            :showLoading="!firstRequest"
+            :done="done">
+          </loadmore>
+        </ul>
       </div>
     </section>
   </div>
 </template>
 <script>
-import Vue from 'vue'
-import VueScroller from 'vue-scroller'
-Vue.use(VueScroller)
+import Loadmore from '@/components/Loadmore.vue'
 export default {
+  components: {
+    Loadmore
+  },
   data () {
     return {
-      listArr: [],
+      list: [],
       stockNum: 10,
       offset: 0,
-      items: [],
-      noDataText: '无数据'
+      firstRequest: true,
+      doneText: '没有更多数据',
+      loading: false,
+      done: false
     }
   },
   created () {
-    this.getList(0)
+    this.getList()
   },
   methods: {
-    refresh: function (done) {
-      this.getList(0)
-    },
-    infinite (done) {
-      var self = this
-      self.offset += self.stockNum
-      setTimeout(function () {
-        self.getList()
-        done()
-      }, 1500)
-    },
     getList () {
+      this.loading = true
       this.$http.get('/fidnews/v1/statistics/hotForefrontStockPage', {
         params: {
           user: 'fidinner',
@@ -73,7 +68,17 @@ export default {
       })
       .then((res) => {
         let data = res.stockList
-        this.$set(this, 'listArr', this.listArr.concat(data))
+        if (data.length === 0) {
+          this.done = true
+        }
+        if (this.firstRequest) {
+          this.$set(this, 'list', data)
+          this.firstRequest = false
+        } else {
+          this.$set(this, 'list', this.list.concat(data))
+        }
+        this.offset = this.offset + this.stockNum
+        this.loading = false
       })
     },
     color (value) {
