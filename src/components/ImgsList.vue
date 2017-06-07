@@ -67,6 +67,7 @@ export default {
     width: 3.37rem;
     height: 2.35rem;
     margin-left: 0.27rem;
+    background-color: rgba(0, 0, 0, 0.1);
   }
   .name {
     font-size: 16px;
@@ -85,6 +86,7 @@ export default {
     border-bottom: 1px solid #ececec;
   }
   .list-three img {
+    background-color: rgba(0, 0, 0, 0.1);
     width: 2.99rem;
     height: 2.35rem;
   }
@@ -97,7 +99,7 @@ export default {
     flex: 1;
   }
   .list-three-img img:first-child, .list-three-img img:nth-child(2) {
-    padding-right: 0.19rem;
+    margin-right: 0.19rem;
   }
   .list-one-text span, .list-three-text span, .list-no-text span{ 
     color: #999;

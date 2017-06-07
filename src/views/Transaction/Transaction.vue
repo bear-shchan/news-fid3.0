@@ -15,7 +15,8 @@
     <!-- 加载更多 -->
     <loadmore
       v-on:getData="getMain"
-      :loading="loading">
+      :loading="loading"
+      :showLoading="!firstRequest">
     </loadmore>
   </div>
 </template>

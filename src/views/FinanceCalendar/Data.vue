@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div class="calendar-list"
-      v-infinite-scroll="getData" 
-      infinite-scroll-disabled="listBusy" 
-      infinite-scroll-distance="200"
-      infinite-scroll-immediate-check="false">
+    <div class="calendar-list">
       <div class="list-item layout-box"
         v-for="(item, index) in list"
         @click="gotoDetail(item.id)"
@@ -27,22 +23,32 @@
           </ul>
       </div>
     </div>
+    <!-- 加载更多 -->
+    <loadmore
+      v-on:getData="getData"
+      :loading="listBusy"
+      :showLoading="pageNo !== 1"
+      :done="done">
+    </loadmore>
   </div>
 </template>
 
 <script>
-import router from '../../router'
-// import moment from 'moment'
+import Loadmore from '@/components/Loadmore.vue'
 
 import { mapActions } from 'vuex'
 
 export default {
   name: 'event',
+  components: {
+    Loadmore
+  },
   data () {
     return {
       list: [],
       listBusy: false,
-      pageNo: 1
+      pageNo: 1,
+      done: false
     }
   },
   created () {
@@ -59,7 +65,10 @@ export default {
         }
       })
       .then((data) => {
-        this.listBusy = false
+        if (data.num === 0) {
+          this.done = true
+          return
+        }
         var list = data.data
         var len = list.length
         var i = 0
@@ -81,11 +90,11 @@ export default {
           for (j; j < len; j++) {
             this.list.push(list[j])
           }
-          this.pageNo++
-          return
+        } else {
+          this.$set(this, 'list', list)
         }
         this.pageNo++
-        this.$set(this, 'list', list)
+        this.listBusy = false
       })
     },
     gotoDetail (id) {
@@ -98,7 +107,8 @@ export default {
           vm.list[i].description_reason = vm.list[i].description.split('： ')[2]
           console.log(vm.list[i].description_reason)
           vm.SET_CALENDAR_ITEM(vm.list[i])
-          router.push('dataDetail')
+          // router.push('dataDetail')
+          this.$router.push('dataDetail')
           return
         }
       }

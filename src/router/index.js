@@ -305,6 +305,11 @@ let routes = [
     // name: '围观大盘详情页',
     path: '/onlookersTapeDetail/:id',
     component: resolve => require([`../views/singleStock/Tape/OnlookersTapeDetail.vue`], resolve)
+  },
+  {
+    name: '时光机',
+    path: '/timeMachine',
+    component: resolve => require([`../views/TimeMachine/TimeMachineList.vue`], resolve)
   }
 ]
 

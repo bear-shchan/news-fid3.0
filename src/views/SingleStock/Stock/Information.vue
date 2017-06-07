@@ -1,10 +1,7 @@
 <template>
   <div>
     <ul class="main-list"
-      v-infinite-scroll="getMain" 
-      infinite-scroll-disabled="listBusy" 
-      infinite-scroll-distance="350"
-      infinite-scroll-immediate-check
+      v-infinite-scroll="getMain"
       >
       <li class="list-item" v-for="(item, index) in mainList" 
         @click="changeIntercept(index)">
@@ -39,6 +36,13 @@
         </div>
       </li>
     </ul>
+    <!-- 加载更多 -->
+    <loadmore
+      v-on:getData="getMain"
+      :loading="listBusy"
+      :showLoading="option.pageNo !== 1">
+    </loadmore>
+    <!-- 无消息展示板块 -->
     <no-data-img text="暂无相关资讯"
       :show="!mainList[0] && !listBusy">
       <img class="no-data-img" src="../../../assets/img/no-information.png">
@@ -48,10 +52,12 @@
 
 <script>
 import NoDataImg from '../components/NoDataImg'
+import Loadmore from '@/components/Loadmore.vue'
 
 export default {
   components: {
-    NoDataImg
+    NoDataImg,
+    Loadmore
   },
   data () {
     return {

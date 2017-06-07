@@ -14,12 +14,7 @@
     <!-- <list-loading :list-loaded="listLoaded"></list-loading> -->
 
     <!-- 列表项 -->
-    <ul class="main-list"
-      v-infinite-scroll="getEveryTime" 
-      infinite-scroll-disabled="listBusy" 
-      infinite-scroll-distance="350"
-      infinite-scroll-immediate-check
-      >
+    <ul class="main-list">
       <li class="list-item" v-for="(item, index) in mainList" 
         @click="changeIntercept(index)">
         <div :class="'importance-' + item.importance ">
@@ -34,37 +29,27 @@
             :class="{'list-intercept-false' : !item.listIntercept}">
             {{ item.description }}
           </p>
-          <!-- 标签 -->
-          <!-- <template v-if="item.subject != ' ' && item.subject != undefined">
-            <router-link class="subject-link" 
-              :to="'everytimeTag/' + item.subject"
-              >
-              #{{ item.subject }}#
-            </router-link>
-          </template> -->
-          <!-- 笑脸 -->
-          <!-- <template v-if="item.liduolikong">
-            <div class="message-index" v-if="item.liduolikong.data">
-              <img class="icon" src="@/assets/img/liduo@2x.png"><span class="text">
-              {{item.liduolikong.data[0].name}}</span>
-            </div>
-          </template> -->
         </div>
       </li>
     </ul>
+    <!-- 加载更多 -->
+    <loadmore
+      v-on:getData="getEveryTime"
+      :loading="listBusy"
+      :showLoading="!firstRequest">
+    </loadmore>
   </div>
 </template>
 
 <script>
 import moment from 'moment'
-// import ListLoading from '../components/ListLoading.vue'
-import ImportanceRadios from '@/components/ImportanceRadios.vue'
+import Loadmore from '@/components/Loadmore.vue'
 
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
-    ImportanceRadios
+    Loadmore
     // ListLoading
   },
   data () {

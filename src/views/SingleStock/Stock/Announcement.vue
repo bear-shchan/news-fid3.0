@@ -1,11 +1,7 @@
 <template>
   <div>
     <ul class="main-list"
-      :main-list="mainList"
-      v-infinite-scroll="getMain" 
-      infinite-scroll-disabled="listBusy"
-      infinite-scroll-distance="350"
-      infinite-scroll-immediate-check="false">
+      :main-list="mainList">
       <li class="list-item" v-for="item in mainList" @click="goToDetail(item)">
         <div>
           <p class="title" v-if="item.title != '' && item.title != '快讯'">
@@ -17,6 +13,13 @@
         </p>
       </li>
     </ul>
+    <!-- 加载更多 -->
+    <loadmore
+      v-on:getData="getMain"
+      :loading="listBusy"
+      :showLoading="!firstRequest">
+    </loadmore>
+    <!-- 无消息展示板块 -->
     <no-data-img text="暂无相关公告"
       :show="!mainList[0] && !listBusy">
       <img class="no-data-img" src="../../../assets/img/no-announcement.png">
@@ -26,10 +29,12 @@
 
 <script>
 import NoDataImg from '../components/NoDataImg'
+import Loadmore from '@/components/Loadmore.vue'
 
 export default {
   components: {
-    NoDataImg
+    NoDataImg,
+    Loadmore
   },
   data () {
     return {

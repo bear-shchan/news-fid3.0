@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div class="calendar-list"
-      v-infinite-scroll="getData"
-      infinite-scroll-disabled="listBusy" 
-      infinite-scroll-distance="200"
-      infinite-scroll-immediate-check="false">
+    <div class="calendar-list">
       <ul class="main-list">
         <li class="list-item" v-for="(item, index) in list">
           <p class=" line-clamp" :class="{ 'display-show' : item.displayBtn }"
@@ -14,18 +10,30 @@
         </li>
       </ul>
     </div>
+    <!-- 加载更多 -->
+    <loadmore
+      v-on:getData="getData"
+      :loading="listBusy"
+      :showLoading="pageNo !== 1"
+      :done="done">
+    </loadmore>
   </div>
 </template>
 
 <script>
+import Loadmore from '@/components/Loadmore.vue'
 import moment from 'moment'
 
 export default {
+  components: {
+    Loadmore
+  },
   data () {
     return {
       list: [],
       listBusy: false,
-      pageNo: 1
+      pageNo: 1,
+      done: false
     }
   },
   created () {
@@ -44,7 +52,10 @@ export default {
         }
       })
       .then((data) => {
-        this.listBusy = false
+        if (data.number === 0) {
+          this.done = true
+          return
+        }
         var list = data.data
         var len = list.length
         var i = 0
@@ -60,11 +71,11 @@ export default {
             list[j].displayBtn = false
             this.list.push(list[j])
           }
-          this.pageNo++
-          return
+        } else {
+          this.$set(this, 'list', list)
         }
         this.pageNo++
-        this.$set(this, 'list', list)
+        this.listBusy = false
       })
     },
     changeDisplay: function (b) {

@@ -30,7 +30,7 @@ a{
 .fl{float: left;}
 .fr{float: right;}
 .clearfix:after{content:"";display:block;height:0;clear:both;visibility:hidden}
-.clearfix{*+height:1%;}
+.clearfix{_height:1%;}
 .inner-center{margin-left: auto;margin-right: auto;width: 100%;}
 .b{font-weight: bold;}
 .red{color: #f00;}

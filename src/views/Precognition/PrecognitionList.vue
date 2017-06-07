@@ -1,32 +1,41 @@
 <template>
-  <div class="box clearfix"
-    v-infinite-scroll="getList"
-    infinite-scroll-disabled="listBusy" 
-    infinite-scroll-distance="100"
-    infinite-scroll-immediate-check="false">
-    <router-link tag="div" :to="'/precognitionDetail/' + item.id" 
-      v-for="item in listArr" class="item" :class="{gray: item.gray}" key="item.latestTime">
-      <div class="img-bg">
-        <i class="translucent"></i>
-        <p class="topic">{{item.predictTitle}}</p>
-        <p class="time">{{item.time}}</p>
-        <p class="recommend">推荐指数:</p>
-      </div>
-      <p class="title">{{item.predictContent}}</p>
-      <p class="date">{{item.date}}</p>
-      <img class="img" :src="item.imgPath">
-    </router-link>
+  <div class="box">
+    <div class="clearfix">
+      <router-link tag="div" :to="'/precognitionDetail/' + item.id" 
+        v-for="item in listArr" class="item" :class="{gray: item.gray}" key="item.latestTime">
+        <div class="img-bg">
+          <i class="translucent"></i>
+          <p class="topic">{{item.predictTitle}}</p>
+          <p class="time">{{item.time}}</p>
+          <p class="recommend">推荐指数:</p>
+        </div>
+        <p class="title">{{item.predictContent}}</p>
+        <p class="date">{{item.date}}</p>
+        <img class="img" :src="item.imgPath">
+      </router-link>
+    </div>
+    <!-- 加载更多 -->
+    <loadmore
+      v-on:getData="getList"
+      :loading="listBusy"
+      :showLoading="!firstRequest"
+      :done="done">
+    </loadmore>
   </div>
 </template>
 
 <script>
 import contrastDate from '@/assets/js/contrastDate.js'
+import Loadmore from '@/components/Loadmore.vue'
 
 export default {
   name: 'PrecognitionList',
+  components: {
+    Loadmore
+  },
   data () {
     return {
-      fristRequest: true,
+      firstRequest: true,
       releaseTime: Date.now(),
       listArr: [],
       imgObj: {
@@ -37,7 +46,8 @@ export default {
         '4': 'postpone',
         '2': ''
       },
-      listBusy: false
+      listBusy: false,
+      done: false
     }
   },
   created () {
@@ -45,6 +55,8 @@ export default {
   },
   methods: {
     getList () {
+      this.listBusy = true
+      console.log(123)
       this.$http.get('/fidnews/v1/geek/v2/queryFutureSeareach', {
         params: {
           pageSize: 20,
@@ -53,6 +65,11 @@ export default {
       })
       .then((res) => {
         let data = res.data
+        // done
+        if (data[0] === undefined) {
+          this.done = true
+          return
+        }
         // format
         for (let i = 0, len = data.length; i < len; i++) {
           // formatStyle
@@ -70,15 +87,16 @@ export default {
           }
         }
         // set
-        if (this.fristRequest) {
+        if (this.firstRequest) {
           this.listArr = data
-          this.fristRequest = false
+          this.firstRequest = false
         } else {
           for (let i = 0, len = data.length; i < len; i++) {
             this.listArr.push(data[i])
           }
         }
         this.releaseTime = this.listArr[this.listArr.length - 1].releaseTime
+        this.listBusy = false
       })
     }
   }
@@ -86,6 +104,10 @@ export default {
 </script>
 
 <style scoped>
+.gray-bg{
+  background-color: #f5f5f5;
+}
+
 .box{
   padding: 0.43rem;
   background-color: #f5f5f5;

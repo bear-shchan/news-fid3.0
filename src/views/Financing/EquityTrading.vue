@@ -6,17 +6,20 @@
       <importance-radios class="fr"></importance-radios>
     </div>
     <!-- 资讯列表 -->
-    <simple-list :main-list="mainList"
-      v-infinite-scroll="getMain" 
-      infinite-scroll-disabled="listBusy"
-      infinite-scroll-distance="350"
-      infinite-scroll-immediate-check="false"></simple-list>
+    <simple-list :main-list="mainList"></simple-list>
+    <!-- 加载更多 -->
+    <loadmore
+      v-on:getData="getMain"
+      :loading="listBusy"
+      :showLoading="!firstRequest">
+    </loadmore>
   </div>
 </template>
 
 <script>
 import ImportanceRadios from '@/components/ImportanceRadios.vue'
 import SimpleList from '@/components/SimpleList.vue'
+import Loadmore from '@/components/Loadmore.vue'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -24,7 +27,8 @@ export default {
   name: 'financing',
   components: {
     ImportanceRadios,
-    SimpleList
+    SimpleList,
+    Loadmore
   },
   data () {
     return {

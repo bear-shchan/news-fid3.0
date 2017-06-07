@@ -24,6 +24,7 @@
     <loadmore
       v-on:getData="getList"
       :loading="loading"
+      :showLoading="this.pageNo !== 1"
       :done="done">
     </loadmore>
   </div>
