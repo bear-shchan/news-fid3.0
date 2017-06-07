@@ -26,10 +26,10 @@
     </loadmore>
   </div>
 </template>
-
+ 
 <script>
-import contrastDate from '@/assets/js/contrastDate.js'
 import Loadmore from '@/components/Loadmore.vue'
+import formatDate from '@/assets/js/formatDate.js'
 export default {
   components: { Loadmore },
   data () {
@@ -66,7 +66,7 @@ export default {
           return
         }
         for (var i = 0; i < data.length; i++) {
-          data[i].date = contrastDate(data[i].releasedTime)
+          data[i].date = formatDate(data[i].releasedTime)
           for (var j = 0; j < data[i].stockList.length; j++) {
             this.stockWindCodeArr.push(data[i].stockList[j].stockWindCode)
           }

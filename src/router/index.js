@@ -187,7 +187,7 @@ let routes = [
     component: resolve => require([`../views/TodayKnow/TodayKnowListFisrt.vue`], resolve)
   },
   {
-    // name: '今日必知',
+    // name: '早报&晚报',
     path: '/todayKnowSecond/:tagname',
     component: resolve => require([`../views/TodayKnow/TodayKnowListSecond.vue`], resolve)
   },
