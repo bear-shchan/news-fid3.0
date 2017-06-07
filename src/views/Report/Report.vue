@@ -7,7 +7,7 @@
     <!-- 加载更多 -->
     <loadmore
       v-on:getData="getMain"
-      :loading="loading"
+      :loading="listBusy"
       :showLoading="!firstRequest">
     </loadmore>
   </div>
