@@ -18,9 +18,7 @@ const handleResponse = (res) => {
   // } else {
   //   return Promise.reject(res)
   // }
-  setTimeout(() => {
-    store.dispatch('SET_SPINNER', false)
-  }, 100)
+  store.dispatch('SET_SPINNER', false)
   return Promise.resolve(res.data)
 }
 export default {

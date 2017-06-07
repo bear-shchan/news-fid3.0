@@ -57,7 +57,7 @@ export default {
         }
       })
       .then((data) => {
-        console.log(data.data)
+        // console.log(data.data)
         var myData = this.splitData(data.data)
         let option = {
           grid: {

@@ -5,10 +5,7 @@
     <template v-if="relatedfund[0]">
       <div class="title" style="text-align:left;text-indent:0.44rem;">关联基金</div>
     </template>
-    <ul v-infinite-scroll="getRelatedFund"
-      infinite-scroll-disabled="listBusy" 
-      infinite-scroll-distance="10"
-      infinite-scroll-immediate-check="false">
+    <ul>
       <router-link tag="li" :to="'/fundDetails/' + item.fundCode" class="fund-item box" v-for="item in relatedfund" :key="item.fundCode">
         <div class="fund-head">
           <p>{{item.name}}</p>
@@ -35,17 +32,30 @@
         </div>
       </router-link>
     </ul>
+    <!-- 加载更多 -->
+    <loadmore
+      v-on:getData="getRelatedFund"
+      :loading="listBusy"
+      :showLoading="relatedFundPageNo !== 1"
+      :done="done">
+    </loadmore>
+
   </div>
 </template>
 
 <script>
+import Loadmore from '@/components/Loadmore.vue'
+
 export default {
-  name: '',
+  components: {
+    Loadmore
+  },
   data () {
     return {
       relatedfund: [],
       relatedFundPageNo: 1,
-      listBusy: false
+      listBusy: false,
+      done: false
     }
   },
   props: {
@@ -58,6 +68,7 @@ export default {
   },
   methods: {
     getRelatedFund: function () {
+      if (!this.topicName) return
       let topic = this.topicName.split('•')[1]
       this.listBusy = true
       this.$http.get('/fidnews/v1/themefund/relatedfund', {
@@ -68,6 +79,10 @@ export default {
         }
       })
       .then((data) => {
+        if (data.num === 0) {
+          this.done = true
+          return
+        }
         if (this.relatedFundPageNo === 1) {
           this.$set(this, 'relatedfund', data.data)
         } else {
