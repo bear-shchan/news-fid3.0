@@ -22,18 +22,15 @@ NProgress.configure({
 import request from './api/request.js'
 Vue.prototype.$http = request
 
-import VueInfiniteScroll from 'vue-infinite-scroll'
-Vue.use(VueInfiniteScroll)
+// import VueInfiniteScroll from 'vue-infinite-scroll'
+// Vue.use(VueInfiniteScroll)
 
-import VueScroller from 'vue-scroller'
-Vue.use(VueScroller)
+// import VueScroller from 'vue-scroller'
+// Vue.use(VueScroller)
 
-import moment from 'moment'
-Vue.filter('moment', function (value, param) {
-  return moment(value).format(param)
-})
-Vue.filter('toFixed', function (value) {
-  return (value * 100).toFixed(2) + '%'
+import * as filters from './filters'
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
 })
 
 const externalView = ['/ticket', '/fund']
