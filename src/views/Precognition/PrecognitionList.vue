@@ -3,13 +3,17 @@
     <div class="clearfix">
       <router-link tag="div" :to="'/precognitionDetail/' + item.id" 
         v-for="item in listArr" class="item" :class="{gray: item.gray}" key="item.latestTime">
-        <div class="img-bg">
+        <div class="img-bg"
+          :style="{backgroundImage: `url(${item.images})` }">
           <i class="translucent"></i>
           <p class="topic">{{item.predictTitle}}</p>
           <p class="time">{{item.time}}</p>
-          <p class="recommend">推荐指数:</p>
+          <p class="recommend">
+            推荐指数:
+            <i class="star star-1"></i>
+          </p>
         </div>
-        <p class="title">{{item.predictContent}}</p>
+        <p class="title">事件：{{item.predictContent}}</p>
         <p class="date">{{item.date}}</p>
         <img class="img" :src="item.imgPath">
       </router-link>
@@ -137,7 +141,7 @@ export default {
   height: 2.13rem;
   /*padding-top: 0.6rem;
   padding-bottom: 0.13rem;*/
-  background-image: url(http://120.76.76.152/mfs/cms/2016/11/17/20161117085006988.jpg);
+  /*background-image: url(http://120.76.76.152/mfs/cms/2016/11/17/20161117085006988.jpg);*/
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -173,7 +177,7 @@ export default {
 }
 .recommend{
   position: absolute;
-  top: 1.76rem;
+  top: 1.7rem;
   font-size: 9px;
   line-height: 9px;
   color: #f4ce46;
@@ -208,6 +212,17 @@ export default {
   bottom: 0.13rem;
   right: 0.07rem;
   width: 1.33rem;
+}
+.star-1{
+  background: url('../../assets/img/star-1.png');
+}
+.star{
+  width: 36px;
+  height: 10px;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  vertical-align: bottom;
 }
 
 .gray .date,

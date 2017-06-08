@@ -58,7 +58,7 @@ const nav = [
   },
   {
     name: '时光机',
-    path: '/timeMachine',
+    path: '/timeMachineList',
     component: 'template',
     icon: 'timeMachine',
     column: '2'

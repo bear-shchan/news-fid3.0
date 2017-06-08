@@ -308,8 +308,12 @@ let routes = [
   },
   {
     name: '时光机',
-    path: '/timeMachine',
+    path: '/timeMachineList',
     component: resolve => require([`../views/TimeMachine/TimeMachineList.vue`], resolve)
+  },
+  {
+    path: '/timeMachineDetail',
+    component: resolve => require(['../views/TimeMachine/TimeMachineDetail.vue'], resolve)
   }
 ]
 

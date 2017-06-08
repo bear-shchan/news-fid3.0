@@ -1,7 +1,8 @@
 <template>
   <div class="box">
     <ul class="list">
-      <li class="list-item"
+      <router-link tag="li" class="list-item"
+        :to="'/timeMachineDetail/' + item.ssId"
         v-for="item in list">
         <p>
           <span class="name">{{item.referStockName}}</span>
@@ -9,7 +10,7 @@
         </p>
         <p>
           <i class="icon-face"></i>
-          <span class="date">{{item.releasedDate | formatTime}}</span>
+          <span class="date">{{item.releasedDate | contrastDate}}</span>
         </p>
         <div class="gray-box">
           <i class="gray-box-icon"></i>
@@ -18,7 +19,7 @@
         <div class="strategy">
           <span class="strategy-text">{{item.strategyName}}</span>
         </div>
-      </li>
+      </router-link>
     </ul>
     <!-- 加载更多 -->
     <loadmore
