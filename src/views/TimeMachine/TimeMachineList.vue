@@ -3,7 +3,8 @@
     <ul class="list">
       <router-link tag="li" class="list-item"
         :to="'/timeMachineDetail/' + item.ssId"
-        v-for="item in list">
+        v-for="item in list"
+        key="item.ssid">
         <p>
           <span class="name">{{item.referStockName}}</span>
           <span class="data">0.25%</span>

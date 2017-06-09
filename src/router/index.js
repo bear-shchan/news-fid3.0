@@ -314,6 +314,24 @@ let routes = [
   {
     path: '/timeMachineDetail',
     component: resolve => require(['../views/TimeMachine/TimeMachineDetail.vue'], resolve)
+  },
+  {
+    path: '/fundamental',
+    name: '基本面选股',
+    component: resolve => require(['../views/Fundamental/FundamentalList.vue'], resolve)
+  },
+  {
+    path: '/fundamentalDetail/:id',
+    component: resolve => require(['../views/Fundamental/FundamentalDetail.vue'], resolve)
+  },
+  {
+    path: '/fundChance',
+    name: '基会宝',
+    component: resolve => require(['../views/FundChance/FundChanceList.vue'], resolve)
+  },
+  {
+    path: '/fundChanceDetail/:id',
+    component: resolve => require(['../views/FundChance/FundChanceDetail.vue'], resolve)
   }
 ]
 

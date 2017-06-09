@@ -10,7 +10,9 @@
           <p class="time">{{item.time}}</p>
           <p class="recommend">
             推荐指数:
-            <i class="star star-1"></i>
+            <i class="star"
+              :class="`star-${item.star}`">
+            </i>
           </p>
         </div>
         <p class="title">事件：{{item.predictContent}}</p>
@@ -214,7 +216,13 @@ export default {
   width: 1.33rem;
 }
 .star-1{
-  background: url('../../assets/img/star-1.png');
+  background: url('../../assets/img/star1.png');
+}
+.star-2{
+  background: url('../../assets/img/star2.png');
+}
+.star-3{
+  background: url('../../assets/img/star3.png');
 }
 .star{
   width: 36px;
