@@ -2,7 +2,7 @@
   <div class="box">
     <ul class="list">
       <router-link tag="li" class="list-item"
-        :to="'/timeMachineDetail/' + item.ssId"
+        :to="'/timeMachineDetail/radar/' + item.ssId"
         v-for="item in list">
         <p>
           <span class="name">{{item.referStockName}}</span>

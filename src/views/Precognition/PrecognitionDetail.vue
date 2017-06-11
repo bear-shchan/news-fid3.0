@@ -8,7 +8,6 @@
         <div class="p-source">
           <span class="news-date">{{ main.updatedDate }}</span>
           <span class="news-origin">飞笛智投{{ main.author }}</span>      
-          <span class="news-read" id="readNum">{{ readNum }}阅读</span> 
         </div>
         <div class="recoindex">
           <p class="yq-date" v-if="main.title">
@@ -94,14 +93,12 @@ export default {
       topicId: '',
       echartOption: {},
       starImg: '',
-      readNum: '',
       isshow: 'isshow',
       isshowText: '展开  ∨'
     }
   },
   created () {
     this.getMain()
-    this.getReadingNum()
   },
   methods: {
     getMain () {
@@ -204,18 +201,6 @@ export default {
           ]
         }
         this.$set(this, 'echartOption', option)
-      })
-    },
-    getReadingNum () {
-      this.$http.get('http://api2.geek.21fid.com:8080/common/view', {
-        params: {
-          transfertype: 21,
-          transferid: this.$route.params.tagname
-        }
-      })
-      .then((res) => {
-        let data = res.data
-        this.readNum = data.views
       })
     },
     showHide (event) {
@@ -374,7 +359,7 @@ export default {
 }
 .history-info {
   background-color: #fff;
-  font-size: 0.48rem;
+  font-size: 18px;
   line-height: 0.72rem;
   color: #191919;
   position: relative;
