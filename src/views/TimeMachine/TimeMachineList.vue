@@ -15,7 +15,7 @@
         </p>
         <div class="gray-box">
           <i class="gray-box-icon"></i>
-          <span>{{item.content}}</span>
+          <span>{{item.title}}</span>
         </div>
         <div class="strategy">
           <span class="strategy-text">{{item.strategyName}}</span>
@@ -46,7 +46,7 @@ export default {
     }
   },
   created () {
-    this.getData()
+    // this.getData()
   },
   methods: {
     getData () {

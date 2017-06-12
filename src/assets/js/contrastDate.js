@@ -60,7 +60,7 @@ export default function chainDateOrder (contrastDate) {
     }
   }
   var dateOrderDay = function (date) {
-    if (date.day <= 2) {
+    if (date.day <= 3) {
       return date.day + '天前'
     } else {
       return 'nextSuccessor'

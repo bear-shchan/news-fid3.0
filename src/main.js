@@ -42,8 +42,7 @@ router.beforeEach(({meta, path}, from, next) => {
   var isLogin = Boolean(store.state.user.password)
 
   if (auth && !isLogin && path !== '/login' && path !== '/') {
-    next({ path: '/login' })
-    return false
+    return next({ path: '/login' })
   }
 
   // 外部页面逻辑，求一基，求一票

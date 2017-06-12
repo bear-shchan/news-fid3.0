@@ -112,15 +112,15 @@ export default {
   margin-right: 0;
 }
 .topic{
-  font-size: 0.43rem;
-  line-height: 0.43rem;
+  font-size: 16px;
+  line-height: 16px;
   border-bottom: 1px solid #e2e2e2;
   padding-bottom: 0.35rem;
   color: #191919;
 }
 .time{
-  font-size: 0.43rem;
-  line-height: 0.43rem;
+  font-size: 16px;
+  line-height: 16px;
   color: #4e9df4;
   margin-top: 0.35rem;
   margin-bottom: 0.43rem;
@@ -129,14 +129,15 @@ export default {
   white-space: nowrap;
 }
 .title{
-  font-size: 0.32rem;
+  font-size: 12px;
+  line-height: 16px;
   color: #606060;
 }
 .date{
   font-size: 0.27rem;
   color: #f35b6a;
   position: absolute;
-  bottom: 0.53rem;
+  bottom: 0.35rem;
   left: 50%;
   transform: translate(-50%);
   white-space: nowrap;
