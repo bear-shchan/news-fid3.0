@@ -105,54 +105,54 @@ export default {
 
 <style scoped>
   .view {
-    margin-left: 26px;
-    margin-right: 20px;
-    padding-bottom: 20px
+    margin-left: 0.69rem;
+    margin-right: 0.53rem;
+    padding-bottom: 0.53rem
   }
   .new-li{
     width: 100%;
-    padding-bottom: 30px;
+    padding-bottom: 0.8rem;
     display: inline-block;
     border-left: 1px solid #ccc;
   }
   .new-li:nth-child(1) {
-    padding-top: 20px;
+    padding-top: 0.53rem;
   }
   .xinhao {
     display: block;
-    padding-bottom: 10px;
+    padding-bottom: 0.27rem;
     border-bottom: 1px solid #ececec;
     color: #2e2e37;
     font-size: 12px;
   }
   .new-li{
     width: 100%;
-    padding-bottom: 30px;
+    padding-bottom: 0.8rem;
     display: inline-block;
     border-left: 1px solid #ccc;
   }
   .new-li:nth-child(1) {
-    padding-top: 20px;
+    padding-top: 0.53rem;
   }
   .stocknew {
     background-color: #fff;
     font-size: 15px;
     color: #191919;
-    padding: 10px 12px;
+    padding: 0.27rem 0.32rem;
     position: relative;
-    margin-left: 45px;
-    height: 89px;
+    margin-left: 1.2rem;
+    height: 2.37rem;
   }
   .xinhao {
     display: block;
-    padding-bottom: 10px;
+    padding-bottom: 0.27rem;
     border-bottom: 1px solid #ececec;
     color: #2e2e37;
     font-size: 12px;
   }
   .best-own li {
     float: left;
-    padding-bottom: 10px;
+    padding-bottom: 0.27rem;
     display: block;
   }
   .best-own li:nth-child(1) {
@@ -167,8 +167,8 @@ export default {
   .best-own li p {
     color: #83839d;
     font-size: 12px;
-    padding-top: 10px;
-    padding-bottom: 9px;
+    padding-top: 0.27rem;
+    padding-bottom: 0.24rem;
   }
   .best-own li:nth-child(1) span ,.best-own li:nth-child(2) span {
     color: #2e2e37;
@@ -187,37 +187,37 @@ export default {
     color:#999;
   }
   .i-leida1 {
-    width: 7.5px;
-    height: 7.5px;
+    width: 0.2rem;
+    height: 0.2rem;
     border-radius: 50%;
     background: #f4ce46;
     position: absolute;
-    left: 22.25px;
-    margin-top: 18px;
+    left: 0.59rem;
+    margin-top: 0.48rem;
   }
   .bkg {
     background: #fff;
   }
   .c-triangle{
-    border-right: 16px solid #fff;
-    border-top: 12px solid transparent;
-    border-bottom: 12px solid transparent;
-    width: 1px;
+    border-right: 0.43rem solid #fff;
+    border-top: 0.32rem solid transparent;
+    border-bottom: 0.32rem solid transparent;
+    width: 0.03rem;
     position: absolute;
-    top: 10px;
-    left: -16px;
+    top: 0.27rem;
+    left: -0.43rem;
   }
   .quesheng {
-    width: 160px;
-    margin: 85px auto;
+    width: 4.27rem;
+    margin: 2.27rem auto;
   }
   .quesheng img {
-    width: 160px;
-    height: 105px;
+    width: 4.27rem;
+    height: 2.8rem;
     text-align: center;
   }
   .quesheng p {
-    padding-top: 15px;
+    padding-top: 0.4rem;
     text-align: center;
     font-size: 16px;
     color: #f4ce46;

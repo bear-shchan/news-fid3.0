@@ -1,30 +1,35 @@
 <template>
   <div>
-    <div class="js-hc-huicedetail bkg" id="content-huice">
+    <div class="bkg">
       <p class="hc-content">
-        发出{{ conceptName }}信号后，
-        <span class="span-replace">
-          <span class="js-whichDay">{{ data.stockLastDay }}</span>个交易日累计涨幅<span class="js-sumPrices"></span>%，跑<span class="js-stockRisesSubAvg"></span>概念平均水平
+        {{ stockName }}发出{{ conceptName }}信号后，
+        <span v-if="data.stockLastDay === 0">
+          是否跑赢{{ conceptName }}概念的平均水平？让我们拭目以待。
+        </span>
+        <span v-else>
+          {{ data.stockLastDay }}个交易日累计涨幅{{ data.stockRises | toFixed}}，跑{{ isWin }}{{ conceptName }}概念平均水平
         </span>
       </p>
       <div class="hc-event-title">
-        概念大数据回测
+        {{ conceptName }}概念大数据回测
       </div>
       <ul class="hc-best-own">
         <li>
           <p>平均涨幅</p>
-          <span class="js-avgRose"></span>
+          <span>{{ data.maxAvgRise | toFixed }}</span>
         </li>
         <li>
           <p>赚钱概率</p>
-          <span class="js-profitPercent"></span>
+          <span>
+            {{ data.maxRiseWinPer | toFixed }}
+          </span>
         </li>
         <li>
           <p>最佳持有</p>
-          <span class="js-haveDay"></span>
+          <span>{{ data.maxRiseDay }}天</span>
         </li>
       </ul>
-      <P class="hc-notice">持有<span class="js-haveDay"></span>后收益最高，平均涨幅是<span class="js-avgRose"></span>，持有<span class="js-maxWinDay"></span>胜率最大，赚钱概率达到<span class="js-maxWinPercent"></span></P>
+      <P class="hc-notice">持有{{ data.maxRiseDay }}后收益最高，平均涨幅是{{ data.maxAvgRise | toFixed }}，持有{{ data.maxWinDay }}天胜率最大，赚钱概率达到{{ data.maxWinPercent | toFixed }}</P>
       <div id="main" style="height:230px;"></div>
       <p class="hc-x">横轴（日）：代表发生事件后的第几个交易日</p>
       <div class="hc-source">
@@ -49,7 +54,8 @@ require('echarts/lib/component/markLine')
 export default {
   data () {
     return {
-      data: ''
+      data: '',
+      isWin: ''
     }
   },
   props: ['stockName', 'conceptName', 'stockWindCode', 'strategyId', 'contentId'],
@@ -72,6 +78,11 @@ export default {
         this.$set(this, 'data', res.data)
         let myChart = echarts.init(document.getElementById('main'))
         let data = res.data
+        if (data.stockRisesSubAvg > 0) {
+          this.isWin = '赢'
+        } else {
+          this.isWin = '输'
+        }
         let stockRosePer = data.stockRosePer
         let strategyRosePer = data.strategyRosePer
         let stockMaxRoseDay = data.stockMaxRoseDay
@@ -242,17 +253,20 @@ export default {
 </script>
 
 <style scoped>
+  .bkg {
+    background-color: #fff;
+  }
   .hc-content{
-    padding: 20px 40px;
+    padding: 0.53rem 1.07rem;
     font-size: 16px;
     color: #191919;
     line-height: 24px;
     text-align: center;
   }
   .hc-event-title{
-    height: 39px;
-    line-height: 39px;
-    padding-left: 12px;
+    height: 1.04rem;
+    line-height: 1.04rem;
+    padding-left: 0.32rem;
     background: #f4f4f4;
     font-size: 15px;
     color: #6a6a6a;
@@ -261,11 +275,11 @@ export default {
     width: 33.3%;
     float: left;
     text-align: center;
-    padding-bottom: 10px;
+    padding-bottom: 0.27rem;
   }
   .hc-best-own li p{
-    padding-top: 25px;
-    padding-bottom: 6px;
+    padding-top: 0.67rem;
+    padding-bottom: 0.16rem;
     font-size: 14px;
     color: #191919;
   }
@@ -281,21 +295,21 @@ export default {
     color: #191919;
   }
   .hc-x{
-    padding-left: 12px;
+    padding-left: 0.32rem;
     font-size: 12px; 
     color: #999;
     padding-top: 10px;
   }
   .hc-source{
-    padding-top: 30px;
+    padding-top: 0.8rem;
     font-size: 10px;
     color: #999;
     text-align: center;
   }
   .hc-source span{
-    padding-bottom: 3px;
+    padding-bottom: 0.08rem;
   }
   .hc-source p{
-    padding-bottom: 64px;
+    padding-bottom: 1.71rem;
    }
 </style>

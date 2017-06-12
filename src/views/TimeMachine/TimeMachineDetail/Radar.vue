@@ -10,7 +10,7 @@
         </div>
       </li>
       <li class="b-new-li"  >
-        <hr class="b-line" width="3" size="244" color="#f7f7f7" ref="abc" style="display: block;">
+        <!-- <hr class="b-line" width="3" size="244" color="#f7f7f7" ref="abc" style="display: block;"> -->
         <img class="i-leida" src="../../../assets/img/zixun.png">
         <div class="b-stocknew" id="sss" ref="sss" >
           <div class="c-triangle"></div>
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   data () {
     return {
@@ -46,10 +47,6 @@ export default {
     this.getData()
   },
   mounted () {
-    console.log(this.$refs.abc.color)
-    console.log(this.$refs.abc.size)
-    console.log(this.$refs.sss)
-    console.log(this.$refs.sss.getBoundingClientRect())
   },
   methods: {
     getData () {
@@ -60,6 +57,15 @@ export default {
       })
       .then(res => {
         console.log(res.data.trackList)
+        let today = moment(Date.parse(new Date())).format('YYYY-MM-DD')
+        for (let i = 0, l = res.data.trackList.length; i < l; i++) {
+          if ((moment(res.data.trackList[i].releaseDate).format('YYYY-MM-DD')) === today) {
+            res.data.trackList[i].releaseDate = moment(res.data.trackList[i].releaseDate).format('HH:mm')
+          } else {
+            res.data.trackList[i].releaseDate = moment(res.data.trackList[i].releaseDate).format('MM-DD HH:mm')
+          }
+        }
+        res.data.releasedDateLong = moment(res.data.releasedDateLong).format('MM-DD HH:mm')
         this.faceImg = require('../../../assets/img/liface' + res.data.profitLM + '.png')
         this.$set(this, 'trackList', res.data.trackList)
         this.$set(this, 'zixunData', res.data)
@@ -71,73 +77,71 @@ export default {
 
 <style scoped>
   .view {
-    margin-left: 26px;
-    margin-right: 20px;
-    padding-bottom: 20px
+    margin-left: 0.69rem;
+    margin-right: 0.53rem;
+    padding-bottom: 0.53rem;
   }
   .b-new-li {
-      width: 100%;
-      padding-top: 20px;
-      display: inline-block;
-      border-left: 1px solid #ccc
+    width: 100%;
+    padding-top: 0.53rem;
+    display: inline-block;
+    border-left: 1px solid #ccc;
   }
   .b-stocknew {
-      background-color: #fff;
-      font-size: 15px;
-      color: #191919;
-      padding: 10px 12px;
-      position: relative;
-      margin-left: 45px
+    background-color: #fff;
+    font-size: 15px;
+    color: #191919;
+    padding: 0.27rem 0.32rem;
+    position: relative;
+    margin-left: 1.2rem;
   }
-
   .b-notice li,.b-time {
-      font-size: 12px;
-      color: #999
+    font-size: 12px;
+    color: #999;
   }
   .b-line {
-      left: 24px;
-      margin-top: 30px;
+    left: 0.64rem;
+    margin-top: 0.8rem;
   }
   .b-line,.c-triangle,.i-leida {
-      position: absolute
+    position: absolute;
   }
-
   .c-triangle {
-      border-right: 16px solid #fff;
-      border-top: 12px solid transparent;
-      border-bottom: 12px solid transparent;
-      width: 1px;
-      top: 10px;
-      left: -16px
+    border-right: 0.43rem solid #fff;
+    border-top: 0.32rem solid transparent;
+    border-bottom: 0.32rem solid transparent;
+    width: 1px;
+    top: 0.27rem;
+    left: -0.43rem;
   }
   .i-leida {
-      width: 20px;
-      height: 20px;
-      left: 16px;
-      padding-top: 10px;
+    width: 0.53rem;
+    height: 0.53rem;
+    left: 16px;
+    padding-top: 10px;
   }
   .b-face img {
-      width: 15px;
-      height: 15px;
-      vertical-align: middle;
-      padding-right: 3px;
-      padding-bottom: 2px;
+    width: 0.4rem;
+    height: 0.4rem;
+    vertical-align: middle;
+    padding-right: 0.08rem;
+    padding-bottom: 0.05rem;
   }
   .b-conception {
-      padding-top: 8px;
-      padding-bottom: 10px;
+    padding-top: 0.21rem;
+    padding-bottom: 0.27rem;
   }
   .b-face {
-      padding-top: 10px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid #CCC;
+    padding-top: 0.27rem;
+    padding-bottom: 0.37rem;
+    border-bottom: 1px solid #CCC;
   }
   .b-conception span {
-      border: 1px solid #4e9df4;
-      color: #4e9df4;
-      margin-left: 5px;
-      margin-right: 5px;
-      padding: 2px 8px;
-      border-radius: 12px;
+    border: 1px solid #4e9df4;
+    color: #4e9df4;
+    margin-left: 0.13rem;
+    margin-right: 0.13rem;
+    padding: 0.05rem 0.21rem;
+    border-radius: 0.32rem;
   }
 </style>
