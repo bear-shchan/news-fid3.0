@@ -313,19 +313,19 @@ let routes = [
   },
   {
     path: '/timeMachineDetail',
-    component: resolve => require(['../views/TimeMachine/TimeMachineDetail.vue'], resolve),
+    component: resolve => require(['../views/TimeMachine/TimeMachineDetail/TimeMachineDetail.vue'], resolve),
     children: [
       {
         path: 'radar/:id',
-        component: resolve => require(['../views/TimeMachine/Radar.vue'], resolve)
+        component: resolve => require(['../views/TimeMachine/TimeMachineDetail/Radar.vue'], resolve)
       },
       {
         path: 'time/:id',
-        component: resolve => require(['../views/TimeMachine/Time.vue'], resolve)
+        component: resolve => require(['../views/TimeMachine/TimeMachineDetail/Time.vue'], resolve)
       },
       {
         path: 'huice/:id',
-        component: resolve => require(['../views/TimeMachine/Huice.vue'], resolve)
+        component: resolve => require(['../views/TimeMachine/TimeMachineDetail/Huice.vue'], resolve)
       }
     ]
   }

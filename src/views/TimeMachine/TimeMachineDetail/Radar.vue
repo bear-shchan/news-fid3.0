@@ -2,7 +2,7 @@
   <div class="view">
     <ul>
       <li class="b-new-li" v-for="item in trackList">
-        <img class="i-leida" src="../../assets/img/leida.png">
+        <img class="i-leida" src="../../../assets/img/leida.png">
         <div class="b-stocknew">
           <div class="c-triangle"></div>
           <span class="b-time">{{ item.releaseDate }}</span>
@@ -11,7 +11,7 @@
       </li>
       <li class="b-new-li"  >
         <hr class="b-line" width="3" size="244" color="#f7f7f7" ref="abc" style="display: block;">
-        <img class="i-leida" src="../../assets/img/zixun.png">
+        <img class="i-leida" src="../../../assets/img/zixun.png">
         <div class="b-stocknew" id="sss" ref="sss" >
           <div class="c-triangle"></div>
           <span class="b-time">{{ zixunData.releasedDateLong }}</span>
@@ -60,7 +60,7 @@ export default {
       })
       .then(res => {
         console.log(res.data.trackList)
-        this.faceImg = require('../../assets/img/liface' + res.data.profitLM + '.png')
+        this.faceImg = require('../../../assets/img/liface' + res.data.profitLM + '.png')
         this.$set(this, 'trackList', res.data.trackList)
         this.$set(this, 'zixunData', res.data)
       })

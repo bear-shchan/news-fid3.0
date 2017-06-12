@@ -31,20 +31,20 @@ export default {
     return {
       items: [
         {
-          icon: require('../../assets/img/radar.png'),
-          iconActive: require('../../assets/img/radar-active.png'),
+          icon: require('../../../assets/img/radar.png'),
+          iconActive: require('../../../assets/img/radar-active.png'),
           text: '个股雷达',
           link: 'radar/' + this.$route.params.id
         },
         {
-          icon: require('../../assets/img/time.png'),
-          iconActive: require('../../assets/img/time-active.png'),
+          icon: require('../../../assets/img/time.png'),
+          iconActive: require('../../../assets/img/time-active.png'),
           text: '时光机',
           link: 'time/' + this.$route.params.id
         },
         {
-          icon: require('../../assets/img/huice.png'),
-          iconActive: require('../../assets/img/huice-active.png'),
+          icon: require('../../../assets/img/huice.png'),
+          iconActive: require('../../../assets/img/huice-active.png'),
           text: '回测',
           link: 'huice/' + this.$route.params.id
         }
@@ -89,7 +89,7 @@ export default {
       width: 100vw;
       /* height: 53.4vw; */
       height: 250px;
-      background: url(../../assets/img/bj446.png) no-repeat;
+      background: url(../../../assets/img/bj446.png) no-repeat;
       background-size: cover;
       position: relative;
   }
