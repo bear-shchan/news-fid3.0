@@ -8,7 +8,8 @@
         <p>
           <span class="name">{{item.stockName}}</span>
           <span class="data"
-          :class="[{'red' : item._price > 0}, {'green' : item._price < 0}]">
+            v-show="typeof item._price === 'number'"
+            :class="[{'red' : item._price > 0}, {'green' : item._price < 0}]">
             {{item._price | toFixed}}
           </span>
         </p>
@@ -21,10 +22,11 @@
             <i class="gray-box-icon gray-icon-radar"></i>
             <span>{{item.digest}}</span>
           </template>
-          <template v-else>
+          <div v-else
+            class="list-intercept-3">
             <i class="gray-box-icon gray-icon-information"></i>
             <span>{{item.content}}</span>
-          </template>
+          </div>
         </div>
         <div class="strategy">
           <span class="strategy-text">{{item.conceptName}}</span>
@@ -41,7 +43,7 @@
 </template>
 
 <script>
-import getPercent from '@/api/getPercent.js'
+import {getPercent} from '@/api'
 import Loadmore from '@/components/Loadmore'
 
 export default {

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import getPercent from '@/api/getPercent.js'
+import {getPercent} from '@/api'
 
 export default {
   data () {

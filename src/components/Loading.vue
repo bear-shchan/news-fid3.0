@@ -39,5 +39,6 @@ export default {
   height: 1.6rem;
   width: 1.6rem;
   margin: -0.8rem 0 0 -0.8rem;
+  z-index: 99999;
 }
 </style>

@@ -330,6 +330,10 @@ let routes = [
     ]
   },
   {
+    path: '/timeMachine/:id',
+    component: resolve => require([`../views/TimeMachine/TimeMachine.vue`], resolve)
+  },
+  {
     path: '/fundamental',
     name: '基本面选股',
     component: resolve => require(['../views/Fundamental/FundamentalList.vue'], resolve)
