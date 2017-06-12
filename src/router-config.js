@@ -145,7 +145,7 @@ const nav = [
     name: '基本面选股',
     path: '/fundamental',
     icon: 'fundamental',
-    column: '4'
+    column: '2'
   }
   // {
   //   name: '表单',

@@ -346,7 +346,6 @@ let routes = [
   {
     path: '/fundChanceDetail/:id',
     component: resolve => require(['../views/FundChance/FundChanceDetail.vue'], resolve)
->>>>>>> d44532042f49d12472d12a3a68be66daa07dbb35
   }
   // {
   //   path: '*',

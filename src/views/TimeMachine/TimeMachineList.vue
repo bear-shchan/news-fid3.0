@@ -2,28 +2,32 @@
   <div class="box">
     <ul class="list">
       <router-link tag="li" class="list-item"
-<<<<<<< HEAD
-        :to="'/timeMachineDetail/radar/' + item.ssId"
-        v-for="item in list">
-=======
-        :to="'/timeMachineDetail/' + item.ssId"
+        :to="'/timeMachineDetail/radar/' + item.id"
         v-for="item in list"
         key="item.ssid">
->>>>>>> d44532042f49d12472d12a3a68be66daa07dbb35
         <p>
-          <span class="name">{{item.referStockName}}</span>
-          <span class="data">0.25%</span>
+          <span class="name">{{item.stockName}}</span>
+          <span class="data"
+          :class="[{'red' : item._price > 0}, {'green' : item._price < 0}]">
+            {{item._price | toFixed}}
+          </span>
         </p>
         <p>
           <i class="icon-face"></i>
           <span class="date">{{item.releasedDate | contrastDate}}</span>
         </p>
         <div class="gray-box">
-          <i class="gray-box-icon"></i>
-          <span>{{item.title}}</span>
+          <template v-if="item.digest">
+            <i class="gray-box-icon gray-icon-radar"></i>
+            <span>{{item.digest}}</span>
+          </template>
+          <template v-else>
+            <i class="gray-box-icon gray-icon-information"></i>
+            <span>{{item.content}}</span>
+          </template>
         </div>
         <div class="strategy">
-          <span class="strategy-text">{{item.strategyName}}</span>
+          <span class="strategy-text">{{item.conceptName}}</span>
         </div>
       </router-link>
     </ul>
@@ -31,13 +35,15 @@
     <loadmore
       v-on:getData="getData"
       :loading="listBusy"
-      :showLoading="pageNum !== 1">
+      :showLoading="!firstRequest">
     </loadmore>
   </div>
 </template>
 
 <script>
+import getPercent from '@/api/getPercent.js'
 import Loadmore from '@/components/Loadmore'
+
 export default {
   components: {
     Loadmore
@@ -47,25 +53,54 @@ export default {
       list: [],
       listBusy: false,
       done: false,
-      pageNum: 1
+      firstRequest: true,
+      lastTime: ''
     }
   },
   created () {
-    // this.getData()
+    this.getData()
   },
   methods: {
     getData () {
-      this.$http.get('/fidnews/v1/geek/v6/eventDrive/paging', {
+      this.listBusy = true
+      this.$http.get('/fidnews/v1/geek/v2/getMsgChooseStockList', {
         params: {
-          pageSize: 20,
-          pageNum: this.pageNum
+          size: 20,
+          lastTime: this.lastTime
         }
       })
       .then(res => {
-        let list = res.eventDrive
+        if (this.firstRequest) {
+          this.firstRequest = false
+        }
+        let list = res.data
         this.$set(this, 'list', this.list.concat(list))
-        this.pageNum++
+        this.lastTime = list[list.length - 1].releasedDate
         this.listBusy = false
+        this.getPercent()
+      })
+    },
+    getPercent () {
+      let stockCodesStr = ''
+      this.list.map(i => {
+        stockCodesStr += `,${i.stockWindCode}`
+      })
+      stockCodesStr = stockCodesStr.substr(1, stockCodesStr.length)
+      getPercent(stockCodesStr)
+      .then(data => {
+        let list = this.list.map((i) => {
+          i._price = (function () {
+            let percent = ''
+            data.map(j => {
+              if (i.stockCode === j.symbol) {
+                percent = j.percent
+              }
+            })
+            return percent
+          })()
+          return i
+        })
+        this.$set(this, 'list', list)
       })
     }
   }
@@ -94,7 +129,7 @@ export default {
 }
 .data{
   font-size: 16px;
-  color: #fe5555;
+  color: #606060;
 }
 .icon-face{
   display: inline-block;
@@ -117,8 +152,13 @@ export default {
   font-size: 14px;
   color: #515151;
 }
+.gray-icon-information {
+  background: url(../../assets/img/icon-information.png);  
+}
+.gray-icon-radar {
+  background: url(../../assets/img/icon-radar.png);  
+}
 .gray-box-icon{
-  background: url(../../assets/img/icon-information.png);
   background-size: contain;
   background-repeat: no-repeat;
   vertical-align: middle;
@@ -142,4 +182,7 @@ export default {
   height: 30px;
   padding-top: 5px;
 }
+
+.red{color: #f35b6a;}
+.green{color: #199d64;}
 </style>

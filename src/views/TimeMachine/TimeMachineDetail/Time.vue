@@ -30,7 +30,7 @@
     <loadmore
       v-on:getData="getList"
       :loading="loading"
-      :showLoading="!firstRequest"
+      :showLoading="true"
       :done="done">
     </loadmore>
   </div>
