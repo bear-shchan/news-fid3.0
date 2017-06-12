@@ -33,6 +33,11 @@ Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
 
+import * as directives from './directives'
+Object.keys(directives).forEach(key => {
+  Vue.directive(key, directives[key])
+})
+
 const externalView = ['/ticket', '/fund']
 const externalViewStr = externalView.join(',')
 
