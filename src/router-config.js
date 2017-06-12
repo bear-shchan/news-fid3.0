@@ -87,6 +87,12 @@ const nav = [
     column: '3'
   },
   {
+    name: '基会宝',
+    path: '/fundChance',
+    icon: 'fundChance',
+    column: '3'
+  },
+  {
     name: '小白财经',
     path: '/newbieFinance',
     component: 'NewbieFinance/NewbieFinanceListFisrt',
@@ -133,6 +139,12 @@ const nav = [
     path: '/HKStocks',
     component: 'template',
     icon: 'HKStocks',
+    column: '4'
+  },
+  {
+    name: '基本面选股',
+    path: '/fundamental',
+    icon: 'fundamental',
     column: '4'
   }
   // {
