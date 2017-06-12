@@ -171,15 +171,6 @@ export default {
   .xh-rose {
     font-size: 17px;
   }
-  .red {
-    color: #e2666d;
-  }
-  .green {
-    color: #4a9a69;
-  }
-  .gray{
-    color:#999;
-  }
   .i-leida1 {
     width: 0.2rem;
     height: 0.2rem;

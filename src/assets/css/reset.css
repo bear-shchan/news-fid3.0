@@ -33,7 +33,10 @@ a{
 .clearfix{_height:1%;}
 .inner-center{margin-left: auto;margin-right: auto;width: 100%;}
 .b{font-weight: bold;}
-.red{color: #f00;}
+/*.red{color: #f00;}*/
+.red {color: #e2666d;}
+.green {color: #4a9a69;}
+.gray{color:#999;}
 
 .fwb{font-weight: bold;}
 .db{display: block;}

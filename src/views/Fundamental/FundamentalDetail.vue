@@ -33,18 +33,28 @@
       </div>
       <div class="content">
         <ul class="byDate" style="border-bottom: 2px solid #f7f7f7;">
-          <router-link to="/">
+          <router-link :to="'/singleStockDetail/information/' + item.code" v-for="item in listBydate" :key="item.code">
             <li class="contentlist">
               <a class="name" href="javascript:void(0);">
-                <span class="stockname">1</span><br>
-                <span class="code">1</span>
+                <span class="stockname">{{ item.name }}</span><br>
+                <span class="code">{{ code(item.code) }}</span>
               </a>
-              <a class="new" href="javascript:void(0);">1</a>
-              <a class="percent" href="javascript:void(0);">1</a>
+              <a class="new" href="javascript:void(0);"  v-stock-color="item.zdf">{{ item.zxj }}</a>
+              <a class="percent" href="javascript:void(0);"  v-stock-color="item.zdf">{{ item.zdf | toFixed }}</a>
             </li>
           </router-link>
         </ul>
         <ul class="byZdf">
+          <router-link :to="'/singleStockDetail/information/' + item.code" v-for="item in listByzdf" :key="item.code">
+            <li class="contentlist">
+              <a class="name" href="javascript:void(0);">
+                <span class="stockname">{{ item.name }}</span><br>
+                <span class="code">{{ code(item.code) }}</span>
+              </a>
+              <a class="new" href="javascript:void(0);"  v-stock-color="item.zdf">{{ item.zxj }}</a>
+              <a class="percent" href="javascript:void(0);"  v-stock-color="item.zdf">{{ item.zdf | toFixed }}</a>
+            </li>
+          </router-link>
         </ul>
       </div>
     </div>
@@ -55,7 +65,9 @@
 export default {
   data () {
     return {
-      data: ''
+      data: '',
+      listBydate: '',
+      listByzdf: ''
     }
   },
   created () {
@@ -90,19 +102,23 @@ export default {
       })
     },
     stocksList (stockscode, type) {
+      let _this = this
       let dataTypeStr = []
       for (let i = 0; i < stockscode.length; i++) {
         dataTypeStr.push(1)
       }
-      console.log(dataTypeStr)
       this.$http.get('/fidnews/v1/ac/queryStockList', {
         params: {
-          dataTypeStr: dataTypeStr,
-          codeStr: stockscode
+          dataTypeStr: dataTypeStr.join(','),
+          codeStr: stockscode.join(',')
         }
       })
       .then(res => {
-        console.log(res)
+        if (type === 0) {
+          this.$set(this, 'listBydate', res.data)
+        } else {
+          this.$set(this, 'listByzdf', res.data.sort(_this.compare('zdf')))
+        }
       })
     },
     compare (pro) {
@@ -111,6 +127,9 @@ export default {
         var value2 = b[pro]
         return value2 - value1
       }
+    },
+    code (value) {
+      return value.split('.')[0]
     }
   }
 }
@@ -119,14 +138,14 @@ export default {
 <style scoped>
   .b-head{
     width: 100vw;
-    height: 188px;
+    height: 5.01rem;
     background: url('../../assets/img/bj446.png') no-repeat;
     background-size: cover;
     position: relative;
   }
   .b-stock{
     position: absolute;
-    top: 45px;
+    top: 1.2rem;
     width: 100%;
   }
   .b-stockname{
@@ -139,13 +158,13 @@ export default {
   .b-stocknews{
     font-size: 15px;
     color: #eee;
-    padding: 25px 20px 0px 28px;
+    padding: 0.67rem 0.53rem 0px 0.75rem;
     text-align: center;
   }
   .stock-num{
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 12px; 
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    padding-left: 0.32rem; 
     font-size: 14px;
     color: #191919;
     border-bottom: 1px solid #e2e2e2;
@@ -153,49 +172,48 @@ export default {
   .stock-num span{
     font-size: 14px;
     color: #9a9a9a;
-    padding-left: 20px;
+    padding-left: 0.53rem;
   }
   .b-txt1{
     font-size: 14px;
     color: #191919;
-    padding-left: 26px;
+    padding-left: 0.69rem;
     float: left;
   }
   .fundamental{
-    padding-top: 15px;
-    padding-bottom: 9px;
+    padding-top: 0.4rem;
+    padding-bottom: 0.24rem;
   }
   .b-income{
-    padding-left: 24px;
-    /*float: left;*/
+    padding-left: 0.64rem;
   }
   .b-income li{
     font-size: 14px;
     color: #9a9a9a;
-    padding-bottom: 11px;
-    padding-left: 66px;
-    padding-right: 12px;
+    padding-bottom: 0.29rem;
+    padding-left: 1.76rem;
+    padding-right: 0.32rem;
   }
   .b-shuoming{
-    height: 30px;
+    height: 0.8rem;
     text-align: right;
   }
   .shuoming img{
-    width: 30px;
-    height: 30px;
-    padding-right: 5px;
+    width: 0.8rem;
+    height: 0.8rem;
+    padding-right: 0.13rem;
   }
   .bar {
     width: 100%;
-    height: 37px;
+    height: 0.99rem;
     background: #fff;
     line-height: 37px;
-    border-bottom: 1px solid #ececec;
-    border-top: 10px solid #f7f7f7;
+    border-bottom: 0.03rem solid #ececec;
+    border-top: 0.27rem solid #f7f7f7;
   }
   .bar ul {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
   }
   .bar ul li {
     float: left;
@@ -216,13 +234,13 @@ export default {
     width: 45%;
   }
   .content ul {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
   }
   .contentlist {
-    height: 41px;
-    margin-top: 15px;
-    margin-bottom: 30px;
+    height: 1.09rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.8rem;
   }
   .contentlist a {
     float: left;

@@ -1,8 +1,6 @@
 <template>
   <div>
-    <ul class="main-list"
-      v-infinite-scroll="getMain"
-      >
+    <ul class="main-list">
       <li class="list-item" v-for="(item, index) in mainList" 
         @click="changeIntercept(index)">
         <div :class="'importance-' + item.importance ">
