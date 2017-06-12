@@ -40,7 +40,7 @@ a{
 .dib{display: inline-block;}
 
 .layout-box {display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;}
-.layout-box .box-col {-webkit-box-flex: 1;-webkit-flex: 1;-ms-flex: 1;flex: 1;width: 100%;}
+.layout-box .box-col {-webkit-flex: 1;-webkit-box-flex: 1;-ms-flex: 1;flex: 1;width: 100%;}
 
 
 /*.line-clamp{
