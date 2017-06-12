@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import getPercent from '@/api/getPercent.js'
 
 export default {
   data () {
@@ -45,13 +46,8 @@ export default {
       })
       stockCodesStr = stockCodesStr.substr(1, stockCodesStr.length)
       // console.log(stockCodesStr)
-      this.$http.get('/fidnews/v1/geek/v2/getStockInfoByOtherInterface', {
-        params: {
-          stockCodes: stockCodesStr
-        }
-      })
-      .then(res => {
-        let data = res.data
+      getPercent(stockCodesStr)
+      .then(data => {
         let list = this.listArr.map((i) => {
           i._price = (function () {
             let percent = ''
@@ -130,12 +126,8 @@ export default {
   white-space: nowrap;
 }
 
-.red{
-  color: #f35b6a;  
-}
-.green{
-  color: #199d64;
-}
+.red{color: #f35b6a;}
+.green{color: #199d64;}
 
 .gray .date,
 .gray .topic,

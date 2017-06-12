@@ -10,7 +10,7 @@
       @click="goBack">
     <!-- 退出登录 -->
     <img src="../assets/img/logout-icon.png"
-      v-show="$route.path == '/'"
+      v-show="showLogoutIcon"
       class="login-icon" 
       @click="logoutDisplay = !logoutDisplay">
     <div class="logout" 
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: '',
@@ -45,6 +45,15 @@ export default {
     logout () {
       this.USER_SIGNOUT()
       this.$router.replace({path: '/login'})
+    }
+  },
+  computed: {
+    ...mapGetters(['userInfo']),
+    showLogoutIcon () {
+      if (this.$route.path === '/' && Boolean(this.userInfo.password)) {
+        return true
+      }
+      return false
     }
   }
 }
