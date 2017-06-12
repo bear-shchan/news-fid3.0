@@ -73,11 +73,9 @@ export default {
         }
         this.getStockPercent(this.stockWindCodeArr)
         if (this.firstRequest) {
-          this.$set(this, 'list', data)
           this.firstRequest = false
-        } else {
-          this.$set(this, 'list', this.list.concat(data))
         }
+        this.$set(this, 'list', this.list.concat(data))
         this.lastTime = this.list[this.list.length - 1].releasedTime
         this.loading = false
       })

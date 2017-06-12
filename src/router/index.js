@@ -313,7 +313,21 @@ let routes = [
   },
   {
     path: '/timeMachineDetail',
-    component: resolve => require(['../views/TimeMachine/TimeMachineDetail.vue'], resolve)
+    component: resolve => require(['../views/TimeMachine/TimeMachineDetail/TimeMachineDetail.vue'], resolve),
+    children: [
+      {
+        path: 'radar/:id',
+        component: resolve => require(['../views/TimeMachine/TimeMachineDetail/Radar.vue'], resolve)
+      },
+      {
+        path: 'time/:id',
+        component: resolve => require(['../views/TimeMachine/TimeMachineDetail/Time.vue'], resolve)
+      },
+      {
+        path: 'huice/:id',
+        component: resolve => require(['../views/TimeMachine/TimeMachineDetail/Huice.vue'], resolve)
+      }
+    ]
   },
   {
     path: '/fundamental',
@@ -332,6 +346,7 @@ let routes = [
   {
     path: '/fundChanceDetail/:id',
     component: resolve => require(['../views/FundChance/FundChanceDetail.vue'], resolve)
+>>>>>>> d44532042f49d12472d12a3a68be66daa07dbb35
   }
   // {
   //   path: '*',

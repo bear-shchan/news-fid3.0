@@ -2,9 +2,14 @@
   <div class="box">
     <ul class="list">
       <router-link tag="li" class="list-item"
+<<<<<<< HEAD
+        :to="'/timeMachineDetail/radar/' + item.ssId"
+        v-for="item in list">
+=======
         :to="'/timeMachineDetail/' + item.ssId"
         v-for="item in list"
         key="item.ssid">
+>>>>>>> d44532042f49d12472d12a3a68be66daa07dbb35
         <p>
           <span class="name">{{item.referStockName}}</span>
           <span class="data">0.25%</span>
