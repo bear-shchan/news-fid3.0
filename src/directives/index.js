@@ -1,9 +1,9 @@
 export function stockColor (el, binding) {
   if (binding.value > 0) {
-    el.style.color = 'red'
+    el.style.color = '#e2666d'
   } else if (binding.value < 0) {
-    el.style.color = 'green'
+    el.style.color = '#4a9a69'
   } else {
-    el.style.color = 'gray'
+    el.style.color = '#606060'
   }
 }

@@ -2,9 +2,8 @@
   <div class="view">
     <div>
       <ul id="content-shiguangji-ul">
-        <router-link tag="li" class="new-li" v-for="(item, index) in list"
-          key="item.sdaId"
-          :to="'/timeMachine/' + $route.params.id">
+        <li class="new-li" v-for="(item, index) in list"
+          @click="gotoDetail(index)">
           <span class="i-leida1"></span>
           <div class="stocknew">
             <div class="c-triangle"></div>
@@ -24,7 +23,7 @@
               </li>
             </ul>
           </div>
-        </router-link>
+        </li>
       </ul>
     </div>
     <loadmore
@@ -37,15 +36,13 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 import Loadmore from '@/components/Loadmore.vue'
 export default {
   components: { Loadmore },
   data () {
     return {
-      list: '',
-      firstRequest: true,
-      doneText: '没有更多数据',
+      list: [],
       loading: false,
       done: false,
       pageNum: 1
@@ -54,11 +51,18 @@ export default {
   props: ['stockName', 'conceptName', 'stockWindCode', 'strategyId', 'contentId'],
   created () {
     this.SET_SPINNER(false)
-    this.getList()
+  },
+  watch: {
+    stockName (val) {
+      if (val && this.pageNum === 1) {
+        this.getList()
+      }
+    }
   },
   methods: {
-    ...mapActions(['SET_SPINNER']),
+    ...mapActions(['SET_SPINNER', 'SET_TIMEMACHINE_PARAMS']),
     getList () {
+      if (!this.stockName) return
       this.loading = true
       this.$http.get('/fidnews/v1/geek/v6/timeMachines/paging', {
         params: {
@@ -77,12 +81,7 @@ export default {
         for (var i = 0; i < res.data.length; i++) {
           res.data[i].releasedDate = Math.round((new Date().getTime() - res.data[i].releasedDate) / 1000 / 60 / 60 / 24)
         }
-        if (this.firstRequest) {
-          this.$set(this, 'list', res.data)
-          this.firstRequest = false
-        } else {
-          this.$set(this, 'list', this.list.concat(res.data))
-        }
+        this.$set(this, 'list', this.list.concat(res.data))
         this.pageNum = this.pageNum + 1
         this.loading = false
       })
@@ -95,10 +94,17 @@ export default {
       } else {
         return 'gray'
       }
+    },
+    gotoDetail (index) {
+      let paramsObj = {
+        strategyId: this.strategyId, // 13
+        stockCode: this.stockWindCode, // 002069.sz
+        contentId: this.contentId, // 220715
+        offset: index // 0
+      }
+      this.SET_TIMEMACHINE_PARAMS(paramsObj)
+      this.$router.push('/timeMachine/' + this.$route.params.id)
     }
-  },
-  computed: {
-    ...mapGetters(['getTimeMachineParams'])
   }
 }
 </script>
@@ -176,6 +182,15 @@ export default {
   }
   .xh-rose {
     font-size: 17px;
+  }
+  .red {
+    color: #e2666d;
+  }
+  .green {
+    color: #4a9a69;
+  }
+  .gray{
+    color:#999;
   }
   .i-leida1 {
     width: 0.2rem;

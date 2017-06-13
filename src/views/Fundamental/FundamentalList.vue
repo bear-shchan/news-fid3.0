@@ -10,7 +10,7 @@
           :class="[{'red' : item._price > 0}, {'green' : item._price < 0}]"
           @click.stop="gotoSingleStockDetail(item.newStockWindCode)">
           {{item.newStockName}}
-          <span v-if="item._price">{{item._price | toFixed}}</span>
+          <span v-if="typeof item._price === 'number'">{{item._price | toFixed}}</span>
         </p>
       </router-link>
     </div>

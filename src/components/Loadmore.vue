@@ -14,6 +14,7 @@
 
 <script>
 import MugenScroll from 'vue-mugen-scroll'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -46,8 +47,18 @@ export default {
   },
   methods: {
     getData () {
-      this.$emit('getData')
+      if (this.userInfo.expireTime === -1) {
+        this.$emit('getData')
+      } else if (this.userInfo.expireTime > Date.now()) {
+        this.$emit('getData')
+      } else {
+        this.done = true
+        this.doneText = '无法加载更多'
+      }
     }
+  },
+  computed: {
+    ...mapGetters(['userInfo'])
   }
 }
 </script>
