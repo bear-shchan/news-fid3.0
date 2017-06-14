@@ -5,34 +5,44 @@
         <router-link tag="li" class="new-li" v-for="(item, index) in list"
           key="item.sdaId"
           :to="'/timeMachine/' + $route.params.id">
-          <span class="i-leida1"></span>
-          <div class="stocknew">
-            <div class="c-triangle"></div>
-            <p class="xinhao">{{ item.releasedDate }}天前发出{{ conceptName }}信号</p>
-            <ul class="best-own">
-              <li>
-                <p>股票</p>
-                <span>{{ item.stockCnName }}</span>
-              </li>
-              <li>
-                <p>持有天数</p>
-                <span>{{ item.maxHaveDay }}天</span>
-              </li>
-              <li>
-                <p>涨幅</p>
-                <span :class="'xh-rose ' + color (item.maxPrices)">{{ item.maxPrices | toFixed }}</span>
-              </li>
-            </ul>
-          </div>
+          <li>
+            <span class="i-leida1"></span>
+            <div class="stocknew">
+              <div class="c-triangle"></div>
+              <p class="xinhao">{{ item.releasedDate }}天前发出{{ conceptName }}信号</p>
+              <ul class="best-own">
+                <li>
+                  <p>股票</p>
+                  <span>{{ item.stockCnName }}</span>
+                </li>
+                <li>
+                  <p>持有天数</p>
+                  <span>{{ item.maxHaveDay }}天</span>
+                </li>
+                <li>
+                  <p>涨幅</p>
+                  <span :class="'xh-rose ' + color (item.maxPrices)">{{ item.maxPrices | toFixed }}</span>
+                </li>
+              </ul>
+            </div>
+          </li>
         </router-link>
       </ul>
+      <loadmore
+        v-on:getData="getList"
+        :loading="loading"
+        :showLoading="pageNum != 1"
+        :done="done">
+      </loadmore>
+      <ul v-if="!list[0] && !listBusy">
+        <li>
+          <div class="quesheng">
+            <img src="../../../assets/img/quesheng.png">
+            <p>暂无相似历史</p>
+          </div>
+        </li>
+      </ul>
     </div>
-    <loadmore
-      v-on:getData="getList"
-      :loading="loading"
-      :showLoading="true"
-      :done="done">
-    </loadmore>
   </div>
 </template>
 
@@ -48,7 +58,8 @@ export default {
       doneText: '没有更多数据',
       loading: false,
       done: false,
-      pageNum: 1
+      pageNum: 1,
+      listBusy: false
     }
   },
   props: ['stockName', 'conceptName', 'stockWindCode', 'strategyId', 'contentId'],
@@ -60,6 +71,7 @@ export default {
     ...mapActions(['SET_SPINNER']),
     getList () {
       this.loading = true
+      this.listBusy = true
       this.$http.get('/fidnews/v1/geek/v6/timeMachines/paging', {
         params: {
           strategyId: this.strategyId,
@@ -70,6 +82,7 @@ export default {
         }
       })
       .then(res => {
+        this.listBusy = false
         if (!res.data) {
           this.done = true
           return

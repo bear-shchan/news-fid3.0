@@ -1,7 +1,7 @@
 <template>
   <div class="view">
     <ul>
-      <li class="b-new-li" v-for="item in trackList">
+      <li class="b-new-li" v-for="item in trackList" :key="item.releaseDate" v-if="trackList">
         <img class="i-leida" src="../../../assets/img/leida.png">
         <div class="b-stocknew">
           <div class="c-triangle"></div>
@@ -9,7 +9,7 @@
           <p>{{ item.digest }}</p>
         </div>
       </li>
-      <li class="b-new-li"  >
+      <li class="b-new-li" v-if="zixunData">
         <!-- <hr class="b-line" width="3" size="244" color="#f7f7f7" ref="abc" style="display: block;"> -->
         <img class="i-leida" src="../../../assets/img/zixun.png">
         <div class="b-stocknew" id="sss" ref="sss" >

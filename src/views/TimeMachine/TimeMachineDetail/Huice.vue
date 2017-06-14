@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="bkg">
-      <p class="hc-content">
+      <p class="hc-content"  v-if="data">
         {{ stockName }}发出{{ conceptName }}信号后，
         <span v-if="data.stockLastDay === 0">
           是否跑赢{{ conceptName }}概念的平均水平？让我们拭目以待。
@@ -16,20 +16,20 @@
       <ul class="hc-best-own">
         <li>
           <p>平均涨幅</p>
-          <span>{{ data.maxAvgRise | toFixed }}</span>
+          <span v-if="data">{{ data.maxAvgRise | toFixed }}</span>
         </li>
         <li>
           <p>赚钱概率</p>
-          <span>
+          <span v-if="data">
             {{ data.maxRiseWinPer | toFixed }}
           </span>
         </li>
         <li>
           <p>最佳持有</p>
-          <span>{{ data.maxRiseDay }}天</span>
+          <span v-if="data">{{ data.maxRiseDay }}天</span>
         </li>
       </ul>
-      <P class="hc-notice">持有{{ data.maxRiseDay }}后收益最高，平均涨幅是{{ data.maxAvgRise | toFixed }}，持有{{ data.maxWinDay }}天胜率最大，赚钱概率达到{{ data.maxWinPercent | toFixed }}</P>
+      <p class="hc-notice" v-if="data">持有{{ data.maxRiseDay }}后收益最高，平均涨幅是{{ data.maxAvgRise | toFixed }}，持有{{ data.maxWinDay }}天胜率最大，赚钱概率达到{{ data.maxWinPercent | toFixed }}</p>
       <div id="main" style="height:230px;"></div>
       <p class="hc-x">横轴（日）：代表发生事件后的第几个交易日</p>
       <div class="hc-source">
