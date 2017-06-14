@@ -14,12 +14,7 @@
     <!-- <list-loading :list-loaded="listLoaded"></list-loading> -->
 
     <!-- 列表项 -->
-    <ul class="main-list"
-      v-infinite-scroll="getEveryTime" 
-      infinite-scroll-disabled="listBusy" 
-      infinite-scroll-distance="350"
-      infinite-scroll-immediate-check
-      >
+    <ul class="main-list">
       <li class="list-item" v-for="(item, index) in mainList" 
         @click="changeIntercept(index)">
         <div :class="'importance-' + item.importance ">
@@ -54,20 +49,24 @@
         </div>
       </li>
     </ul>
+    <!-- 加载更多 -->
+    <loadmore
+      v-on:getData="getEveryTime"
+      :loading="listBusy"
+      :showLoading="option.pageNo !== 1">
+    </loadmore>
   </div>
 </template>
 
 <script>
 import moment from 'moment'
-// import ListLoading from '../components/ListLoading.vue'
-// import ImportanceRadios from '@/components/ImportanceRadios.vue'
+import Loadmore from '@/components/Loadmore.vue'
 
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
-    // ImportanceRadios
-    // ListLoading
+    Loadmore
   },
   data () {
     return {

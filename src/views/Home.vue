@@ -17,9 +17,7 @@
 
 <script>
 import {nav} from '../router-config.js'
-
-const doneView = ['7*24小时', '个股行情', '两融资讯', '主题追踪', '预知未来', '财经日历', '主题选基', '小白财经', '定点播报',
-  '异动点评', '求一票', '求一基', '港股资讯']
+import { mapGetters } from 'vuex'
 
 export default {
   name: '',
@@ -40,16 +38,32 @@ export default {
     }
   },
   created () {
-    console.log(nav)
+    // console.log(nav)
     this.navFormat()
   },
   methods: {
     navFormat () {
-      let doneViewStr = doneView.join(',')
+      // console.log(this.userInfo)
+      // if (this.userInfo.menus !== undefined) {
+      //   var permArr = this.userInfo.menus.map((i) => {
+      //     if (i.hasPerm) {
+      //       return i.name
+      //     }
+      //   })
+      //   var permStr = permArr.join(',')
+      // }
+
+      let permStr = this.userInfo.expireTime
 
       for (let i = 0, len = nav.length; i < len; i++) {
         // 处理权限（当前暂时为完成进度）
-        nav[i].permission = doneViewStr.indexOf(nav[i].name) !== -1 ? '' : 'no-hasPerm'
+        if (permStr === -1) {
+          nav[i].permission = ''
+        } else if (permStr > Date.now()) {
+          nav[i].permission = ''
+        } else {
+          nav[i].permission = 'no-hasPerm'
+        }
         // 处理图片
         let navIcon = nav[i].icon
         nav[i].imgPath = require('../assets/img/' + navIcon + '.png')
@@ -57,6 +71,9 @@ export default {
         this.navArr[nav[i].column - 1].push(nav[i])
       }
     }
+  },
+  computed: {
+    ...mapGetters(['userInfo'])
   }
 }
 </script>

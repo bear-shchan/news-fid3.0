@@ -22,7 +22,6 @@ import contrastDate from '@/assets/js/contrastDate.js'
 import moment from 'moment'
 import ImgsList from '@/components/ImgsList'
 export default {
-  name: '',
   components: {
     ImgsList
   },

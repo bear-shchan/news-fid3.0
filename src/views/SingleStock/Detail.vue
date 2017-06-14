@@ -83,7 +83,7 @@ export default {
   created () {
     this.getStockInfo()
     this.setTimeOut()
-    console.log(this.$route)
+    // console.log(this.$route)
     if (this.$route.path.indexOf('singleStockDetail') !== -1) {
       this.curLinkItem = this.singelStockItems
       this.curLinkPath = '/singleStockDetail/'

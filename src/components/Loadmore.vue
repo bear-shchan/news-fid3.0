@@ -2,17 +2,19 @@
   <div>
     <mugen-scroll
       class="dropload-down"
+      v-show="showLoading"
       :handler="getData"
       :should-handle="!loading">
-      <img v-show="!done" class="loading-icon" src="../assets/img/loading.gif">
-      <span v-show="!done" class="text">{{ droploadDownText }}</span>
-      <span v-show="done" class="text">{{ doneText }}</span>
+      <img v-show="!doneObj.done" class="loading-icon" src="../assets/img/g-loading.gif">
+      <span v-show="!doneObj.done" class="text">{{ droploadDownText }}</span>
+      <span v-if="doneObj.done" class="text">{{ doneObj.doneText }}</span>
     </mugen-scroll>
   </div>
 </template>
 
 <script>
 import MugenScroll from 'vue-mugen-scroll'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -20,6 +22,8 @@ export default {
   },
   data () {
     return {
+      restriction: false
+      // doneObj: {}
     }
   },
   props: {
@@ -38,11 +42,37 @@ export default {
     doneText: {
       type: String,
       default: '已经加载完毕'
+    },
+    showLoading: {
+      type: Boolean
     }
   },
   methods: {
     getData () {
+      // if (this.userInfo.expireTime === -1) {
+      //   this.$emit('getData')
+      // } else if (this.userInfo.expireTime > Date.now()) {
+      //   this.$emit('getData')
+      // } else {
+      // this.restriction = true
+      // }
+      // this.restriction = true
       this.$emit('getData')
+    }
+  },
+  computed: {
+    ...mapGetters(['userInfo']),
+    doneObj () {
+      if (this.restriction) {
+        return {
+          done: true,
+          doneText: '无法加载更多'
+        }
+      }
+      return {
+        done: this.done,
+        doneText: this.doneText
+      }
     }
   }
 }
@@ -56,8 +86,8 @@ export default {
   color: #999;
 }
 .dropload-down .loading-icon {
-  width: 14px;
-  height: 14px;
+  width: 30px;
+  height: 30px;
   vertical-align: middle;
   padding-right: 4px;
 }

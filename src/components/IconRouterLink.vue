@@ -1,10 +1,11 @@
 <template>
   <div>
-    <div class="link-box layout-box"
+    <div class="link-box"
       :class="{'fixed-box' : fixedBox}">
       <i class="gray"></i>
       <div v-for="item in linkItems"
-        class="link-item box-col"
+        class="link-item"
+        :style="{ width: itemWidth }"
         @click="changeRoute(item)"
         >
         <img class="icon-active" v-if="$route.path.indexOf(item.link) !== -1" :src="item.iconActive">
@@ -33,6 +34,11 @@ export default {
       } else {
         this.$router.push(this.linkPath + item.link)
       }
+    }
+  },
+  computed: {
+    itemWidth () {
+      return (100 / this.linkItems.length) + '%'
     }
   }
 }

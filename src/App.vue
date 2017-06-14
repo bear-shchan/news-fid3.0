@@ -5,18 +5,21 @@
       <router-view id="container" class="mh-box"></router-view>
     </transition>
     <go-home></go-home>
+    <loading></loading>
   </div>
 </template>
 
 <script>
 import HeaderDiv from './components/Header'
 import GoHome from './components/GoHome'
+import Loading from './components/Loading'
 
 export default {
   name: 'app',
   components: {
     HeaderDiv,
-    GoHome
+    GoHome,
+    Loading
   },
   data () {
     return {

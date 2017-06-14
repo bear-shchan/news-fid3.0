@@ -57,12 +57,18 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data () {
     return {
     }
+  },
+  created () {
+    this.SET_SPINNER(false)
+  },
+  methods: {
+    ...mapActions(['SET_SPINNER'])
   },
   computed: {
     ...mapGetters(['getCalendarItem'])

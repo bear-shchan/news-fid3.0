@@ -1,3 +1,6 @@
+﻿#cnzz_stat_icon_1260847311{
+  display: none;
+}
 /*轮播图*/
 .mint-swipe {
   overflow: hidden;
@@ -55,4 +58,9 @@
 /*详情页全局样式*/
 .details-content img{
   width: 9.2rem;
+}
+/* 妖股列表 */
+.content i{
+  font-style: normal;
+  color: #f35b6a;
 }

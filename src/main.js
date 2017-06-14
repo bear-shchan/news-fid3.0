@@ -1,5 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+// import 'core-js/es6/promise'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -21,18 +22,20 @@ NProgress.configure({
 import request from './api/request.js'
 Vue.prototype.$http = request
 
-import VueInfiniteScroll from 'vue-infinite-scroll'
-Vue.use(VueInfiniteScroll)
+// import VueInfiniteScroll from 'vue-infinite-scroll'
+// Vue.use(VueInfiniteScroll)
 
-import VueScroller from 'vue-scroller'
-Vue.use(VueScroller)
+// import VueScroller from 'vue-scroller'
+// Vue.use(VueScroller)
 
-import moment from 'moment'
-Vue.filter('moment', function (value, param) {
-  return moment(value).format(param)
+import * as filters from './filters'
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
 })
-Vue.filter('toFixed', function (value) {
-  return (value * 100).toFixed(2) + '%'
+
+import * as directives from './directives'
+Object.keys(directives).forEach(key => {
+  Vue.directive(key, directives[key])
 })
 
 const externalView = ['/ticket', '/fund']
@@ -40,12 +43,11 @@ const externalViewStr = externalView.join(',')
 
 router.beforeEach(({meta, path}, from, next) => {
   NProgress.start()
+  // 检查登录
   var { auth = true } = meta
   var isLogin = Boolean(store.state.user.password)
-
   if (auth && !isLogin && path !== '/login' && path !== '/') {
-    next({ path: '/login' })
-    return false
+    return next({ path: '/login' })
   }
 
   // 外部页面逻辑，求一基，求一票
@@ -54,10 +56,22 @@ router.beforeEach(({meta, path}, from, next) => {
     return false
   }
 
+  // 检查权限
+  let expireTime = store.state.user.expireTime
+  if (expireTime === -1) {
+    next()
+  } else if (expireTime === 0 && path !== '/login' && path !== '/') {
+    return next({ path: '/login' })
+  } else if (expireTime < Date.now() && path !== '/login' && path !== '/') {
+    return next({ path: '/login' })
+  }
+
   next()
 })
 
 router.afterEach(() => {
+  // 优化---设置时间，判断时间长于1s 在设置为true
+  store.dispatch('SET_SPINNER', true)
   window.scrollTo(0, 0)
   NProgress.done()
 })

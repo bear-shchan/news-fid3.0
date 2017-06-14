@@ -1,25 +1,7 @@
 <template>
   <div>
-    <div class="newslist" id="newslist" v-if="newsList.length > 0">
-      <router-link v-for="item in newsList1" :to="'/newsDetail/' + item.id" class="newsli" :key="item.id"> 
-        <p class="stocktitle">
-          <span class="news-title">{{ item.date  }}</span>
-          {{ item.title }}
-        </p>
-        <div class="info" v-if="item.stockList != ''">
-          <img class="face" src="../../../assets/img/liduo@2x.png">
-          <div style="padding-left:20px;">
-            <router-link :to="'/singleStockDetail/information/' + stock.stockWindCode" v-for="stock in item.stockList"  :key="stock.stockWindCode">
-              <p class="stocknames">
-                {{ stock.stockName }}<span class="percent green">{{ percentData[stock.stockWindCode] | toFixed }}</span>
-              </p>
-            </router-link>
-          </div>
-        </div>
-      </router-link>
-    </div>
-    <div class="newslist" id="newslist" v-if="newsList.length > 0">
-      <router-link v-for="item in newsList" :to="'/newsDetail/' + item.id" class="newsli" :key="item.id"> 
+    <div class="newslist" id="newslist" v-if="list.length > 0">
+      <router-link v-for="item in list" :to="'/newsDetail/' + item.id" class="newsli" :key="item.id"> 
         <p class="stocktitle">
           <span class="news-title">{{ item.date  }}</span>
           {{ item.title }}
@@ -36,90 +18,67 @@
         </div>
       </router-link>
     </div>
-    <mugen-scroll
-      class="dropload-down"
-      :handler="getList"
-      :should-handle="!loading"
-      scroll-container="scrollContainer">
-      <span v-if="isLoading">
-        <img class="face" src="../../../assets/img/loading.gif">
-      </span>
-      {{ droploadDownText }}
-    </mugen-scroll>
+    <loadmore
+      v-on:getData="getList"
+      :loading="loading"
+      :showLoading="!firstRequest"
+      :done="done">
+    </loadmore>
   </div>
 </template>
-
+ 
 <script>
-import axios from 'axios'
-import MugenScroll from 'vue-mugen-scroll'
-import contrastDate from '@/assets/js/contrastDate.js'
+import Loadmore from '@/components/Loadmore.vue'
+import formatDate from '@/assets/js/formatDate.js'
 export default {
-  components: { MugenScroll },
+  components: { Loadmore },
   data () {
     return {
-      newsList: [],
-      droploadDownText: '',
+      list: [],
+      percentData: [],
+      stockWindCodeArr: [],
+      lastTime: '',
+      firstRequest: true,
+      doneText: '没有更多数据',
       loading: false,
-      isLoading: '',
-      percentData: {},
-      newsList1: []
+      done: false
     }
   },
   created () {
-    this.getList1()
+    this.getList()
   },
   methods: {
-    getList1 () {
+    getList () {
+      this.loading = true
       this.$http.get('/fidnews/v1/geek/v3/getTopicInfoMsgV3VoList', {
         params: {
           user: 'geek',
           key: '4c039f2967c4d93e9674ffb037724187',
           topicId: this.$route.params.id,
           pageNum: 5,
-          lastTime: (this.newsList.length > 0 && this.newsList[this.newsList.length - 1].releasedTime) || null
+          lastTime: this.lastTime
         }
       })
       .then((res) => {
-        let stockWindCodeArr = []
-        let listArr = res.data
-        for (var i = 0; i < listArr.length; i++) {
-          for (var j = 0; j < listArr[i].stockList.length; j++) {
-            listArr[i].date = contrastDate(listArr[i].releasedTime)
-            stockWindCodeArr.push(listArr[i].stockList[j].stockWindCode)
+        let data = res.data
+        if (!data) {
+          this.done = true
+          return
+        }
+        for (var i = 0; i < data.length; i++) {
+          data[i].date = formatDate(data[i].releasedTime)
+          for (var j = 0; j < data[i].stockList.length; j++) {
+            this.stockWindCodeArr.push(data[i].stockList[j].stockWindCode)
           }
         }
-        this.$set(this, 'newsList1', listArr)
-      })
-    },
-    async getList () {
-      try {
-        this.loading = true
-        const result = await axios.get('http://data.news.21fid.com/fidnews/v1/geek/v3/getTopicInfoMsgV3VoList', {
-          params: {
-            user: 'geek',
-            key: '4c039f2967c4d93e9674ffb037724187',
-            topicId: this.$route.params.id,
-            pageNum: 5,
-            lastTime: (this.newsList.length > 0 && this.newsList[this.newsList.length - 1].releasedTime) || null
-          }
-        }).then(res => res.data)
-        let stockWindCodeArr = []
-        let listArr = [...this.newsList, ...result.data]
-        for (var i = 0; i < listArr.length; i++) {
-          for (var j = 0; j < listArr[i].stockList.length; j++) {
-            listArr[i].date = contrastDate(listArr[i].releasedTime)
-            stockWindCodeArr.push(listArr[i].stockList[j].stockWindCode)
-          }
+        this.getStockPercent(this.stockWindCodeArr)
+        if (this.firstRequest) {
+          this.firstRequest = false
         }
-        this.newsList = listArr
-        this.getStockPercent(stockWindCodeArr)
+        this.$set(this, 'list', this.list.concat(data))
+        this.lastTime = this.list[this.list.length - 1].releasedTime
         this.loading = false
-        this.droploadDownText = '正在加载中...'
-        this.isLoading = true
-      } catch (err) {
-        this.droploadDownText = '已经加载完毕'
-        this.isLoading = false
-      }
+      })
     },
     getStockPercent (stockWindCodeArr) {
       this.$http.get('/fidnews/v1/geek/v2/getStockInfoByOtherInterface', {

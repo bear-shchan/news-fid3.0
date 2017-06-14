@@ -2,21 +2,26 @@
   <div>
     <simple-list :main-list="mainList"
       lisg-type="link"
-      link-path="/HKStocksDetail/"
-      v-infinite-scroll="getMain" 
-      infinite-scroll-disabled="listBusy"
-      infinite-scroll-distance="350"
-      infinite-scroll-immediate-check="false"></simple-list>
+      link-path="/HKStocksDetail/">
+    </simple-list>
+    <!-- 加载更多 -->
+    <loadmore
+      v-on:getData="getMain"
+      :loading="listBusy"
+      :showLoading="!firstRequest">
+    </loadmore>
   </div>
 </template>
 
 <script>
 import SimpleList from '@/components/SimpleList.vue'
+import Loadmore from '@/components/Loadmore.vue'
 
 export default {
   name: 'Report',
   components: {
-    SimpleList
+    SimpleList,
+    Loadmore
   },
   data () {
     return {

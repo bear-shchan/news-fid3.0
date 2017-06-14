@@ -64,6 +64,12 @@
             <img :src="item.images">
           </div>
         </router-link>
+        <loadmore
+          v-on:getData="getList"
+          :loading="loading"
+          :showLoading="!firstRequest"
+          :done="done">
+        </loadmore>
         <!-- <router-link class="list" to="/newbieFinanceSecond/基础名词/2">
           <div class="topic layout-box">
             <div class="text box-col">
@@ -89,20 +95,29 @@
 
 <script>
 import contrastDate from '@/assets/js/contrastDate.js'
+import Loadmore from '@/components/Loadmore.vue'
 export default {
   name: '',
+  components: {
+    Loadmore
+  },
   data () {
     return {
       seeList: [],
       reportList: [],
       oneReport: [],
-      specialList: []
+      specialList: [],
+      releasedTime: '',
+      firstRequest: true,
+      doneText: '没有更多数据',
+      loading: false,
+      done: false
     }
   },
   created () {
     this.getSeeList(0)
     this.getSeeList(1)
-    this.getSpecial()
+    this.getList()
   },
   methods: {
     getSeeList (type) {
@@ -114,7 +129,6 @@ export default {
         }
       })
       .then((res) => {
-        console.log(res.data)
         if (type === 0) {
           this.$set(this, 'seeList', res.data)
         } else {
@@ -131,25 +145,36 @@ export default {
         }
       })
       .then((res) => {
-        console.log(res.data)
         this.readNum = res.data.views
       })
     },
-    getSpecial () {
+    getList () {
+      this.loading = true
       this.$http.get('/fidnews/v1/geek/v3/querySubjects', {
         params: {
           user: 'fidinner',
           key: 'ab54eae187cd5cf4e89fed7a4e62586e',
-          size: '',
-          releasedTime: ''
+          size: 5,
+          releasedTime: this.releasedTime
         }
       })
       .then((res) => {
-        console.log(res.data)
-        for (var i = 0; i < res.data.length; i++) {
-          res.data[i].releasedTime = contrastDate(res.data[i].releasedTime)
+        let data = res.data
+        if (data.length === 0) {
+          this.done = true
+          return
         }
-        this.$set(this, 'specialList', res.data)
+        let releasedTimelast
+        for (var i = 0; i < data.length; i++) {
+          releasedTimelast = data[data.length - 1].releasedTime
+          data[i].releasedTime = contrastDate(data[i].releasedTime)
+        }
+        if (this.firstRequest) {
+          this.firstRequest = false
+        }
+        this.$set(this, 'specialList', this.specialList.concat(data))
+        this.releasedTime = releasedTimelast
+        this.loading = false
       })
     }
   }
@@ -283,7 +308,7 @@ export default {
 .topic {
   padding-top: 0.53rem;
   padding-bottom: 0.53rem;
-  border-bottom: 0.07rem solid #ececec;
+  border-bottom: 1px solid #ececec;
 }
 .text {
   flex-grow: 1;
@@ -305,6 +330,10 @@ export default {
 .descri {
   font-size: 0.37rem;
   color: #4b4b4b;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
 }
 .descri span {
   color: red;

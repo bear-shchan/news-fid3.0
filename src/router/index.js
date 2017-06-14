@@ -104,6 +104,16 @@ let routes = [
     component: resolve => require([`../views/Precognition/PrecognitionDetail.vue`], resolve)
   },
   {
+    name: '赏妖股',
+    path: '/monsterStock',
+    component: resolve => require([`../views/MonsterStock/MonsterStockList.vue`], resolve)
+  },
+  {
+    title: '赏妖股',
+    path: '/monsterStockDetail/:id',
+    component: resolve => require([`../views/MonsterStock/MonsterStockDetail.vue`], resolve)
+  },
+  {
     name: '主题选基',
     path: '/fundSelect',
     component: resolve => require([`../views/FundSelect/FundSelect/FundSelect.vue`], resolve)
@@ -132,17 +142,23 @@ let routes = [
     component: resolve => require([`../views/SubjectTrack/SubjectTrackList.vue`], resolve)
   },
   {
-    name: '主题追踪',
+    meta: {
+      name: '主题追踪'
+    },
     path: '/SubjectTrackDetail/:id',
     component: resolve => require([`../views/SubjectTrack/SubjectTrackDetail.vue`], resolve)
   },
   {
-    name: '主题追踪',
+    meta: {
+      name: '主题追踪'
+    },
     path: '/hotStock/:id',
     component: resolve => require([`../views/SubjectTrack/HotStock.vue`], resolve)
   },
   {
-    name: '主题追踪',
+    meta: {
+      name: '主题追踪'
+    },
     path: '/newsDetail/:id',
     component: resolve => require([`../views/SubjectTrack/newsDetail.vue`], resolve)
   },
@@ -152,12 +168,16 @@ let routes = [
     component: resolve => require([`../views/NewbieFinance/NewbieFinanceListFisrt.vue`], resolve)
   },
   {
-    name: '小白财经',
+    meta: {
+      name: '小白财经'
+    },
     path: '/newbieFinanceSecond/:id',
     component: resolve => require([`../views/NewbieFinance/NewbieFinanceListSecond.vue`], resolve)
   },
   {
-    name: '小白财经',
+    meta: {
+      name: '小白财经'
+    },
     path: '/newbieFinanceDetail/:id',
     component: resolve => require([`../views/NewbieFinance/NewbieFinanceDetail.vue`], resolve)
   },
@@ -167,17 +187,17 @@ let routes = [
     component: resolve => require([`../views/TodayKnow/TodayKnowListFisrt.vue`], resolve)
   },
   {
-    name: '今日必知',
+    // name: '早报&晚报',
     path: '/todayKnowSecond/:tagname',
     component: resolve => require([`../views/TodayKnow/TodayKnowListSecond.vue`], resolve)
   },
   {
-    name: '今日必知',
+    // name: '今日必知',
     path: '/todayKnowDetail/:id',
     component: resolve => require([`../views/TodayKnow/TodayKnowDetail.vue`], resolve)
   },
   {
-    name: '今日必知',
+    // name: '今日必知',
     path: '/specialSubject/:id',
     component: resolve => require([`../views/TodayKnow/SpecialSubjectDetail.vue`], resolve)
   },
@@ -192,7 +212,9 @@ let routes = [
         component: resolve => require([`../views/FinanceCalendar/Event.vue`], resolve)
       },
       {
-        name: '财经事件',
+        meta: {
+          name: '财经事件'
+        },
         path: 'eventDetail',
         component: resolve => require([`../views/FinanceCalendar/EventDetail.vue`], resolve)
       },
@@ -202,7 +224,9 @@ let routes = [
         component: resolve => require([`../views/FinanceCalendar/Data.vue`], resolve)
       },
       {
-        name: '财经数据',
+        meta: {
+          name: '财经数据'
+        },
         path: 'dataDetail',
         component: resolve => require([`../views/FinanceCalendar/DataDetail.vue`], resolve)
       },
@@ -281,7 +305,56 @@ let routes = [
     // name: '围观大盘详情页',
     path: '/onlookersTapeDetail/:id',
     component: resolve => require([`../views/singleStock/Tape/OnlookersTapeDetail.vue`], resolve)
+  },
+  {
+    name: '时光机',
+    path: '/timeMachineList',
+    component: resolve => require([`../views/TimeMachine/TimeMachineList.vue`], resolve)
+  },
+  {
+    path: '/timeMachineDetail',
+    component: resolve => require(['../views/TimeMachine/TimeMachineDetail/TimeMachineDetail.vue'], resolve),
+    children: [
+      {
+        path: 'radar/:id',
+        component: resolve => require(['../views/TimeMachine/TimeMachineDetail/Radar.vue'], resolve)
+      },
+      {
+        path: 'time/:id',
+        component: resolve => require(['../views/TimeMachine/TimeMachineDetail/Time.vue'], resolve)
+      },
+      {
+        path: 'huice/:id',
+        component: resolve => require(['../views/TimeMachine/TimeMachineDetail/Huice.vue'], resolve)
+      }
+    ]
+  },
+  {
+    path: '/timeMachine/:id',
+    component: resolve => require([`../views/TimeMachine/TimeMachine.vue`], resolve)
+  },
+  {
+    path: '/fundamental',
+    name: '基本面选股',
+    component: resolve => require(['../views/Fundamental/FundamentalList.vue'], resolve)
+  },
+  {
+    path: '/fundamentalDetail/:id',
+    component: resolve => require(['../views/Fundamental/FundamentalDetail.vue'], resolve)
+  },
+  {
+    path: '/fundChance',
+    name: '基会宝',
+    component: resolve => require(['../views/FundChance/FundChanceList.vue'], resolve)
+  },
+  {
+    path: '/fundChanceDetail/:id',
+    component: resolve => require(['../views/FundChance/FundChanceDetail.vue'], resolve)
   }
+  // {
+  //   path: '*',
+  //   redirect: '/'
+  // }
 ]
 
 // let routerAll = nav.concat(other)

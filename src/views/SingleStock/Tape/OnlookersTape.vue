@@ -5,27 +5,27 @@
     <loadmore
       v-on:getData="getList"
       :loading="loading"
-      :doneText="doneText">
+      :showLoading="!firstRequest">
     </loadmore>
   </div>
 </template>
 
 <script>
-import imgsList from '@/components/imgsList.vue'
-import loadmore from '@/components/loadmore.vue'
+import ImgsList from '@/components/ImgsList.vue'
+import Loadmore from '@/components/Loadmore.vue'
 
 import contrastDate from '@/assets/js/contrastDate.js'
 
 export default {
   components: {
-    imgsList,
-    loadmore
+    ImgsList,
+    Loadmore
   },
   data () {
     return {
       list: [],
       firstRequest: true,
-      doneText: '正在加载中...',
+      doneText: '没有更多数据',
       loading: false,
       releaseTime: ''
     }

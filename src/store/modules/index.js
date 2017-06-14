@@ -10,8 +10,8 @@ export default {
       state.importance = -1
       state.msgType = -1
     },
-    TOGGLE_SPINNER (state) {
-      state.spinner = !state.spinner
+    SET_SPINNER (state, blooen) {
+      state.spinner = blooen
     },
     SET_RADIOS_PARAM (state, paramObj) {
       state[paramObj.name] = paramObj.param
@@ -21,8 +21,8 @@ export default {
     REVERT_STATE ({ commit }) {
       commit('REVERT_STATE')
     },
-    TOGGLE_SPINNER ({ commit }) {
-      commit('TOGGLE_SPINNER')
+    SET_SPINNER ({ commit }, param) {
+      commit('SET_SPINNER', param)
     },
     SET_RADIOS_PARAM ({ commit }, paramObj) {
       commit('SET_RADIOS_PARAM', paramObj)

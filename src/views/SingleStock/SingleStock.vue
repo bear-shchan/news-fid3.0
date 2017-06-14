@@ -163,7 +163,7 @@ export default {
       } else if (item.topicId) {
         this.$router.push('/subjectTrackDetail/' + item.topicId)
       } else if (item.indexWindCode) {
-        this.$router.push('tapeDetail/onLookersTape/' + item.indexWindCode)
+        this.$router.push('tapeDetail/onlookersTape/' + item.indexWindCode)
       }
     },
     removeSearchHistory () {
@@ -223,6 +223,7 @@ input:-webkit-autofill {
   vertical-align: -0.08rem;
 }
 .input-search{
+  width: 90%;
   color: #fff;
   font-size: 14px;
   line-height: 0.77rem;

@@ -16,6 +16,7 @@
       <i class="icon password-icon"></i>
         <input
           class="password"
+          :class="{ error: error }"
           type="password"
           placeholder="密码"
           v-model="form.password"
@@ -25,6 +26,10 @@
       <button class="btn">登录</button>
     </form>
     <img src="../assets/img/logo-text2.png" class="logo-text2">
+    <div class="contact">
+      <p>开通权限请联系：深圳市深南大道9996号松日鼎盛大厦6楼</p>
+      <p>0755-86037819<span class="email">marketing-service@21fid.cn</span></p>
+    </div>
   </div>
 </template>
 
@@ -38,34 +43,30 @@ export default {
       form: {
         username: '',
         password: ''
-      }
+      },
+      error: false
     }
   },
   methods: {
     ...mapActions(['USER_SIGNIN']),
     submit () {
-      this.login()
-    },
-    login () {
-      this.$http.get('/fidnews/v1/mobileWeb/login', {
-        params: {
-          userName: this.form.username,
-          password: this.form.password
-        }
+      this.USER_SIGNIN(this.form).then(() => {
+        this.$router.push({ path: '/' })
+      }).catch(() => {
+        this.form.password = ''
+        this.error = true
       })
-      .then((data) => {
-        if (data.code !== '-1') {
-          let user = {
-            menus: data.menus,
-            userName: this.form.username,
-            password: this.form.password
-          }
-          this.USER_SIGNIN(user)
-          this.$router.push({ path: '/' })
-        } else {
-          this.form.password = ''
+    }
+  },
+  watch: {
+    form: {
+      // 深度watch,可watch对象
+      deep: true,
+      handler (val, oldVal) {
+        if (val.password !== '') {
+          this.error = false
         }
-      })
+      }
     }
   }
 }
@@ -79,7 +80,7 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto; 
-  padding-top: 3.2rem;
+  padding-top: 1.5rem;
   width: 2.4rem;
   height: 2.4rem;
 }
@@ -113,6 +114,10 @@ export default {
 input:-webkit-autofill { 
 -webkit-box-shadow: 0 0 0px 1000px #fff inset; 
 }
+.form-group input.error{
+  border-bottom: 1px solid #ff6969;
+  /*box-shadow: 0px 2px 0px 0px #ff6969;*/
+}
 .icon{
   display: block;
   width: 0.64rem;
@@ -143,7 +148,17 @@ input:-webkit-autofill {
   /*bottom: 0.8rem;*/
   /*left: 5rem;
   transform: translate(-50%);*/
-  margin-top: 1.5rem;
+  margin-top: 2.5rem;
   text-align: center;
+}
+.contact{
+  margin-top: 7px;
+  font-size: 12px;
+  line-height: 20px;
+  color: #83839d;
+  text-align: center;
+}
+.email{
+  margin-left: 10px;
 }
 </style>

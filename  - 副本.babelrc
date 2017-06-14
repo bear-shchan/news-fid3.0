@@ -1,0 +1,44 @@
+{
+  "presets": [
+    ["env", { "modules": false }],
+    "stage-2"
+  ],
+  "plugins": [
+    "transform-runtime",
+    "transform-object-assign",
+    "transform-vue-jsx",
+    "transform-object-rest-spread",
+    // ["transform-runtime", {
+    //   "polyfill": true,
+    //   "regenerator": true
+    // }],
+  ],
+  "comments": false,
+  "env": {
+    "test": {
+      "presets": ["env", "stage-2"],
+      "plugins": [ "istanbul" ]
+    }
+  }
+}
+
+
+{
+  "plugins": [
+    ["transform-runtime", {
+      "helpers": false,
+      "polyfill": true,
+      "regenerator": true
+    }],
+    "transform-object-assign",
+    // "transform-vue-jsx",
+    "transform-object-rest-spread"
+    // 'add-module-exports',
+    // "transform-es3-member-expression-literals",
+    // "transform-es3-property-literals",
+  ],
+  "presets": [
+    "es2015",
+    "stage-2"
+  ]
+}
