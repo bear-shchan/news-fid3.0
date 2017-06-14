@@ -43,9 +43,9 @@ const externalViewStr = externalView.join(',')
 
 router.beforeEach(({meta, path}, from, next) => {
   NProgress.start()
+  // 检查登录
   var { auth = true } = meta
   var isLogin = Boolean(store.state.user.password)
-
   if (auth && !isLogin && path !== '/login' && path !== '/') {
     return next({ path: '/login' })
   }
@@ -54,6 +54,16 @@ router.beforeEach(({meta, path}, from, next) => {
   if (path !== '/' && externalViewStr.indexOf(path) !== -1) {
     window.location.href = '//www.21fid.com/external' + path
     return false
+  }
+
+  // 检查权限
+  let expireTime = store.state.user.expireTime
+  if (expireTime === -1) {
+    next()
+  } else if (expireTime === 0 && path !== '/login' && path !== '/') {
+    return next({ path: '/login' })
+  } else if (expireTime < Date.now() && path !== '/login' && path !== '/') {
+    return next({ path: '/login' })
   }
 
   next()

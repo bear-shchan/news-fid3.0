@@ -17,7 +17,12 @@
       </ul>
     </header>
     <icon-router-link :fixed-box="false" :link-items="items" link-path="/timeMachineDetail/"></icon-router-link>
-    <router-view class="view" :stockName="data.stockName" :conceptName="data.conceptName" :contentId="data.contentId" :strategyId="data.strategyId" :stockWindCode="data.stockWindCode"></router-view>
+    <router-view class="view" :stockName="data.stockName"
+      :conceptName="data.conceptName" 
+      :contentId="data.contentId" 
+      :strategyId="data.strategyId" 
+      :stockWindCode="data.stockWindCode">
+    </router-view>
   </div>
 </template>
 

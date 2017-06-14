@@ -3,11 +3,9 @@ import _localStorage from '@/assets/js/localStorage.js'
 import request from '@/api/request.js'
 
 export default {
-  state: _localStorage.isExpired('user') ? {} : _localStorage.get('user'),
+  state: _localStorage.get('user'),
   mutations: {
     USER_SIGNIN (state, user) {
-      // 如果有过期时间，设置过期时间
-      // _localStorage.maxAge(0).set('user', user)
       _localStorage.set('user', user)
       Object.assign(state, user)
     },
@@ -29,7 +27,7 @@ export default {
         .then((data) => {
           if (data.code !== '-1') {
             let user = {
-              menus: data.menus,
+              expireTime: data.expireTime,
               userName: form.username,
               password: form.password
             }

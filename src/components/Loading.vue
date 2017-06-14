@@ -33,7 +33,7 @@ export default {
 
 <style scoped>
 .icon{
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   height: 1.6rem;
