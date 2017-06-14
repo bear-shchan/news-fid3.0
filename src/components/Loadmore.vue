@@ -5,9 +5,9 @@
       v-show="showLoading"
       :handler="getData"
       :should-handle="!loading">
-      <img v-show="!done" class="loading-icon" src="../assets/img/g-loading.gif">
-      <span v-show="!done" class="text">{{ droploadDownText }}</span>
-      <span v-if="done" class="text">{{ doneText }}</span>
+      <img v-show="!doneObj.done" class="loading-icon" src="../assets/img/g-loading.gif">
+      <span v-show="!doneObj.done" class="text">{{ droploadDownText }}</span>
+      <span v-if="doneObj.done" class="text">{{ doneObj.doneText }}</span>
     </mugen-scroll>
   </div>
 </template>
@@ -22,6 +22,8 @@ export default {
   },
   data () {
     return {
+      restriction: false
+      // doneObj: {}
     }
   },
   props: {
@@ -47,18 +49,31 @@ export default {
   },
   methods: {
     getData () {
-      if (this.userInfo.expireTime === -1) {
-        this.$emit('getData')
-      } else if (this.userInfo.expireTime > Date.now()) {
-        this.$emit('getData')
-      } else {
-        this.done = true
-        this.doneText = '无法加载更多'
-      }
+      // if (this.userInfo.expireTime === -1) {
+      //   this.$emit('getData')
+      // } else if (this.userInfo.expireTime > Date.now()) {
+      //   this.$emit('getData')
+      // } else {
+      // this.restriction = true
+      // }
+      // this.restriction = true
+      this.$emit('getData')
     }
   },
   computed: {
-    ...mapGetters(['userInfo'])
+    ...mapGetters(['userInfo']),
+    doneObj () {
+      if (this.restriction) {
+        return {
+          done: true,
+          doneText: '无法加载更多'
+        }
+      }
+      return {
+        done: this.done,
+        doneText: this.doneText
+      }
+    }
   }
 }
 </script>

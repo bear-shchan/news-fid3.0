@@ -75,5 +75,5 @@ a{
   -webkit-line-clamp: 3;
 }
 .list-intercept-false {
-    -webkit-line-clamp: 100;
+  -webkit-line-clamp: 100;
 }

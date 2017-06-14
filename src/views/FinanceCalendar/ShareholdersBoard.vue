@@ -3,7 +3,7 @@
     <div class="calendar-list">
       <ul class="main-list">
         <li class="list-item" v-for="(item, index) in list">
-          <p class=" line-clamp" :class="{ 'display-show' : item.displayBtn }"
+          <p class="list-intercept-3" :class="{ 'list-intercept-false' : item.displayBtn }"
             @click="changeDisplay(index)">
             <span class="date">{{ item.meeting_dateFormat }}</span>【{{ item.company_name }}】 {{ item.message }}
           </p>

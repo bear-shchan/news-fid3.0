@@ -16,7 +16,7 @@
             <p class="type">{{ typeObj[i.type].text }}</p>
             <p class="name">{{ i.stockName }}</p>
           </div>
-          <p class="content dib">{{ i.content }}</p>
+          <p class="content dib" v-html="i.contentHtml"></p>
         </router-link>
       </ul>
     </template>
@@ -90,7 +90,7 @@ export default {
   methods: {
     formatTypeObj () {
       for (var i in this.typeObj) {
-        this.typeObj[i].icon = require(`../../assets/img/monster-list-icon${Number(i) + 1}.png`)
+        this.typeObj[i].icon = require(`../../assets/img/monster-list-icon${Number(i)}.png`)
       }
     },
     getList () {
@@ -107,13 +107,27 @@ export default {
           this.done = true
           return
         }
-        if (this.pageNo === 1) {
-          this.$set(this, 'list', data)
-        } else {
-          for (let i = 0, len = data.length; i < len; i++) {
-            this.list.push(data[i])
-          }
-        }
+        let list = data.map(i => {
+          i.stocks.map(i => {
+            i.contentHtml = (function (content) {
+              let contentArr = content.split('')
+              let str = ''
+              contentArr.map(i => {
+                if (/^[0-9|.|%]*$/.test(i)) {
+                  str += `<i>${i}</i>`
+                } else {
+                  str += i
+                }
+              })
+              str = str.replace(/<\/i><i>/g, '')
+              return str
+            })(i.content)
+            return i
+          })
+          return i
+        })
+        console.log(list)
+        this.$set(this, 'list', this.list.concat(list))
         this.pageNo++
         this.loading = false
       })

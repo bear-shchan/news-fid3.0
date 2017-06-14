@@ -11,7 +11,7 @@
           <p class="recommend">
             推荐指数:
             <i class="star"
-              :class="`star-${item.star}`">
+              :style="{backgroundImage: `url(${item.starImg})`}">
             </i>
           </p>
         </div>
@@ -84,8 +84,8 @@ export default {
           }
           // formatTime
           data[i].date = contrastDate(data[i].releaseTime)
-          // formatTitle
-          // data[i].title = '预期：' + data[i].title
+          // formatStar
+          data[i].starImg = require('@/assets/img/star_' + data[i].star + '.png')
           // formatImg
           let img = this.imgObj[data[i].znhjhbType]
           if (img) {
@@ -215,22 +215,16 @@ export default {
   right: 0.07rem;
   width: 1.33rem;
 }
-.star-1{
+/*.star-1{
   background: url('../../assets/img/star1.png');
-}
-.star-2{
-  background: url('../../assets/img/star2.png');
-}
-.star-3{
-  background: url('../../assets/img/star3.png');
-}
+}*/
 .star{
-  width: 36px;
+  width: 50px;
   height: 10px;
   display: inline-block;
   background-size: contain;
   background-repeat: no-repeat;
-  vertical-align: bottom;
+  vertical-align: top;
 }
 
 .gray .date,
