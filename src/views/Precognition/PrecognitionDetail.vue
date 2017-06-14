@@ -120,7 +120,7 @@ export default {
         data.topicName = data.cmsTopics[0].name
         data.content = data.depthAnalysis.content
         this.$set(this, 'main', data)
-        this.starImg = require('../../assets/img/star' + data.importance + '.png')
+        this.starImg = require('../../assets/img/star_' + data.importance + '.png')
         data.updatedDate = moment(data.releasedTime).format('MM-DD HH:mm')
         if (data.history_info) {
           data.history_info = data.history_info.split('\r\n')
