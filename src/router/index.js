@@ -350,6 +350,10 @@ let routes = [
   {
     path: '/fundChanceDetail/:id',
     component: resolve => require(['../views/FundChance/FundChanceDetail.vue'], resolve)
+  },
+  {
+    path: '/noPermission',
+    component: resolve => require(['../views/NoPermission.vue'], resolve)
   }
   // {
   //   path: '*',

@@ -60,9 +60,9 @@ router.beforeEach(({meta, path}, from, next) => {
   let expireTime = store.state.user.expireTime
   if (expireTime === -1) {
     next()
-  } else if (expireTime === 0 && path !== '/login' && path !== '/') {
+  } else if (expireTime === 0 && path !== '/login' && path !== '/' && path !== 'noPermission') {
     return next({ path: '/login' })
-  } else if (expireTime < Date.now() && path !== '/login' && path !== '/') {
+  } else if (expireTime < Date.now() && path !== '/login' && path !== '/' && path !== 'noPermission') {
     return next({ path: '/login' })
   }
 

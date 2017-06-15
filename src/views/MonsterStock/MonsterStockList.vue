@@ -110,23 +110,16 @@ export default {
         let list = data.map(i => {
           i.stocks.map(i => {
             i.contentHtml = (function (content) {
-              let contentArr = content.split('')
-              let str = ''
-              contentArr.map(i => {
-                if (/^[0-9|.|%]*$/.test(i)) {
-                  str += `<i>${i}</i>`
-                } else {
-                  str += i
-                }
+              let str = content.replace(/\d+\.\d+%|\d+%|\d+/g, function (v) {
+                return `<i>${v}</i>`
               })
-              str = str.replace(/<\/i><i>/g, '')
               return str
             })(i.content)
             return i
           })
           return i
         })
-        console.log(list)
+        // console.log(list)
         this.$set(this, 'list', this.list.concat(list))
         this.pageNo++
         this.loading = false

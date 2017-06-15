@@ -50,7 +50,7 @@ export default {
   computed: {
     ...mapGetters(['userInfo']),
     showLogoutIcon () {
-      if (this.$route.path === '/' && Boolean(this.userInfo.password)) {
+      if (this.$route.path === '/' || this.$route.path === '/noPermission' && Boolean(this.userInfo.password)) {
         return true
       }
       return false
