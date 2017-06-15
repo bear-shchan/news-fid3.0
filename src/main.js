@@ -61,9 +61,9 @@ router.beforeEach(({meta, path}, from, next) => {
   if (expireTime === -1) {
     next()
   } else if (expireTime === 0 && path !== '/login' && path !== '/' && path !== 'noPermission') {
-    return next({ path: '/login' })
+    return next({ path: '/noPermission' })
   } else if (expireTime < Date.now() && path !== '/login' && path !== '/' && path !== 'noPermission') {
-    return next({ path: '/login' })
+    return next({ path: '/noPermission' })
   }
 
   next()

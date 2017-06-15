@@ -3,7 +3,7 @@
     <ul class="list-box" v-show="!!list[0]">
       <li class="list-item"
         v-for="item in list"
-        @click="gotoDetail(item)">
+        @click="gotoDetail(item.id)">
         <div class="item-header">
           <img class="img" :src="item.smallImage">
           <span class="title">{{ item.name.split('•')[1] }}</span>
@@ -86,6 +86,7 @@ export default {
       })
     },
     gotoDetail (id) {
+      this.$router.push('/SubjectTrackDetail/' + id)
     }
   }
 }

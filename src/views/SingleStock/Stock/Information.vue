@@ -14,16 +14,16 @@
             :class="{'list-intercept-false' : !item.listIntercept}">
             {{ item.content }}
           </p>
-          <!-- 标签 -->
-          <template v-if="item.subject != ' ' && item.subject != undefined">
-            <router-link class="subject-link" 
-              :to="'/everytimeTag/' + item.subject"
-              >
-              #{{ item.subject }}#
-            </router-link>
-          </template>
-          <!-- 笑脸 -->
           <div class="message-index">
+            <!-- 标签 -->
+            <template v-if="item.subject != ' ' && item.subject != undefined">
+              <router-link tag="span" class="subject-link" 
+                :to="'/everytimeTag/' + item.subject"
+                >
+                #{{ item.subject }}#
+              </router-link>
+            </template>
+            <!-- 笑脸 -->
             <span v-if="item.liduolikong && item.liduolikong.data"
               @click="gotoDetail(item.liduolikong.data[0])">
               <img class="icon" :src="item.liduolikong.icon"><span class="text">
@@ -137,7 +137,7 @@ export default {
   font-size: 14px;
   color: #4c4c4c;
   float: right;
-  margin-top: 0.27rem;
+  margin-top: 8px;
 }
 .main-list .list-item .description{
   font-size: 14px;
@@ -147,7 +147,7 @@ export default {
 }
 .main-list .list-item .subject-link{
   font-size: 14px;
-  line-height: 27px;
+  line-height: 16px;
   color: #4694f4;
 }
 .list-item .message-index{
