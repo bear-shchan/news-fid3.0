@@ -10,10 +10,10 @@
       <div class="tk-content" v-html="detailData.content ">
       </div>
     </section>
-    <div class="tk-lanmu">
+    <!-- <div class="tk-lanmu">
       <p><span></span>推荐资讯</p>
     </div>
-    <imgs-list :list-arr="detailData.FocusTodayList" path="/todayKnowDetail/"></imgs-list>
+    <imgs-list :list-arr="detailData.FocusTodayList" path="/todayKnowDetail/"></imgs-list> -->
   </div>
 </template>
 
