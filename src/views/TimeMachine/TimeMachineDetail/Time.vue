@@ -52,6 +52,7 @@ export default {
   props: ['stockName', 'conceptName', 'stockWindCode', 'strategyId', 'contentId'],
   created () {
     this.SET_SPINNER(false)
+    this.getList()
   },
   watch: {
     stockName (val) {
