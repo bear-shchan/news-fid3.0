@@ -64,3 +64,13 @@
   font-style: normal;
   color: #f35b6a;
 }
+/*图片懒加载样式*/
+img[lazy=loading] {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+img[lazy=error] {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+img[lazy=loaded] {
+  background-color: rgba(0, 0, 0, 0.1);
+}

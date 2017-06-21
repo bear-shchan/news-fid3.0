@@ -18,7 +18,10 @@
       <echarts :option="incomePieOption" main='pie' class-name="income-pie-charts"></echarts>
       <ul class="income-list">
         <li class="income-list-item" v-for="(item, index) in incomeArr">
-          <p class="income-list-item-title"><i class="icon" :style="{ backgroundColor: colorArr[index]}"></i>{{item.name}}</p>
+          <p class="income-list-item-title layout-box">
+            <i class="icon" :style="{ backgroundColor: colorArr[index]}"></i>
+            <span class="box-col">{{item.name}}</span>
+          </p>
           <p class="income-list-item-data">{{item.value + item.unit}}</p>
         </li>
       </ul>
@@ -286,6 +289,7 @@ export default {
   vertical-align: top;
 }
 .income-list{
+  width: 48%;
   display: inline-block;
 }
 .income-list-item+.income-list-item{

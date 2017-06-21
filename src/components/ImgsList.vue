@@ -10,13 +10,13 @@
             <span class="db">{{ item.date }}</span>
           </p>
         </div>
-        <img :src="item.pictureUrl">
+        <img v-lazy="item.pictureUrl[0]">
       </div>
       <div class="list-three" v-else-if="item.pictureNum == 3">
         <div>
           <p class="name list-intercept-2"> {{ item.title }}</p>
           <div class="list-three-img">
-            <img :src="img" v-for="img in item.pictureUrl"/>
+            <img v-lazy="img" v-for="img in item.pictureUrl"/>
           </div>
           <p class="list-three-text">
             <span>{{ item.origin }}</span><span>{{ item.readingNumber }}阅读</span>

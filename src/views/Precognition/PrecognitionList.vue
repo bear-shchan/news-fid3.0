@@ -4,7 +4,7 @@
       <router-link tag="div" :to="'/precognitionDetail/' + item.id" 
         v-for="item in listArr" class="item" :class="{gray: item.gray}" key="item.latestTime">
         <div class="img-bg"
-          :style="{backgroundImage: `url(${item.images})` }">
+          v-lazy:background-image="item.images">
           <i class="translucent"></i>
           <p class="topic">{{item.predictTitle}}</p>
           <p class="time">{{item.time}}</p>

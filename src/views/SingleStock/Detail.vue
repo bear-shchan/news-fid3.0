@@ -12,8 +12,12 @@
         <p class="data">{{curRange | toFixed}}</p>
       </div>
     </div>
-    <icon-router-link class="pt-box" :link-items="curLinkItem" :link-path="curLinkPath"></icon-router-link>
-    <router-view keep-alive></router-view>
+    <icon-router-link class="pt-box" 
+      :link-items="curLinkItem" 
+      :link-path="curLinkPath"
+      :fixed-box="true"></icon-router-link>
+    <router-view keep-alive
+      class="view-box"></router-view>
   </div>
 </template>
 
@@ -127,11 +131,14 @@ export default {
 
 <style scoped>
 .pt-box{
-  padding-top: 2.8rem;
+  padding-top: 2.6rem;
+}
+.view-box{
+  padding-top: 2.2133rem;
 }
 .stock-info{
   padding-top: 0.53rem;
-  padding-bottom: 0.53rem;
+  padding-bottom: 2.53rem;
   text-align: center;
   position: fixed;
   top: 1.07rem;

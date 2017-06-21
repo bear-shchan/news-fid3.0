@@ -2,7 +2,7 @@
   <div class="box">
     <router-link :to="'/SubjectTrackDetail/' + item.id" class="list" v-for="item in listArr" :key="item.id">
       <div class="topic layout-box">
-        <img :src="item.topicImageUrl">
+        <img v-lazy="item.topicImageUrl">
         <div class="box-col">
           <p class="name"> {{ item.topicName }}</p>
           <p class="descri">{{ item.introduction }}</p>

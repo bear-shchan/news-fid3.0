@@ -4,7 +4,7 @@
     <div class="search">
       <i class="icon-search"></i>
       <input class="input-search" type="text" placeholder="请输入股票名称、代码"
-        v-model="curSearch">
+        @input="changeCurSearch">
     </div>
     <div class="box">
       <!-- 热门搜索 -->
@@ -44,6 +44,7 @@
 
 <script>
 import localStorage from '@/assets/js/localStorage.js'
+import throttle from '@/assets/js/throttle.js'
 
 export default {
   name: 'SingleStock',
@@ -169,7 +170,10 @@ export default {
     removeSearchHistory () {
       localStorage.remove('searchHistory')
       this.$set(this, 'searchHistoryList', [])
-    }
+    },
+    changeCurSearch: throttle(function (e) {
+      this.curSearch = e.target.value
+    }, 500)
   },
   watch: {
     curSearch () {

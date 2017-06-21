@@ -12,8 +12,9 @@ import 'lib-flexible' // rem
 import './assets/css/reset.css'
 import './assets/css/index.css'
 
-import NProgress from 'nprogress' // Progress 进度条
-import 'nprogress/nprogress.css' // Progress 进度条 样式
+// Progress 进度条
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 NProgress.configure({
   showSpinner: false
   // parent: '#container'
@@ -21,6 +22,13 @@ NProgress.configure({
 
 import request from './api/request.js'
 Vue.prototype.$http = request
+
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload, {
+  // preLoad: 1.3,
+  // attempt: 3,
+  listenEvents: ['scroll']
+})
 
 // import VueInfiniteScroll from 'vue-infinite-scroll'
 // Vue.use(VueInfiniteScroll)
