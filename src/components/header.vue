@@ -10,11 +10,11 @@
       @click="goBack">
     <!-- 退出登录 -->
     <img src="../assets/img/logout-icon.png"
-      v-show="showLogoutIcon"
+      v-if="showLogoutIcon"
       class="login-icon" 
-      @click="logoutDisplay = !logoutDisplay">
+      @click.stop="showlogoutDisplay">
     <div class="logout" 
-      @click="logout"
+      @click.stop="logout"
       v-show="logoutDisplay">
       退出登录
     </div>
@@ -42,6 +42,13 @@ export default {
     goBack () {
       this.$router.go(-1)
     },
+    showlogoutDisplay () {
+      if (!this.userInfo.password) {
+        this.$router.replace({path: '/login'})
+        return
+      }
+      this.logoutDisplay = !this.logoutDisplay
+    },
     logout () {
       this.USER_SIGNOUT()
       this.$router.replace({path: '/login'})
@@ -50,7 +57,7 @@ export default {
   computed: {
     ...mapGetters(['userInfo']),
     showLogoutIcon () {
-      if (this.$route.path === '/' || this.$route.path === '/noPermission' && Boolean(this.userInfo.password)) {
+      if (this.$route.path === '/' || this.$route.path === '/noPermission') {
         return true
       }
       return false

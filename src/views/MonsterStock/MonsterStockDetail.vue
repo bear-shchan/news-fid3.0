@@ -44,18 +44,18 @@ export default {
     return {
       baseInfo: {},
       imgObj: {
-        '五日最强': require('../../assets/img/monster-detail-icon0.png'),
-        '天地一号': require('../../assets/img/monster-detail-icon1.png'),
+        '天地一号': require('../../assets/img/monster-detail-icon0.png'),
+        '五日最强': require('../../assets/img/monster-detail-icon1.png'),
         '妖之红三兵': require('../../assets/img/monster-detail-icon2.png'),
-        '龙虎之气': require('../../assets/img/monster-detail-icon3.png'),
+        '牛魔王': require('../../assets/img/monster-detail-icon3.png'),
         '黑天鹅': require('../../assets/img/monster-detail-icon4.png'),
         '壳资源大战': require('../../assets/img/monster-detail-icon5.png'),
-        '人气爆棚': require('../../assets/img/monster-detail-icon6.png'),
-        '上上签': require('../../assets/img/monster-detail-icon7.png'),
-        '金蛋壳': require('../../assets/img/monster-detail-icon8.png'),
+        '月度小红花': require('../../assets/img/monster-detail-icon6.png'),
+        '人气爆棚': require('../../assets/img/monster-detail-icon7.png'),
+        '上上签': require('../../assets/img/monster-detail-icon8.png'),
         '最妖送转': require('../../assets/img/monster-detail-icon9.png'),
-        '牛魔王': require('../../assets/img/monster-detail-icon10.png'),
-        '月度小红花': require('../../assets/img/monster-detail-icon11.png')
+        '龙虎之气': require('../../assets/img/monster-detail-icon10.png'),
+        '金蛋壳': require('../../assets/img/monster-detail-icon11.png')
       },
       baseValue: {},
       timer: '',

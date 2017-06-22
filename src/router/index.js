@@ -187,7 +187,7 @@ let routes = [
     component: resolve => require([`../views/TodayKnow/TodayKnowListFisrt.vue`], resolve)
   },
   {
-    // name: '早报&晚报',
+    // name: '涨停预测、蓉儿看盘、飞笛策略、产业报告导航栏',
     path: '/todayKnowSecond/:tagname',
     component: resolve => require([`../views/TodayKnow/TodayKnowListSecond.vue`], resolve)
   },
