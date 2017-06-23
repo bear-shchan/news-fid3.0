@@ -1,15 +1,16 @@
 <template>
   <div>
     <div class="stock-info layout-box"
-      :class="{'red' : curRange >= 0}">
+      v-stockColor="curRange">
       <div class="stock-info-item box-col">
         <span class="title">股价</span>
         <p class="data" v-if="curPrice">{{curPrice}}</p>
-        <p class="data" v-else>0000.00</p>
+        <p class="data" v-else>--</p>
       </div>
       <div class="stock-info-item box-col">
         <span class="title">涨跌幅</span>
-        <p class="data">{{curRange | toFixed}}</p>
+        <p class="data" v-if="curRange !== '--'">{{curRange | toFixed}}</p>
+        <p class="data" v-else>--</p>
       </div>
     </div>
     <icon-router-link class="pt-box" 
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-
+import { mapActions } from 'vuex'
 import IconRouterLink from '@/components/IconRouterLink'
 
 export default {
@@ -107,6 +108,7 @@ export default {
   //   }
   // },
   methods: {
+    ...mapActions(['SET_TITLE']),
     getStockInfo () {
       this.$http.get('/fidnews/v1//geek/v3/getSelfDataInfoListByWindCodes', {
         params: {
@@ -118,6 +120,7 @@ export default {
         data = data.data[0]
         this.curPrice = data.zxj
         this.curRange = data.zdf
+        this.SET_TITLE(data.name)
       })
     },
     setTimeOut () {
@@ -145,7 +148,6 @@ export default {
   width: 100%;
   z-index: 999;
   background-color: #fff;
-  color: #4a9a69;
 }
 .stock-info-item .title{
   font-size: 14px;
@@ -155,8 +157,5 @@ export default {
 .stock-info-item .data{
   font-size: 24px;
   line-height: 39px;
-}
-.red{
-  color: #ec666d;
 }
 </style>

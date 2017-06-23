@@ -4,7 +4,7 @@
     <ul class="main-list">
       <li class="list-item" v-for="(item, index) in mainList" @click="goToDetail(item)">
         <div>
-          <p class="title fwb" v-if="item.title != '' && item.title != '快讯'">
+          <p class="title" v-if="item.title != '' && item.title != '快讯'">
             {{ item.title }}
           </p>
           <span :class="'importance-' + item.importance || item.featureObj.importance ">
@@ -92,16 +92,17 @@ export default {
 .main-list .list-item .date{
   text-align: right;
   font-size: 14px;
-  line-height: 24px;
+  line-height: 26px;
   color: #83839d;
 }
-.main-list .list-item .importance-2 .description{
-  color: #e2666d;
-}
+.main-list .list-item .importance-2 .description,
 .main-list .list-item .importance-3 .description{
   color: #e2666d;
-  font-weight: bold;
 }
+/*.main-list .list-item .importance-3 .description{
+  color: #e2666d;
+  font-weight: bold;
+}*/
 
   /*截取资讯长度和展示全部*/
 .list-intercept{

@@ -8,9 +8,9 @@
       infinite-scroll-distance="350"
       infinite-scroll-immediate-check="false"></simple-list>-->
 
-    <simple-list :main-list="mainList"
-      lisg-type="link"
-      link-path="/TransactionDetail/">
+    <!--lisg-type="link"
+    link-path="/TransactionDetail/"-->
+    <simple-list :main-list="mainList">
     </simple-list>
     <!-- 加载更多 -->
     <loadmore
@@ -46,9 +46,6 @@ export default {
     this.getMain()
     next()
   },
-  // mounted () {
-  //   this.getMain()
-  // },
   methods: {
     getMain () {
       this.loading = true
@@ -64,15 +61,14 @@ export default {
         for (let i = 0, len = list.length; i < len; i++) {
           list[i].listIntercept = false
           list[i].releasedDate = list[i].time
+          list[i].description = list[i].content
         }
 
         if (this.firstRequest) {
           this.$set(this, 'mainList', list)
           this.firstRequest = false
         } else {
-          for (let i = 0, len = list.length; i < len; i++) {
-            this.mainList.push(list[i])
-          }
+          this.$set(this, 'mainList', this.mainList.concat(list))
         }
         let len = this.mainList.length - 1
         this.releaseTime = this.mainList[len].releasedDate

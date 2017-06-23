@@ -14,7 +14,7 @@
           </span>
         </p>
         <p>
-          <i class="icon-face"></i>
+          <i class="icon-face" :class="'icon-' + item.iconFace"></i>
           <span class="date">{{item.releasedDate | contrastDate}}</span>
         </p>
         <div class="gray-box">
@@ -91,6 +91,7 @@ export default {
       getPercent(stockCodesStr)
       .then(data => {
         let list = this.list.map((i) => {
+          // 涨跌幅%
           i._price = (function () {
             let percent = ''
             data.map(j => {
@@ -100,6 +101,16 @@ export default {
             })
             return percent
           })()
+          // 笑哭脸
+          i.iconFace = (function (i) {
+            if (i._price > 0) {
+              return 'liduo'
+            } else if (i._price < 0) {
+              return 'likong'
+            } else {
+              return 'lizhong'
+            }
+          })(i)
           return i
         })
         this.$set(this, 'list', list)
@@ -135,11 +146,20 @@ export default {
 }
 .icon-face{
   display: inline-block;
-  background: url(../../assets/img/liduo@2x.png);
-  background-size: 13px;
   width: 13px;
   height: 13px;
   vertical-align: middle;
+  background-image: url(../../assets/img/lizhong.png);
+  background-size: 13px;
+}
+.icon-liduo{
+  background-image: url(../../assets/img/liduo@2x.png);
+}
+.icon-likong{
+  background-image: url(../../assets/img/likong@2x.png);
+}
+.icon-lizhong{
+  background-image: url(../../assets/img/lizhong.png);
 }
 .date{
   font-size: 12px;

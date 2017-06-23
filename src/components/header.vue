@@ -2,7 +2,7 @@
   <div class="header" v-if="$route.path != '/login'">
     <!-- 页面标题 -->
     <!-- <transition name="fade"> -->
-    {{$route.name || $route.meta.name}}
+    {{$route.name || $route.meta.name || this.getTitle}}
     <!-- </transition> -->
     <!-- 返回上一页 -->
     <img src="../assets/img/fanhui.png"
@@ -55,7 +55,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['userInfo']),
+    ...mapGetters(['userInfo', 'getTitle']),
     showLogoutIcon () {
       if (this.$route.path === '/' || this.$route.path === '/noPermission') {
         return true

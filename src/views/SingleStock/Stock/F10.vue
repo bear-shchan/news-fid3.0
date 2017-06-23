@@ -171,13 +171,13 @@ export default {
 
 .box{
   background-color: #f7f7f7;
-  padding-top: 0.4rem;
+  /*padding-top: 0.4rem;*/
   color: #2e2e37;
 }
 .card{
   position: relative;
   width: 92%;
-  margin: 0 auto;
+  margin: 0.4rem auto 0;
   padding-top: 0.8rem;
   padding-bottom: 0.67rem;
   text-indent: 0.72rem;

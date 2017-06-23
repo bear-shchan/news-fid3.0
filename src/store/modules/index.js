@@ -2,11 +2,11 @@ export default {
   state: {
     spinner: false,
     importance: -1,
-    msgType: -1
+    msgType: -1,
+    title: ''
   },
   mutations: {
     REVERT_STATE (state) {
-      // state.spinner = false
       state.importance = -1
       state.msgType = -1
     },
@@ -15,6 +15,9 @@ export default {
     },
     SET_RADIOS_PARAM (state, paramObj) {
       state[paramObj.name] = paramObj.param
+    },
+    SET_TITLE (state, title) {
+      state.title = title
     }
   },
   actions: {
@@ -26,6 +29,9 @@ export default {
     },
     SET_RADIOS_PARAM ({ commit }, paramObj) {
       commit('SET_RADIOS_PARAM', paramObj)
+    },
+    SET_TITLE ({ commit }, title) {
+      commit('SET_TITLE', title)
     }
   },
   getters: {
@@ -35,6 +41,7 @@ export default {
     getImportance: state => {
       return state.importance
     },
-    getMsgType: state => state.msgType
+    getMsgType: state => state.msgType,
+    getTitle: state => state.title
   }
 }

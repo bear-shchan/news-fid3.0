@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import contrastDate from '@/assets/js/contrastDate.js'
 import ImgsList from '@/components/ImgsList.vue'
 import Loadmore from '@/components/Loadmore.vue'
@@ -27,13 +28,21 @@ export default {
       firstRequest: true,
       doneText: '没有更多数据',
       loading: false,
-      done: false
+      done: false,
+      titleObj: {
+        '2': '涨停预测',
+        '1': '蓉儿看盘',
+        '5': '飞笛策略',
+        '6': '产业报告'
+      }
     }
   },
   created () {
+    this.SET_TITLE(this.titleObj[this.$route.params.tagname])
     this.getList()
   },
   methods: {
+    ...mapActions(['SET_TITLE']),
     getList () {
       this.loading = true
       this.$http.get('/fidnews/v1/geek/v3/queryFocusTodayListByPro', {

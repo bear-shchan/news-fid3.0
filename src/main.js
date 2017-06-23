@@ -25,7 +25,7 @@ Vue.prototype.$http = request
 
 import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload, {
-  // preLoad: 1.3,
+  preLoad: 1.3,
   // attempt: 3,
   listenEvents: ['scroll']
 })
@@ -80,6 +80,7 @@ router.beforeEach(({meta, path}, from, next) => {
 router.afterEach(() => {
   // 优化---设置时间，判断时间长于1s 在设置为true
   store.dispatch('SET_SPINNER', true)
+  store.dispatch('SET_TITLE', '')
   window.scrollTo(0, 0)
   NProgress.done()
 })

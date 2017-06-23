@@ -1,4 +1,4 @@
-var throttle = function (fn, interval) {
+var throttle = function (fn, interval, immediate) {
   var _self = fn
   var timer
   var firstTime = true
@@ -7,7 +7,7 @@ var throttle = function (fn, interval) {
     var args = arguments
     var _me = this
 
-    if (firstTime) {
+    if (firstTime && immediate) {
       _self.apply(_me, args)
       firstTime = false
       return
