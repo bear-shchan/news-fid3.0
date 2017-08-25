@@ -1,7 +1,9 @@
 <template>
   <div class="box">
-    <router-link class="list" :to="'/newbieFinanceDetail/' + item.id"  v-for="item in secondListData" :key="item.id"
-      key="item.id">
+    <router-link class="list" 
+      :to="'/newbieFinanceDetail/' + item.id" 
+      v-for="item in secondListData"
+      :key="item.id">
       <div class="topic layout-box">
         <div class="box-col">
           <p class="name"> {{ item.title }}</p>
@@ -10,15 +12,35 @@
         <img :src="item.imgUrl">
       </div>
     </router-link>
+    <!-- 加载更多 -->
+    <loadmore
+      v-on:getData="getList"
+      :loading="loading"
+      :showLoading="this.params.releasedTime !== ''"
+      :done="done">
+    </loadmore>
   </div>
 </template>
 
 <script>
+import Loadmore from '@/components/Loadmore.vue'
+
 export default {
-  name: '',
+  components: {
+    Loadmore
+  },
   data () {
     return {
-      secondListData: []
+      secondListData: [],
+      params: {
+        user: 'fidinner',
+        key: 'ab54eae187cd5cf4e89fed7a4e62586e',
+        id: this.$route.params.id,
+        releasedTime: '',
+        size: 10
+      },
+      loading: false,
+      done: false
     }
   },
   created () {
@@ -26,16 +48,25 @@ export default {
   },
   methods: {
     getList () {
-      this.$http.get('fidnews/v1/geek/v3/secondWhiteList', {
-        params: {
-          user: 'fidinner',
-          key: 'ab54eae187cd5cf4e89fed7a4e62586e',
-          id: this.$route.params.id
-        }
+      this.loading = true
+      this.$http.get('/fidnews/v1/geek/v3/secondWhiteList', {
+        params: this.params
       })
       .then((res) => {
-        console.log(res.data)
-        this.secondListData = res.data
+        let data = res.data
+        let len = data.length
+        console.log(len)
+        if (len === 0) {
+          this.done = true
+          return
+        }
+        this.$set(this, 'secondListData', this.secondListData.concat(data))
+        let lastNum = len - 1
+        this.params.releasedTime = data[lastNum].releaseTime
+        this.loading = false
+        if (len < 10) {
+          this.done = true
+        }
       })
     }
   }
