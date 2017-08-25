@@ -34,3 +34,11 @@ export function getTimeMachineInfo (id) {
   })
 }
 
+// export function getTimeMachineInfo (id) {
+//   return request.get('/fidnews/v1/geek/v2/getMsgChooseStockDetailVo', {
+//     params: {
+//       id: id
+//     }
+//   })
+// }
+

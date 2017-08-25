@@ -106,13 +106,13 @@ export default {
       }
     },
     fuzzySearch (text, query) {
+      if (!text) {
+        return false
+      }
       var i
       var character
       var currentIndex
       var lastIndex = -1
-      if (!text) {
-        return false
-      }
       var tlen = text.length
       var qlen = query.length
       if (qlen > tlen) {

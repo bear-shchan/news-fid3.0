@@ -2,7 +2,7 @@
   <div>
     <!-- 关联基金 -->
     <p style="margin-top: 2.8rem;"></p>
-    <template v-if="relatedfund[0]">
+    <template v-if="topicName">
       <div class="title" style="text-align:left;text-indent:0.44rem;">关联基金</div>
     </template>
     <ul>
@@ -69,7 +69,7 @@ export default {
   methods: {
     getRelatedFund: function () {
       if (!this.topicName) return
-      let topic = this.topicName.split('•')[1]
+      let topic = this.topicName.split('•')[1] || this.topicName.split('·')[1]
       this.listBusy = true
       this.$http.get('/fidnews/v1/themefund/relatedfund', {
         params: {

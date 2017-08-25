@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="box">
-      <div class="details-hd">
+      <div class="details-hd" v-if="main.title">
         <h1 class="fs-36">
           {{ main.title }}
         </h1>

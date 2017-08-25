@@ -120,7 +120,7 @@ export default {
         data = data.data[0]
         this.curPrice = data.zxj
         this.curRange = data.zdf
-        this.SET_TITLE(data.name)
+        this.SET_TITLE(`${data.name}(${data.code})`)
       })
     },
     setTimeOut () {

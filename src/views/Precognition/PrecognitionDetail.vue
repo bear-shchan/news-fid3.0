@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="box">
+    <div class="box" v-if="main.shortTitle">
       <div class="details-hd">
         <h1 class="fs-36">
           {{ main.shortTitle }}
@@ -36,46 +36,48 @@
     <echarts :option="echartOption" class-name="echarts gray-line"></echarts>
 
     <!-- 利好个股一览表 -->
-    <div class="table-title">利好个股一览表</div>
-    <table class="table">
-      <tr>
-        <th>个股</th>
-        <th style="text-align: left;padding-left: 0.32rem">原因</th>
-      </tr>
-      <tr v-for="item in main.depthAnalysisPlateStocks">
-        <td><p>{{item.stockName}}</p></td>
-        <td v-html="item.reason"></td>
-      </tr>
-    </table>
-      <div class="history" v-if="main.history_info">
-        <p class="history-lanmu">历史消息</p>
-        <ul v-if="main.history_info.length < 4">
-          <li class="info-li" v-for="(item, index) in main.history_info" :key="index">
-            <hr class="b-line" width="4" size="350" color="#fff" style="display: none;">
-            <span class="i-circle"></span>
-            <p class="history-info">
-              {{ item }}
-            </p>
-          </li>
-        </ul>
-        <ul v-else>
-          <li class="info-li" v-for="(item, index) in main.history_info" :key="index" v-if="index < 3" >
-            <hr class="b-line" width="4" size="350" color="#fff" style="display: none;">
-            <span class="i-circle"></span>
-            <p class="history-info">
-              {{ item }}
-            </p>
-          </li>
-          <li :class="'info-li ' + isshow" data-isshow="1" v-else>
-            <hr class="b-line" width="4" size="350" color="#fff" style="display: none;">
-            <span class="i-circle"></span>
-            <p class="history-info">
-              {{ item }}
-            </p>
-          </li>
-        </ul>
-        <div class="show" id="show" @click="showHide">{{ isshowText }}</div>
-      </div>
+    <template v-if="main.depthAnalysisPlateStocks">
+      <div class="table-title">利好个股一览表</div>
+      <table class="table">
+        <tr>
+          <th>个股</th>
+          <th style="text-align: left;padding-left: 0.32rem">原因</th>
+        </tr>
+        <tr v-for="item in main.depthAnalysisPlateStocks">
+          <td><p>{{item.stockName}}</p></td>
+          <td v-html="item.reason"></td>
+        </tr>
+      </table>
+    </template>
+    <div class="history" v-if="main.history_info">
+      <p class="history-lanmu">历史消息</p>
+      <ul v-if="main.history_info.length < 4">
+        <li class="info-li" v-for="(item, index) in main.history_info" :key="index">
+          <hr class="b-line" width="4" size="350" color="#fff" style="display: none;">
+          <span class="i-circle"></span>
+          <p class="history-info">
+            {{ item }}
+          </p>
+        </li>
+      </ul>
+      <ul v-else>
+        <li class="info-li" v-for="(item, index) in main.history_info" :key="index" v-if="index < 3" >
+          <hr class="b-line" width="4" size="350" color="#fff" style="display: none;">
+          <span class="i-circle"></span>
+          <p class="history-info">
+            {{ item }}
+          </p>
+        </li>
+        <li :class="'info-li ' + isshow" data-isshow="1" v-else>
+          <hr class="b-line" width="4" size="350" color="#fff" style="display: none;">
+          <span class="i-circle"></span>
+          <p class="history-info">
+            {{ item }}
+          </p>
+        </li>
+      </ul>
+      <div class="show" id="show" @click="showHide">{{ isshowText }}</div>
+    </div>
   </div>
 </template>
 

@@ -7,7 +7,7 @@
       v-for="item in list"
       key="item.id"
       >
-      <img class="img" v-lazy="'http://120.76.76.152/mfs' + item.img">
+      <img class="img" v-lazy="item.img">
       <div class="list-info box-col">
         <p>
           <span class="topic-name">{{item.topicName}}</span>
