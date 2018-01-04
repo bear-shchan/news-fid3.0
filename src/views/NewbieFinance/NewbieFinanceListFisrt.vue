@@ -29,7 +29,7 @@ export default {
       })
       .then((res) => {
         this.firstListData = res.data
-        console.log(res.data)
+        // console.log(res.data)
       })
     }
   }

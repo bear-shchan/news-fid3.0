@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="newslist" id="newslist" v-if="list.length > 0">
-      <router-link v-for="item in list" :to="'/newsDetail/' + item.id" class="newsli" :key="item.id"> 
+      <router-link v-for="item in list" :to="'/newsDetail/' + item.infoType + '/' + item.id" class="newsli" :key="item.id"> 
         <p class="stocktitle">
           <span class="news-title">{{ item.date  }}</span>
           {{ item.title }}

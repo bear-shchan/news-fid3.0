@@ -145,7 +145,7 @@ let routes = [
     meta: {
       name: '主题追踪'
     },
-    path: '/SubjectTrackDetail/:id',
+    path: '/subjectTrackDetail/:id',
     component: resolve => require([`../views/SubjectTrack/SubjectTrackDetail.vue`], resolve)
   },
   {
@@ -159,7 +159,7 @@ let routes = [
     meta: {
       name: '主题追踪'
     },
-    path: '/newsDetail/:id',
+    path: '/newsDetail/:infotype/:id',
     component: resolve => require([`../views/SubjectTrack/newsDetail.vue`], resolve)
   },
   {

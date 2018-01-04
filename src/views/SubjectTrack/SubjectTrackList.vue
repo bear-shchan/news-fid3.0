@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <router-link :to="'/SubjectTrackDetail/' + item.id" class="list" v-for="item in listArr" :key="item.id">
+    <router-link :to="'/subjectTrackDetail/' + item.id" class="list" v-for="item in listArr" :key="item.id">
       <div class="topic layout-box">
         <img v-lazy="item.topicImageUrl">
         <div class="box-col">
@@ -10,7 +10,7 @@
       </div>
       <div class="longtou">
         <ul>
-          <li v-for="stock in item.bellwetherStockList">
+          <li v-for="stock in item.bellwetherStockList" :key="stock.stockName">
             <span class="tou">龙头</span>
             <span class="sotck">{{ stock.stockName }}</span>
             <span v-if="stock.percent > 0" class="sotck red" >+{{ stock.percent }}</span>

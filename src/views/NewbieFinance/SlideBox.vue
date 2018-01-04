@@ -7,8 +7,12 @@
     <div class="slidebox">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-            <router-link v-for="item in list" :key="item.id" class="swiper-slide boxbg" :to="'/newbieFinanceSecond/' + item.id" :style="{'background-image':'url('+item.pictureUrl+')'}">
-                <span class="slidetext">{{ item.name }}</span>
+            <router-link v-for="item in list"
+              :key="item.id"
+              class="swiper-slide boxbg" 
+              :to="'/newbieFinanceSecond/' + item.id"
+              :style="{'background-image':'url('+item.pictureUrl+')'}">
+              <span class="slidetext">{{ item.name }}</span>
             </router-link>
         </div>
         <div class="swiper-scrollbar"></div>
@@ -37,8 +41,6 @@ export default {
       spaceBetween: 6,
       grabCursor: true
     })
-  },
-  methods: {
   },
   props: {
     list: Array,

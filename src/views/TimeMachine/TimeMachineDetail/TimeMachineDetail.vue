@@ -3,7 +3,7 @@
     <header class="head">
       <ul class="stock">
         <li>
-          <router-link  class="stockname" :to="'/singleStockDetail/information/' + data.windStockCode">
+          <router-link  class="stockname" :to="'/singleStockDetail/information/' + data.stockWindCode">
             {{ data.stockName }}
             <span class="stock-red" v-if="percent > 0">+{{ percent }}%</span>
             <span class="stock-gray" v-else-if="percent == 0" >{{ percent }}%</span>

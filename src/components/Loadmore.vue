@@ -56,8 +56,8 @@ export default {
       // } else {
       // this.restriction = true
       // }
-      // this.restriction = true // 无法加载更多
-      this.$emit('getData')
+      this.restriction = true // 所有页面无法加载更多
+      // this.$emit('getData')
     }
   },
   computed: {

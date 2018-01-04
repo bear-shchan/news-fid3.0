@@ -1,3 +1,4 @@
+// import qs from 'qs'
 import axios from 'axios'
 import store from '../store'
 
@@ -30,15 +31,21 @@ export default {
       .catch(error => {
         console.log(error)
       })
-  },
-
-  post (url, params) {
-    return request
-      .post(url, params)
-      .then(handleStatus)
-      .then(handleResponse)
-      .catch(error => {
-        console.log(error)
-      })
   }
+
+  // post (url, params) {
+  //   return request({
+  //     url: url,
+  //     method: 'post',
+  //     data: qs.stringify(params),
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded'
+  //     }
+  //   })
+  //     .then(handleStatus)
+  //     .then(handleResponse)
+  //     .catch(error => {
+  //       console.log(error)
+  //     })
+  // }
 }
